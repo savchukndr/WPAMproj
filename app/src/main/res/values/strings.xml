@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">WPAMproj</string>
+    <string name="calculate_button">Рассчитать</string>
+    <string name="input_amount">Введите сумму</string>
+    <string name="input_delAmount">Введите растраты</string>
+    <string name="null_button">Обнулить</string>
+    <string name="about_title">О программе</string>
+    <string name="about_text">Программа для расчёта\nваших денег.\nСоздал:\nАндрей Савчук\n2016</string>
+    <string name="title_activity_walet">WaletActivity</string>
+    <string name="balanse_text">Баланс:</string>
+    <string name="title_activity_menu">MenuActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
