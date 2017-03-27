@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
+                        // TODO: Check from SQLlite
                         if ((email.equals("savchukndr@gmail.com") && (password.equals("12345")))){
                             onLoginSuccess();
                         }else{
