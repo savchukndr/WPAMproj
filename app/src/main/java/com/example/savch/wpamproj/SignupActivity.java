@@ -1,6 +1,8 @@
 package com.example.savch.wpamproj;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
+    final String LOG_TAG = "myLogs";
+    MySQLAdapter dbHelper;
 
     @BindView(R.id.input_name) EditText _nameText;
     @BindView(R.id.input_email) EditText _emailText;
@@ -47,6 +53,8 @@ public class SignupActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
+        dbHelper = new MySQLAdapter(this);
     }
 
     public void signup() {
@@ -71,6 +79,11 @@ public class SignupActivity extends AppCompatActivity {
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
+        Log.d(LOG_TAG, "--- Insert in mytable: ---");
+
+        dbHelper.openToWrite();
+        long rowID = dbHelper.insert("name", "email", "password", name, email, password);
+        Log.d(LOG_TAG, "row inserted, ID = " + rowID);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -89,6 +102,7 @@ public class SignupActivity extends AppCompatActivity {
         // Disable going back to the MainActivity
         Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
     public void onSignupSuccess() {

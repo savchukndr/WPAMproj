@@ -1,6 +1,10 @@
 package com.example.savch.wpamproj;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,7 +21,10 @@ import butterknife.BindView;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
+    final String LOG_TAG = "myLogs";
     private static final int REQUEST_SIGNUP = 0;
+    MySQLAdapter dbHelper;
+
 
     @BindView(R.id.input_email) EditText _emailText;
     @BindView(R.id.input_password) EditText _passwordText;
@@ -49,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
+        dbHelper = new MySQLAdapter(this);
     }
 
     public void login() {
@@ -77,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
                         // TODO: Check from SQLlite
-                        if ((email.equals("savchukndr@gmail.com") && (password.equals("12345")))){
+                        if (userAutentification(email, password)){
                             onLoginSuccess();
                         }else{
                             onLoginFailed();
@@ -139,5 +148,44 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    public Boolean userAutentification(String email, String password)
+    {
+        dbHelper.openToWrite();
+
+        // Setting up the cursor which points to the desired table
+        Cursor cursor = dbHelper.queueAll();
+
+        Boolean records_Exist = false;
+
+        // Checking if the table has values other than the header using the cursor
+        if(cursor != null && cursor.getCount() > 0)
+        {
+            // Moving the cursor to the first row in the table
+            cursor.moveToFirst();
+
+            do
+            {
+                // Checking if the user name provided by the user exists in the database
+                if(cursor.getString(cursor.getColumnIndex("email")).equals(email))
+                {
+                    if(cursor.getString(cursor.getColumnIndex("password")).equals(password))
+                    {
+                        records_Exist = true;
+                        break;
+                    }
+                }
+
+            }while(cursor.moveToNext()); // Moves to the next row
+        }
+
+        // Closing the cursor
+        cursor.close();
+
+        // Closing the database
+        dbHelper.close();
+
+        return records_Exist;
     }
 }
