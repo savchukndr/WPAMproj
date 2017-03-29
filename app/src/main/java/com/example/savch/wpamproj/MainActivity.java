@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setActivityBackgroundColor(getResources().getColor(R.color.primary));
+
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
-        TextView textViewInfo1 = (TextView) findViewById(R.id.textViewBalanse);
+        //TextView textViewInfo1 = (TextView) findViewById(R.id.textViewBalance);
         switch (view.getId()){
             case R.id.countButton:
                 String tmpAdd;
@@ -100,5 +102,10 @@ public class MainActivity extends AppCompatActivity {
                 textViewInfo.setText(String.format( "%.2f", controlSum));
                 break;
         }
+    }
+
+    public void setActivityBackgroundColor(int color) {
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(color);
     }
 }

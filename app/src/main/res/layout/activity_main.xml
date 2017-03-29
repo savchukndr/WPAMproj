@@ -10,31 +10,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.savch.wpamproj.MainActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:text=""
-        android:hint="@string/input_amount"
-        android:ems="10"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp"
-        android:id="@+id/addEditText"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:hint="@string/input_delAmount"
-        android:ems="10"
-        android:layout_marginTop="16dp"
-        android:id="@+id/delEditText"
-        android:layout_below="@+id/addEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/input_amount"
+            android:textColorHint="@color/accent"
+            android:ems="10"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="22dp"
+            android:id="@+id/addEditText"
+            android:textColor="@color/accent"/>
 
-    <Button
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/input_delAmount"
+            android:textColorHint="@color/accent"
+            android:ems="10"
+            android:layout_marginTop="16dp"
+            android:id="@+id/delEditText"
+            android:layout_below="@+id/addEditText"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/accent"/>
+
+    <android.support.v7.widget.AppCompatButton
         android:text="@string/calculate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,9 +48,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:theme="@style/MyButton"
-        style="@style/Widget.AppCompat.Button.Borderless"/>
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textColor="@color/accent"/>
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:text="@string/null_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,16 +63,18 @@
         android:theme="@style/MyButton"
         android:layout_alignLeft="@+id/countButton"
         android:layout_alignStart="@+id/countButton"
-        style="@style/Widget.AppCompat.Button.Borderless"/>
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textColor="@color/accent"/>
 
     <TextView
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:id="@+id/amount_view"
         android:textSize="30sp"
-        android:layout_marginTop="8dp"
         android:layout_below="@+id/textViewBalance"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/accent"/>
 
     <TextView
         android:text="@string/balance_text"
@@ -78,6 +85,6 @@
         android:layout_alignLeft="@+id/amount_view"
         android:layout_alignStart="@+id/amount_view"
         android:layout_marginTop="23dp"
-        android:id="@+id/textViewBalance" />
-
+        android:id="@+id/textViewBalance"
+        android:textColor="@color/accent"/>
 </RelativeLayout>
