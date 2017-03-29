@@ -88,7 +88,8 @@ public class MySQLAdapter {
 
         public void onCreate(SQLiteDatabase db) {
             Log.d(LOG_TAG, "--- onCreate database ---");
-            db.execSQL(CREATE_TABLE);
+            //db.execSQL(CREATE_TABLE);
+            db.execSQL("DROP TABLE user");
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {}
