@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">WPAMproj</string>
-    <string name="calculate_button">Рассчитать</string>
-    <string name="input_amount">Введите сумму</string>
-    <string name="input_delAmount">Введите растраты</string>
-    <string name="null_button">Обнулить</string>
-    <string name="about_title">О программе</string>
-    <string name="about_text">Программа для расчёта\nваших денег.\nСоздал:\nАндрей Савчук\n2016</string>
+    <string name="app_name">WalletAS</string>
+    <string name="calculate_button">Count</string>
+    <string name="input_amount">Input amount</string>
+    <string name="input_delAmount">Input transaction amount</string>
+    <string name="null_button">Clear</string>
+    <string name="about_title">About</string>
+    <string name="about_text">Application for\nyour money transaction control.\nWas created by:\nAndrii Savchuk\n2017</string>
     <string name="title_activity_walet">WaletActivity</string>
-    <string name="balanse_text">Баланс:</string>
+    <string name="balance_text">Balance:</string>
     <string name="title_activity_menu">MenuActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
