@@ -181,6 +181,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Closing the cursor
+        assert cursor != null;
         cursor.close();
         //dbHelper.deleteAll();
         // Closing the database

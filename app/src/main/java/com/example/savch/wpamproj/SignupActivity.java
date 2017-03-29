@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -67,34 +68,40 @@ public class SignupActivity extends AppCompatActivity {
 
         _signupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
-        progressDialog.show();
+
 
         String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
+        //String reEnterPassword = _reEnterPasswordText.getText().toString();
+        if (ifUserExsist(email)){
+            //check if user email are in user table
+            onUserExist();
+        }else {
+            final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
+                    R.style.AppTheme_Dark_Dialog);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Creating Account...");
+            progressDialog.show();
 
-        // TODO: Implement your own signup logic here.
-        Log.d(LOG_TAG, "--- Insert in mytable: ---");
+            // TODO: Implement your own signup logic here.
+            Log.d(LOG_TAG, "--- Insert in mytable: ---");
 
-        dbHelper.openToWrite();
-        long rowID = dbHelper.insert("name", "email", "password", name, email, password);
-        Log.d(LOG_TAG, "row inserted, ID = " + rowID);
+            dbHelper.openToWrite();
+            long rowID = dbHelper.insert("name", "email", "password", name, email, password);
+            Log.d(LOG_TAG, "row inserted, ID = " + rowID);
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            // On complete call either onSignupSuccess or onSignupFailed
+                            // depending on success
+                            onSignupSuccess();
+                            // onSignupFailed();
+                            progressDialog.dismiss();
+                        }
+                    }, 3000);
+        }
     }
 
     @Override
@@ -109,6 +116,13 @@ public class SignupActivity extends AppCompatActivity {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
+    }
+
+    //If user exist call toast massage
+    public void onUserExist(){
+        Toast.makeText(getBaseContext(), "User with such email already axist", Toast.LENGTH_LONG).show();
+
+        _signupButton.setEnabled(true);
     }
 
     public void onSignupFailed() {
@@ -156,4 +170,31 @@ public class SignupActivity extends AppCompatActivity {
 
         return valid;
     }
+
+
+    public boolean ifUserExsist (String email){
+        dbHelper.openToWrite();
+
+        Cursor cursor = dbHelper.queueAll();
+        boolean ifExsist = false;
+        if(cursor != null && cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+            do
+            {
+                if(cursor.getString(cursor.getColumnIndex("email")).equals(email))
+                {
+                    ifExsist = true;
+                    break;
+                }
+            }while(cursor.moveToNext());
+        }
+        assert cursor != null;
+        cursor.close();
+        dbHelper.close();
+
+        return ifExsist;
+    }
+
+
 }
