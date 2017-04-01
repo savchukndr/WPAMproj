@@ -22,4 +22,6 @@
     <string name="re_enter_password">Re-enter Password</string>
     <string name="create_account">Create Account</string>
     <string name="already_a_member">Already a member? Login</string>
+
+    <string name="signed_in_fmt">Signed in as: %s</string>
 </resources>

@@ -172,7 +172,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-    public boolean ifUserExsist (String email){
+    public boolean ifUserExsist(String email){
         dbHelper.openToWrite();
 
         Cursor cursor = dbHelper.queueAll();

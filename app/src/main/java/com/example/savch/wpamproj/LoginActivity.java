@@ -16,14 +16,33 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import butterknife.ButterKnife;
 import butterknife.BindView;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements
+        GoogleApiClient.OnConnectionFailedListener{
     private static final String TAG = "LoginActivity";
     final String LOG_TAG = "myLogs";
     private static final int REQUEST_SIGNUP = 0;
     MySQLAdapter dbHelper;
+    private GoogleApiClient mGoogleApiClient;
+    private static final String TAG1 = "SignInActivity";
+    private static final int RC_SIGN_IN = 9001;
+    private TextView mStatusTextView;
+    private ProgressDialog mConnectionProgressDialog;
+
+    private String personName;
+    private String personEmail;
+
+    private boolean gogSignIn = false;
 
 
     @BindView(R.id.input_email) EditText _emailText;
@@ -31,12 +50,38 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.btn_login) Button _loginButton;
     @BindView(R.id.link_signup) TextView _signupLink;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        //Butterknife error !!!
+        SignInButton _signupGoogButton = (SignInButton) findViewById(R.id.btn_login_gog);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+
+        //Google button listener
+        _signupGoogButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mConnectionProgressDialog.show();
+                signIn();
+            }
+        });
+
+
+        //Login button listener
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -45,6 +90,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+        //Sign up link to SignupActivity listener
         _signupLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -58,8 +105,17 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         dbHelper = new MySQLAdapter(this);
+        mConnectionProgressDialog = new ProgressDialog(this);
+        mConnectionProgressDialog.setMessage("Signing in...");
     }
 
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
+    //login with Login Button
     public void login() {
         Log.d(TAG, "Login");
 
@@ -100,6 +156,43 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            mConnectionProgressDialog.dismiss();
+
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+
+        final String email;
+        final String password;
+        final String name;
+
+        mConnectionProgressDialog.show();
+        name = personName;
+        email = personEmail;
+        password = "gogadmin";
+        if (!ifUserExsist(email)) {
+            dbHelper.openToWrite();
+            long rowID = dbHelper.insert("name", "email", "password", name, email, password);
+            Log.d(LOG_TAG, "row inserted, ID = " + rowID);
+        }
+
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        // On complete call either onLoginSuccess or onLoginFailed
+                        // TODO: Check from SQLlite
+                        if (userAutentification(email, password)){
+                            onLoginSuccess();
+                        }else{
+                            onLoginFailed();
+                            // onLoginFailed();
+                        }
+                        mConnectionProgressDialog.dismiss();
+                    }
+                }, 3000);
+
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
 
@@ -107,7 +200,9 @@ public class LoginActivity extends AppCompatActivity {
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
             }
+
         }
+
     }
 
     @Override
@@ -188,5 +283,61 @@ public class LoginActivity extends AppCompatActivity {
         dbHelper.close();
 
         return records_Exist;
+    }
+
+    // SignIn google button method
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d(TAG1, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            assert acct != null;
+            personName = acct.getDisplayName();
+            personEmail = acct.getEmail();
+            gogSignIn = true;
+            //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+            updateUI(true);
+        } else {
+            // Signed out, show unauthenticated UI.
+            updateUI(false);
+        }
+    }
+
+    private void updateUI(boolean signedIn) {
+        if (signedIn) {
+            findViewById(R.id.btn_login_gog).setVisibility(View.GONE);
+        } /*else {
+
+            findViewById(R.id.btn_login_gog).setVisibility(View.VISIBLE);
+        }*/
+    }
+
+    public boolean ifUserExsist(String email){
+        dbHelper.openToWrite();
+
+        Cursor cursor = dbHelper.queueAll();
+        boolean ifExsist = false;
+        if(cursor != null && cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+            do
+            {
+                if(cursor.getString(cursor.getColumnIndex("email")).equals(email))
+                {
+                    ifExsist = true;
+                    break;
+                }
+            }while(cursor.moveToNext());
+        }
+        assert cursor != null;
+        cursor.close();
+        dbHelper.close();
+
+        return ifExsist;
     }
 }
