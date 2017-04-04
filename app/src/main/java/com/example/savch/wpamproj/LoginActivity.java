@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) Button _loginButton;
     @BindView(R.id.link_signup) TextView _signupLink;
-
+    @BindView(R.id.fing_btn) Button _fingerButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +101,16 @@ public class LoginActivity extends AppCompatActivity implements
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
+
+        //Finger button sighnIn
+        _fingerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FingerprintActivity.class);
+                startActivity(intent);
             }
         });
 

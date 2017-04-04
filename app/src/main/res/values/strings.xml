@@ -9,6 +9,8 @@
     <string name="title_activity_walet">WaletActivity</string>
     <string name="balance_text">Balance:</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="fingerprint_text">Touch Sensor</string>
+    <string name="finger_btn">FINGER LOGIN</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

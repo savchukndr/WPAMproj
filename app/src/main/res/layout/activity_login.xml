@@ -55,8 +55,14 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btn_login_gog"
-            android:layout_width="wrap_content"
+            android:layout_width="334dp"
             android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/fing_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/finger_btn" />
 
         <TextView android:id="@+id/link_signup"
             android:layout_width="fill_parent"

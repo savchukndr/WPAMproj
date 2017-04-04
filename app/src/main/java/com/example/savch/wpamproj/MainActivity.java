@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
         setActivityBackgroundColor(getResources().getColor(R.color.primary));
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, LoginActivity.class);
+        //startActivity(intent);
 
         TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
         textViewInfo.setText(String.format( "%.2f", controlSum));
@@ -107,5 +107,13 @@ public class MainActivity extends AppCompatActivity {
     public void setActivityBackgroundColor(int color) {
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(color);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Disable going back to the MainActivity
+        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 }
