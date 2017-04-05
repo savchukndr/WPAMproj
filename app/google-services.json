@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "946131272889",
+    "project_id": "wpamproj"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946131272889:android:48e4605e2b41866e",
+        "android_client_info": {
+          "package_name": "com.example.savch.wpamproj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946131272889-06q8jf6b6lner3ijilfg28qo58hmsmrh.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "946131272889-11157q9uo2ggi9s9h6na44djb3tth4tc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.savch.wpamproj",
+            "certificate_hash": "a233b728f60b6ee609810de920aa62b867560b2b"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrZq66PN1dV_QpzmS9x47wl79f4xX2C9A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
