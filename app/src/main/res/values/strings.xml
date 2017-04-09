@@ -26,4 +26,6 @@
     <string name="already_a_member">Already a member? Login</string>
 
     <string name="signed_in_fmt">Signed in as: %s</string>
+
+    <string name="facebook_app_id">1221477314616303</string>
 </resources>

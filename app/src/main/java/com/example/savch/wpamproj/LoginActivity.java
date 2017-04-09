@@ -16,6 +16,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -23,6 +31,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import com.facebook.FacebookSdk;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -33,9 +49,12 @@ public class LoginActivity extends AppCompatActivity implements
     final String LOG_TAG = "myLogs";
     private static final int REQUEST_SIGNUP = 0;
     MySQLAdapter dbHelper;
+
+
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG1 = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
+    private static final int FB_SIGN_IN = 64206;
     private TextView mStatusTextView;
     private ProgressDialog mConnectionProgressDialog;
 
@@ -44,18 +63,22 @@ public class LoginActivity extends AppCompatActivity implements
 
     private boolean gogSignIn = false;
 
+    private CallbackManager callbackManager;
+
 
     @BindView(R.id.input_email) EditText _emailText;
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) Button _loginButton;
     @BindView(R.id.link_signup) TextView _signupLink;
     @BindView(R.id.fing_btn) Button _fingerButton;
+    private LoginButton _signupFaceButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
 
         //Butterknife error !!!
         SignInButton _signupGoogButton = (SignInButton) findViewById(R.id.btn_login_gog);
@@ -111,6 +134,76 @@ public class LoginActivity extends AppCompatActivity implements
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), FingerprintActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        //FAcebook initialization
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        _signupFaceButton = (LoginButton)findViewById(R.id.login_button);
+        _signupFaceButton.setReadPermissions("email");
+        _signupFaceButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                System.out.println("onSuccess");
+                mConnectionProgressDialog.show();
+                String accessToken = loginResult.getAccessToken().getToken();
+                Log.i("accessToken", accessToken);
+
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.i("LoginActivity", response.toString());
+                        // Get facebook data from login
+                        Bundle bFacebookData = getFacebookData(object);
+
+                        final String email;
+                        final String password;
+                        final String name;
+
+                        name = bFacebookData.getString("first_name");
+                        email = bFacebookData.getString("email");
+                        password = "adminacc";
+                        if (!ifUserExsist(email)) {
+                            dbHelper.openToWrite();
+                            long rowID = dbHelper.insert("name", "email", "password", name, email, password);
+                            Log.d(LOG_TAG, "row inserted, ID = " + rowID);
+                        }
+
+                        new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    public void run() {
+                                        // On complete call either onLoginSuccess or onLoginFailed
+                                        if (userAutentification(email, password)) {
+                                            onLoginSuccess();
+                                        } else {
+                                            onLoginFailed();
+                                            // onLoginFailed();
+                                        }
+                                        mConnectionProgressDialog.dismiss();
+                                    }
+                                }, 3000);
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(),
+                        "Facebook authentication canceled.",
+                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Toast.makeText(getApplicationContext(),
+                        "Facebook authentication error:\n" + e,
+                        Toast.LENGTH_LONG).show();
             }
         });
 
@@ -172,36 +265,37 @@ public class LoginActivity extends AppCompatActivity implements
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
-        }
 
-        final String email;
-        final String password;
-        final String name;
 
-        mConnectionProgressDialog.show();
-        name = personName;
-        email = personEmail;
-        password = "gogadmin";
-        if (!ifUserExsist(email)) {
-            dbHelper.openToWrite();
-            long rowID = dbHelper.insert("name", "email", "password", name, email, password);
-            Log.d(LOG_TAG, "row inserted, ID = " + rowID);
-        }
+            final String email;
+            final String password;
+            final String name;
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        // TODO: Check from SQLlite
-                        if (userAutentification(email, password)){
-                            onLoginSuccess();
-                        }else{
-                            onLoginFailed();
-                            // onLoginFailed();
+            mConnectionProgressDialog.show();
+            name = personName;
+            email = personEmail;
+            password = "adminacc";
+            if (!ifUserExsist(email)) {
+                dbHelper.openToWrite();
+                long rowID = dbHelper.insert("name", "email", "password", name, email, password);
+                Log.d(LOG_TAG, "row inserted, ID = " + rowID);
+            }
+
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            // On complete call either onLoginSuccess or onLoginFailed
+                            if (userAutentification(email, password)) {
+                                onLoginSuccess();
+                            } else {
+                                onLoginFailed();
+                                // onLoginFailed();
+                            }
+                            mConnectionProgressDialog.dismiss();
                         }
-                        mConnectionProgressDialog.dismiss();
-                    }
-                }, 3000);
+                    }, 3000);
+
+        }
 
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
@@ -213,6 +307,10 @@ public class LoginActivity extends AppCompatActivity implements
 
         }
 
+        if (requestCode == FB_SIGN_IN) {
+
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -223,7 +321,9 @@ public class LoginActivity extends AppCompatActivity implements
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        finish();
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+        //finish();
     }
 
     public void onLoginFailed() {
@@ -349,5 +449,38 @@ public class LoginActivity extends AppCompatActivity implements
         dbHelper.close();
 
         return ifExsist;
+    }
+
+    private Bundle getFacebookData(JSONObject object) {
+
+        try {
+            Bundle bundle = new Bundle();
+            /*
+            try {
+                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
+                Log.i("profile_pic", profile_pic + "");
+                bundle.putString("profile_pic", profile_pic.toString());
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return null;
+            }*/
+
+            if (object.has("first_name"))
+                bundle.putString("first_name", object.getString("first_name"));
+            if (object.has("email"))
+                bundle.putString("email", object.getString("email"));
+
+            return bundle;
+        }
+        catch(JSONException e) {
+            Log.d(TAG,"Error parsing JSON");
+            return new Bundle();
+        }
+    }
+
+    public static boolean isLoggedIn() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
     }
 }

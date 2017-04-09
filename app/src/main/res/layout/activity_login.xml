@@ -55,8 +55,16 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btn_login_gog"
-            android:layout_width="334dp"
+            android:layout_width="335dp"
             android:layout_height="wrap_content" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fing_btn"

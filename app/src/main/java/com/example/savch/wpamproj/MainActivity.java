@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.widget.Toast;
 import android.view.Gravity;
 
+import com.facebook.login.LoginManager;
+
 
 public class MainActivity extends AppCompatActivity {
     static private double controlSum = 0.0d;
@@ -112,6 +114,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Disable going back to the MainActivity
+        if (LoginActivity.isLoggedIn()){
+            //if user logged in with Facebook, then after onBeckPressed - log out will be
+            LoginManager.getInstance().logOut();
+        }
         Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

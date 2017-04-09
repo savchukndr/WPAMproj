@@ -14,7 +14,7 @@ import android.util.Log;
 
 public class MySQLAdapter {
     final String LOG_TAG = "myLogs";
-    public static final String DBNAME  = "walletDB";
+    public static final String DBNAME  = "walletDBv3";
     public static final String TABLE   = "user";
     public static final int    VERSION = 1;
 
@@ -86,12 +86,14 @@ public class MySQLAdapter {
             super(context, name, factory, version);
         }
 
-        public void onCreate(SQLiteDatabase db) {
-            Log.d(LOG_TAG, "--- onCreate database ---");
-            db.execSQL(CREATE_TABLE);
-            //Log.d(LOG_TAG, "--- onDrop database ---");
-            //db.execSQL("DROP TABLE user");
-        }
+    public void onCreate(SQLiteDatabase db) {
+        //Log.d(LOG_TAG, "--- onDrop database ---");
+        //db.execSQL("DROP TABLE user");
+        Log.d(LOG_TAG, "--- onCreate database ---");
+        db.execSQL(CREATE_TABLE);
+        //db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'user'");
+
+    }
 
         public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {}
     }
