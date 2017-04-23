@@ -1,10 +1,12 @@
 package com.example.savch.wpamproj;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +28,12 @@ import com.facebook.login.LoginManager;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     static private double controlSum = 0.0d;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity
 
         TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
         textViewInfo.setText(String.format( "%.2f", controlSum));
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +61,101 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String firstLetter = imageSelecter(extras.getString("userName"));
+            /*LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.nav_header_main, null);
+            ImageView imgName = (ImageView) ll.findViewById(R.id.imageAcc);*/
+            View hView =  navigationView.getHeaderView(0);
+            ImageView imgName = (ImageView) hView.findViewById(R.id.imageAcc);
+            switch (firstLetter){
+                case"A":
+                    imgName.setImageResource(R.drawable.a);
+                    break;
+                case"B":
+                    imgName.setImageResource(R.drawable.b);
+                    break;
+                case"C":
+                    imgName.setImageResource(R.drawable.c);
+                    break;
+                case"D":
+                    imgName.setImageResource(R.drawable.d);
+                    break;
+                case"E":
+                    imgName.setImageResource(R.drawable.e);
+                    break;
+                case"F":
+                    imgName.setImageResource(R.drawable.f);
+                    break;
+                case"G":
+                    imgName.setImageResource(R.drawable.g);
+                    break;
+                case"H":
+                    imgName.setImageResource(R.drawable.h);
+                    break;
+                case"I":
+                    imgName.setImageResource(R.drawable.i);
+                    break;
+                case"J":
+                    imgName.setImageResource(R.drawable.j);
+                    break;
+                case"K":
+                    imgName.setImageResource(R.drawable.k);
+                    break;
+                case"L":
+                    imgName.setImageResource(R.drawable.l);
+                    break;
+                case"M":
+                    imgName.setImageResource(R.drawable.m);
+                    break;
+                case"N":
+                    imgName.setImageResource(R.drawable.n);
+                    break;
+                case"O":
+                    imgName.setImageResource(R.drawable.o);
+                    break;
+                case"P":
+                    imgName.setImageResource(R.drawable.p);
+                    break;
+                case"Q":
+                    imgName.setImageResource(R.drawable.q);
+                    break;
+                case"R":
+                    imgName.setImageResource(R.drawable.r);
+                    break;
+                case"S":
+                    imgName.setImageResource(R.drawable.s);
+                    break;
+                case"T":
+                    imgName.setImageResource(R.drawable.t);
+                    break;
+                case"U":
+                    imgName.setImageResource(R.drawable.u);
+                    break;
+                case"V":
+                    imgName.setImageResource(R.drawable.v);
+                    break;
+                case"W":
+                    imgName.setImageResource(R.drawable.w);
+                    break;
+                case"X":
+                    imgName.setImageResource(R.drawable.x);
+                    break;
+                case"Y":
+                    imgName.setImageResource(R.drawable.y);
+                    break;
+                case"Z":
+                    imgName.setImageResource(R.drawable.z);
+                    break;
+                default:
+                    imgName.setImageResource(R.drawable.failed_print);
+                    break;
+            }
+
+            //The key argument here must match that used in the other activity
+        }
     }
 
     @Override
@@ -172,5 +274,9 @@ public class MainActivity extends AppCompatActivity
         }else{
             txt.setText(String.format( "%.2f", controlSum));
         }
+    }
+
+    private String imageSelecter(String name){
+        return name.substring(0,1).toUpperCase();
     }
 }

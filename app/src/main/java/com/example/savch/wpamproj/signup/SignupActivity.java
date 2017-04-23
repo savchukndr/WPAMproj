@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.savch.wpamproj.MainActivity;
 import com.example.savch.wpamproj.R;
 import com.example.savch.wpamproj.base.MySQLAdapter;
 import com.example.savch.wpamproj.login.LoginActivity;
@@ -70,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-        String name = _nameText.getText().toString();
+        final String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         //String reEnterPassword = _reEnterPasswordText.getText().toString();
@@ -96,7 +97,7 @@ public class SignupActivity extends AppCompatActivity {
                         public void run() {
                             // On complete call either onSignupSuccess or onSignupFailed
                             // depending on success
-                            onSignupSuccess();
+                            onSignupSuccess(name);
                             // onSignupFailed();
                             progressDialog.dismiss();
                         }
@@ -112,10 +113,13 @@ public class SignupActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
-    public void onSignupSuccess() {
+    public void onSignupSuccess(String name) {
         _signupButton.setEnabled(true);
-        setResult(RESULT_OK, null);
-        finish();
+        /*setResult(RESULT_OK, null);
+        finish();*/
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        intent.putExtra("userName", name);
+        startActivity(intent);
     }
 
     //If user exist call toast massage

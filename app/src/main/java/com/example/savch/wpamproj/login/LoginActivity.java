@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     private String personName;
     private String personEmail;
+    private String personNameSimple;
 
     private boolean gogSignIn = false;
 
@@ -175,7 +176,7 @@ public class LoginActivity extends AppCompatActivity implements
                                     public void run() {
                                         // On complete call either onLoginSuccess or onLoginFailed
                                         if (userAutentification(email, password)) {
-                                            onLoginSuccess();
+                                            onLoginSuccess(name);
                                         } else {
                                             onLoginFailed();
                                             // onLoginFailed();
@@ -245,7 +246,7 @@ public class LoginActivity extends AppCompatActivity implements
                         // On complete call either onLoginSuccess or onLoginFailed
                         // TODO: Check from SQLlite
                         if (userAutentification(email, password)){
-                            onLoginSuccess();
+                            onLoginSuccess(personNameSimple);
                         }else{
                             onLoginFailed();
                             // onLoginFailed();
@@ -285,7 +286,7 @@ public class LoginActivity extends AppCompatActivity implements
                         public void run() {
                             // On complete call either onLoginSuccess or onLoginFailed
                             if (userAutentification(email, password)) {
-                                onLoginSuccess();
+                                onLoginSuccess(name);
                             } else {
                                 onLoginFailed();
                                 // onLoginFailed();
@@ -318,9 +319,10 @@ public class LoginActivity extends AppCompatActivity implements
         moveTaskToBack(true);
     }
 
-    public void onLoginSuccess() {
+    public void onLoginSuccess(String name) {
         _loginButton.setEnabled(true);
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        intent.putExtra("userName", name);
         startActivity(intent);
         //finish();
     }
@@ -376,6 +378,7 @@ public class LoginActivity extends AppCompatActivity implements
                 {
                     if(cursor.getString(cursor.getColumnIndex("password")).equals(password))
                     {
+                        personNameSimple = cursor.getString(cursor.getColumnIndex("name"));
                         records_Exist = true;
                         break;
                     }
@@ -438,6 +441,7 @@ public class LoginActivity extends AppCompatActivity implements
             {
                 if(cursor.getString(cursor.getColumnIndex("email")).equals(email))
                 {
+
                     ifExsist = true;
                     break;
                 }
