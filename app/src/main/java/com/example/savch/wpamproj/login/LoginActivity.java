@@ -1,10 +1,7 @@
-package com.example.savch.wpamproj;
+package com.example.savch.wpamproj.login;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,6 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.savch.wpamproj.fingerPrint.FingerprintActivity;
+import com.example.savch.wpamproj.MainActivity;
+import com.example.savch.wpamproj.base.MySQLAdapter;
+import com.example.savch.wpamproj.R;
+import com.example.savch.wpamproj.signup.SignupActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -36,9 +38,6 @@ import com.facebook.FacebookSdk;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;

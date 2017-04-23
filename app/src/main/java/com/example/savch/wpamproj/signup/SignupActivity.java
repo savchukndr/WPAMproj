@@ -1,8 +1,6 @@
-package com.example.savch.wpamproj;
+package com.example.savch.wpamproj.signup;
 
 import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,8 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.savch.wpamproj.R;
+import com.example.savch.wpamproj.base.MySQLAdapter;
+import com.example.savch.wpamproj.login.LoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

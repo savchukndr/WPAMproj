@@ -1,4 +1,4 @@
-package com.example.savch.wpamproj;
+package com.example.savch.wpamproj.base;
 
 import android.content.ContentValues;
 import android.content.Context;

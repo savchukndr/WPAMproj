@@ -1,20 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.savch.wpamproj.MainActivity"
-    tools:showIn="@layout/activity_main">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.savch.wpamproj.MainActivity">
 
-    <TextView
+
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:inputType="numberDecimal"
+        android:hint="@string/input_amount"
+        android:textColorHint="@color/accent"
+        android:ems="10"
+        android:layout_marginTop="61dp"
+        android:id="@+id/addEditText"
+        android:textColor="@color/accent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="@string/input_delAmount"
+        android:textColorHint="@color/accent"
+        android:ems="10"
+        android:layout_marginTop="57dp"
+        android:id="@+id/delEditText"
+        android:textColor="@color/accent"
+        android:layout_below="@+id/addEditText"
+        android:layout_alignParentStart="true" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:text="@string/calculate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/countButton"
+        android:onClick="onClick"
+        android:layout_above="@+id/delEditText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:theme="@style/MyButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textColor="@color/accent"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:text="@string/null_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nullButton"
+        android:onClick="onClick"
+        android:layout_alignBottom="@+id/delEditText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:theme="@style/MyButton"
+        android:layout_alignLeft="@+id/countButton"
+        android:layout_alignStart="@+id/countButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textColor="@color/accent"/>
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:id="@+id/amount_view"
+        android:textSize="30sp"
+        android:layout_marginTop="27dp"
+        android:textColor="@color/accent"
+        android:layout_below="@+id/textViewBalance"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/balance_text"
+        android:layout_width="95dp"
+        android:layout_height="40dp"
+        android:textSize="25sp"
+        android:id="@+id/textViewBalance"
+        android:textColor="@color/accent"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/amount_view" />
+</RelativeLayout>

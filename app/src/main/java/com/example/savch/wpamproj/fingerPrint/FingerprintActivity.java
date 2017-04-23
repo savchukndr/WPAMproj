@@ -1,4 +1,4 @@
-package com.example.savch.wpamproj;
+package com.example.savch.wpamproj.fingerPrint;
 
 /**
  * Created by savch on 02.04.2017.
@@ -15,7 +15,12 @@ import android.os.Bundle;
 import android.app.KeyguardManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.savch.wpamproj.Manifest;
+import com.example.savch.wpamproj.R;
+import com.example.savch.wpamproj.login.LoginActivity;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -84,8 +89,9 @@ public class FingerprintActivity extends AppCompatActivity {
         if (cipherInit()) {
             cryptoObject =
                     new FingerprintManager.CryptoObject(cipher);
-            ImageView img= (ImageView) findViewById(R.id.imageFingerPrint);
-            FingerprintHandler helper = new FingerprintHandler(this, img);
+            ImageView img = (ImageView) findViewById(R.id.imageFingerPrint);
+            TextView txt= (TextView) findViewById(R.id.fing_txt);
+            FingerprintHandler helper = new FingerprintHandler(this, img, txt);
             helper.startAuth(fingerprintManager, cryptoObject);
         }
     }
