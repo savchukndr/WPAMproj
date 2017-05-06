@@ -15,9 +15,9 @@
     <ImageView
         android:id="@+id/imageAcc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="73dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/n" />
+        app:srcCompat="@drawable/w" />
 
     <TextView
         android:layout_width="match_parent"

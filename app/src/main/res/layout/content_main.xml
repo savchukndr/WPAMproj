@@ -22,7 +22,8 @@
         android:id="@+id/addEditText"
         android:textColor="@color/accent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/delEditText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -35,35 +36,8 @@
         android:id="@+id/delEditText"
         android:textColor="@color/accent"
         android:layout_below="@+id/addEditText"
-        android:layout_alignParentStart="true" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:text="@string/calculate_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/countButton"
-        android:onClick="onClick"
-        android:layout_above="@+id/delEditText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:theme="@style/MyButton"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:textColor="@color/accent"/>
-
-    <android.support.v7.widget.AppCompatButton
-        android:text="@string/null_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/nullButton"
-        android:onClick="onClick"
-        android:layout_alignBottom="@+id/delEditText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:theme="@style/MyButton"
-        android:layout_alignLeft="@+id/countButton"
-        android:layout_alignStart="@+id/countButton"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:textColor="@color/accent"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/amount_view" />
 
     <TextView
         android:layout_width="300dp"

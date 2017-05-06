@@ -44,12 +44,27 @@ public class MainActivity extends AppCompatActivity
         textViewInfo.setText(String.format( "%.2f", controlSum));
 
 
+        //Add transaction record to db
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Record added!",
+                        Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
+                String tmpAdd;
+                String tmpDel;
+
+                EditText addEditText = (EditText) findViewById(R.id.addEditText);
+                EditText delEditText = (EditText) findViewById(R.id.delEditText);
+
+                tmpAdd = addEditText.getText().toString();
+                tmpDel = delEditText.getText().toString();
+
+                strCheck(textViewInfo, tmpAdd, tmpDel);
+                addEditText.setText("");
+                delEditText.setText("");
             }
         });
 
@@ -155,6 +170,7 @@ public class MainActivity extends AppCompatActivity
             }
 
             //The key argument here must match that used in the other activity
+
         }
     }
 
@@ -223,28 +239,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onClick(View view) {
-        TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
-        //TextView textViewInfo1 = (TextView) findViewById(R.id.textViewBalance);
-        switch (view.getId()){
-            case R.id.countButton:
-                String tmpAdd;
-                String tmpDel;
-
-                EditText addEditText = (EditText) findViewById(R.id.addEditText);
-                EditText delEditText = (EditText) findViewById(R.id.delEditText);
-
-                tmpAdd = addEditText.getText().toString();
-                tmpDel = delEditText.getText().toString();
-
-                strCheck(textViewInfo, tmpAdd, tmpDel);
-                addEditText.setText("");
-                delEditText.setText("");
-                break;
-            case R.id.nullButton:
-                controlSum = 0.0d;
-                textViewInfo.setText(String.format( "%.2f", controlSum));
-                break;
-        }
+        //TODO: implementaion
     }
 
     public void strCheck(TextView txt, String x, String y) {

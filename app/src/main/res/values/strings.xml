@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">WalletAS</string>
     <string name="calculate_button">Count</string>
-    <string name="input_amount">Input amount</string>
-    <string name="input_delAmount">Input transaction amount</string>
+    <string name="input_amount">Input earnings</string>
+    <string name="input_delAmount">Input spendings</string>
     <string name="null_button">Clear</string>
     <string name="about_title">About</string>
     <string name="about_text">Application for\nyour money transaction control.\nWas created by:\nAndrii Savchuk\n2017</string>
