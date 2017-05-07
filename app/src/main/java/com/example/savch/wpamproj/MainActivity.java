@@ -2,6 +2,7 @@ package com.example.savch.wpamproj;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -70,6 +71,13 @@ public class MainActivity extends AppCompatActivity
         TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
         textViewInfo.setText(String.format( "%.2f", controlSum));
 
+        dbHelper.openToWrite();
+        Cursor cursor = dbHelper.querySum(mCurrentEmail);
+        while(cursor.moveToNext())
+        {
+            textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+        }
+
 
         //Add transaction record to db
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -102,6 +110,14 @@ public class MainActivity extends AppCompatActivity
                     Snackbar.make(view, "Record added!",
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
+                    Cursor cursor = dbHelper.querySum(mCurrentEmail);
+                    while(cursor.moveToNext())
+                    {
+                        textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+                    }
+                    addEditText.setText("");
+                    delEditText.setText("");
                 }else{
                     Snackbar.make(view, "You can input just in one field at the same time!",
                             Snackbar.LENGTH_LONG)

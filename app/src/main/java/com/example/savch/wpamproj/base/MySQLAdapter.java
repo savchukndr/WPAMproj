@@ -103,6 +103,10 @@ public class MySQLAdapter {
         return sqLiteDatabase.rawQuery("SELECT id, currentdate, amount FROM trans WHERE email = '" + email + "';", null);
     }
 
+    public Cursor querySum(String email){
+        return  sqLiteDatabase.rawQuery("SELECT sum(amount) AS totalSum FROM trans WHERE email = '" + email + "';", null);
+    }
+
 
     public Cursor queueDay(String query) {
         String[] KEYS = { KEY_ID /* and all other KEYS*/ };
