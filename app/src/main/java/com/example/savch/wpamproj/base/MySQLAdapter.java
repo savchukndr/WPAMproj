@@ -18,9 +18,9 @@ import java.util.Locale;
 
 public class MySQLAdapter {
     final String LOG_TAG = "myLogs";
-    private static final String DBNAME  = "DBv2";
+    private static final String DBNAME  = "DBv4";
     private static final String TABLE   = "user";
-    private static final String TABLE_TRANSACTION   = "transaction";
+    private static final String TABLE_TRANSACTION   = "trans";
     public static final int    VERSION = 1;
 
     private static final String KEY_ID = "_id";
@@ -41,9 +41,9 @@ public class MySQLAdapter {
 
     private static final String CREATE_TABLE_TRANS =
             "CREATE TABLE trans ("
-                    + "id INTEGER,"
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + "name TEXT,"
-                    + "email TEXT PRIME KEY,"
+                    + "email TEXT,"
                     + "amount REAL,"
                     + "currentdate DATETIME DEFAULT CURRENT_TIMESTAMP);";
 
@@ -121,6 +121,7 @@ public class MySQLAdapter {
             Log.d(LOG_TAG, "--- onCreate database ---");
             Log.d(LOG_TAG, "--- Create user ---");
             db.execSQL(CREATE_TABLE);
+            db.execSQL("delete from sqlite_sequence where name='trans';");
             Log.d(LOG_TAG, "--- Create transaction ---");
             db.execSQL(CREATE_TABLE_TRANS);
 

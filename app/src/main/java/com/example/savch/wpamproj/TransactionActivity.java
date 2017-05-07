@@ -2,6 +2,7 @@ package com.example.savch.wpamproj;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,7 +27,6 @@ public class TransactionActivity extends AppCompatActivity {
 
         dbHelper = new MySQLAdapter(this);
         dbHelper.openToWrite();
-        TableLayout ll = (TableLayout) findViewById(R.id.displayTrans);
 
         Bundle extras = getIntent().getExtras();
         String email = "";
@@ -42,26 +42,51 @@ public class TransactionActivity extends AppCompatActivity {
         {
             // Moving the cursor to the first row in the table
             cursor.moveToFirst();
+            TableLayout ll = (TableLayout) findViewById(R.id.main_table);
 
+            TableRow row0 = new TableRow(this);
+            row0.setBackgroundColor(Color.rgb(224, 42, 60));
+            TextView tv01 = new TextView(this);
+            tv01.setText("ID");
+            tv01.setTextSize(30);
+            tv01.setTextColor(Color.WHITE);
+            TextView tv02 = new TextView(this);
+            tv02.setText("Transfer date");
+            tv02.setTextSize(30);
+            tv02.setTextColor(Color.WHITE);
+            TextView tv03 = new TextView(this);
+            tv03.setText("Amount");
+            tv03.setTextSize(30);
+            tv03.setTextColor(Color.WHITE);
+
+            row0.addView(tv01);
+            row0.addView(tv02);
+            row0.addView(tv03);
+            ll.addView(row0);
+
+            int count = 1;
             do
             {
-                String columnID = cursor.getString(cursor.getColumnIndex("id"));
+                //String columnID = cursor.getString(cursor.getColumnIndex("id"));
                 String columnDate = cursor.getString(cursor.getColumnIndex("currentdate"));
                 String columnAmount = cursor.getString(cursor.getColumnIndex("amount"));
 
-
-
-
-
-
                 TableRow row = new TableRow(this);
-                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-                row.setLayoutParams(lp);
-                ((TextView)row.findViewById(R.id.idTrans)).setText(columnID);
-                ((TextView)row.findViewById(R.id.idTrans)).setText(columnDate);
-                ((TextView)row.findViewById(R.id.idTrans)).setText(columnAmount);
-                ll.addView(row);
+                TextView tv1 = new TextView(this);
+                tv1.setText(String.valueOf(count));
+                tv1.setTextSize(25);
+                TextView tv2 = new TextView(this);
+                tv2.setText(columnDate);
+                tv2.setTextSize(25);
+                TextView tv3 = new TextView(this);
+                tv3.setText(columnAmount);
+                tv3.setTextSize(25);
 
+                row.addView(tv1);
+                row.addView(tv2);
+                row.addView(tv3);
+                ll.addView(row);
+                count++;
             }while(cursor.moveToNext()); // Moves to the next row
         }
 
@@ -73,14 +98,14 @@ public class TransactionActivity extends AppCompatActivity {
         dbHelper.close();
 
         //Floating button "fabTrans"
-        FloatingActionButton fabTrans = (FloatingActionButton) findViewById(R.id.fabTrans);
+        /*FloatingActionButton fabTrans = (FloatingActionButton) findViewById(R.id.fabTrans);
         fabTrans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Works!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
     }
 
     @Override
