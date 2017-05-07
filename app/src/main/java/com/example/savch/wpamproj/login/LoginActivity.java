@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.savch.wpamproj.TransactionActivity;
 import com.example.savch.wpamproj.fingerPrint.FingerprintActivity;
 import com.example.savch.wpamproj.MainActivity;
 import com.example.savch.wpamproj.base.MySQLAdapter;
@@ -78,7 +79,6 @@ public class LoginActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
 
         //Butterknife error !!!
         SignInButton _signupGoogButton = (SignInButton) findViewById(R.id.btn_login_gog);
@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity implements
                                     public void run() {
                                         // On complete call either onLoginSuccess or onLoginFailed
                                         if (userAutentification(email, password)) {
-                                            onLoginSuccess(name);
+                                            onLoginSuccess(name, email);
                                         } else {
                                             onLoginFailed();
                                             // onLoginFailed();
@@ -246,7 +246,7 @@ public class LoginActivity extends AppCompatActivity implements
                         // On complete call either onLoginSuccess or onLoginFailed
                         // TODO: Check from SQLlite
                         if (userAutentification(email, password)){
-                            onLoginSuccess(personNameSimple);
+                            onLoginSuccess(personNameSimple, email);
                         }else{
                             onLoginFailed();
                             // onLoginFailed();
@@ -286,7 +286,7 @@ public class LoginActivity extends AppCompatActivity implements
                         public void run() {
                             // On complete call either onLoginSuccess or onLoginFailed
                             if (userAutentification(email, password)) {
-                                onLoginSuccess(name);
+                                onLoginSuccess(name, email);
                             } else {
                                 onLoginFailed();
                                 // onLoginFailed();
@@ -319,10 +319,11 @@ public class LoginActivity extends AppCompatActivity implements
         moveTaskToBack(true);
     }
 
-    public void onLoginSuccess(String name) {
+    public void onLoginSuccess(String name, String email) {
         _loginButton.setEnabled(true);
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         intent.putExtra("userName", name);
+        intent.putExtra("userEmail", email);
         startActivity(intent);
         //finish();
     }
@@ -430,9 +431,14 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     public boolean ifUserExsist(String email){
-        dbHelper.openToWrite();
+        dbHelper.openToRead();
 
         Cursor cursor = dbHelper.queueAll();
+        if(cursor == null){
+            String dd = "nolik";
+        }else{
+            String dd = "nie nolik";
+        }
         boolean ifExsist = false;
         if(cursor != null && cursor.getCount() > 0)
         {

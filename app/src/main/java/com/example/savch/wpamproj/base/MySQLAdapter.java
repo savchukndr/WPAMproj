@@ -8,31 +8,44 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by savch on 28.03.2017.
  */
 
 public class MySQLAdapter {
     final String LOG_TAG = "myLogs";
-    public static final String DBNAME  = "walletDBv3";
-    public static final String TABLE   = "user";
+    private static final String DBNAME  = "DBv2";
+    private static final String TABLE   = "user";
+    private static final String TABLE_TRANSACTION   = "transaction";
     public static final int    VERSION = 1;
 
-    public static final String KEY_ID = "_id";
+    private static final String KEY_ID = "_id";
     // Add other fields here
 
-    private SQLiteDatabase sqLiteDatabase;
+    SQLiteDatabase sqLiteDatabase;
     private SQLiteHelper sqLiteHelper;
     private Context mContext;
 
     //this is how I write the create db script, you may do it you own way;)
 
     private static final String CREATE_TABLE =
-            "create table user ("
-                    + "id integer primary key autoincrement,"
-                    + "name text,"
-                    + "email text,"
-                    + "password text" + ");";
+            "CREATE TABLE user ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                    + "name TEXT,"
+                    + "email TEXT,"
+                    + "password TEXT);";
+
+    private static final String CREATE_TABLE_TRANS =
+            "CREATE TABLE trans ("
+                    + "id INTEGER,"
+                    + "name TEXT,"
+                    + "email TEXT PRIME KEY,"
+                    + "amount REAL,"
+                    + "currentdate DATETIME DEFAULT CURRENT_TIMESTAMP);";
 
 
     public MySQLAdapter(Context context){
@@ -56,6 +69,16 @@ public class MySQLAdapter {
         return sqLiteDatabase.insert(TABLE, null, cv);
     }
 
+    public long insertTransactionTable(String name, String email, String amount, String currentdate,
+                                       String nameVal, String emailVal, double amountVal){
+        ContentValues cv = new ContentValues();
+        cv.put(name, nameVal);
+        cv.put(email, emailVal);
+        cv.put(amount, amountVal);
+        cv.put(currentdate, getDateTime());
+        return sqLiteDatabase.insert(TABLE_TRANSACTION, null, cv);
+    }
+
     public MySQLAdapter openToRead() throws SQLException {
         try {
             sqLiteHelper = new SQLiteHelper(mContext, DBNAME, null, 1);
@@ -76,6 +99,11 @@ public class MySQLAdapter {
         return sqLiteDatabase.rawQuery("SELECT * FROM user", null);
     }
 
+    public Cursor queueTransaction(String email){
+        return sqLiteDatabase.rawQuery("SELECT id, currentdate, amount FROM trans WHERE email = '" + email + "';", null);
+    }
+
+
     public Cursor queueDay(String query) {
         String[] KEYS = { KEY_ID /* and all other KEYS*/ };
         return sqLiteDatabase.query(TABLE, KEYS, query, null, null, null, null);
@@ -86,15 +114,29 @@ public class MySQLAdapter {
             super(context, name, factory, version);
         }
 
-    public void onCreate(SQLiteDatabase db) {
-        //Log.d(LOG_TAG, "--- onDrop database ---");
-        //db.execSQL("DROP TABLE user");
-        Log.d(LOG_TAG, "--- onCreate database ---");
-        db.execSQL(CREATE_TABLE);
-        //db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'user'");
+        public void onCreate(SQLiteDatabase db) {
+            //Log.d(LOG_TAG, "--- onDrop database ---");
+            //db.execSQL("DROP TABLE user");
+            //db.execSQL("DROP TABLE trans");
+            Log.d(LOG_TAG, "--- onCreate database ---");
+            Log.d(LOG_TAG, "--- Create user ---");
+            db.execSQL(CREATE_TABLE);
+            Log.d(LOG_TAG, "--- Create transaction ---");
+            db.execSQL(CREATE_TABLE_TRANS);
+
+        }
+
+        public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {}
+
+
 
     }
 
-        public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {}
+    //Date format
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

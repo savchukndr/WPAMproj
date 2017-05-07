@@ -8,10 +8,39 @@
     tools:context="com.example.savch.wpamproj.TransactionActivity"
     tools:showIn="@layout/activity_transaction">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <TableLayout
+        android:id="@+id/displayTrans"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="10dip"
+        android:isScrollContainer="true">
 
+        <TableRow
+            android:id="@+id/rowTrans"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dip">
+
+            <TextView
+                android:id="@+id/idTrans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="ID" />
+
+            <TextView
+                android:id="@+id/dateTrans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="Date" />
+
+            <TextView
+                android:id="@+id/amountTrans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="Amount" />
+        </TableRow>
+    </TableLayout>
 </android.support.v4.widget.NestedScrollView>

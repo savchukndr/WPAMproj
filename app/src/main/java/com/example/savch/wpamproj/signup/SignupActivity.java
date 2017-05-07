@@ -72,7 +72,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
         final String name = _nameText.getText().toString();
-        String email = _emailText.getText().toString();
+        final String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         //String reEnterPassword = _reEnterPasswordText.getText().toString();
         if (ifUserExsist(email)){
@@ -97,7 +97,7 @@ public class SignupActivity extends AppCompatActivity {
                         public void run() {
                             // On complete call either onSignupSuccess or onSignupFailed
                             // depending on success
-                            onSignupSuccess(name);
+                            onSignupSuccess(name, email);
                             // onSignupFailed();
                             progressDialog.dismiss();
                         }
@@ -109,16 +109,18 @@ public class SignupActivity extends AppCompatActivity {
     public void onBackPressed() {
         // Disable going back to the MainActivity
         Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivityIfNeeded(intent, 0);
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
-    public void onSignupSuccess(String name) {
+    public void onSignupSuccess(String name, String email) {
         _signupButton.setEnabled(true);
         /*setResult(RESULT_OK, null);
         finish();*/
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         intent.putExtra("userName", name);
+        intent.putExtra("userEmail", email);
         startActivity(intent);
     }
 

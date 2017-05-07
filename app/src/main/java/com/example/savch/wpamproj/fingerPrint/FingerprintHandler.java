@@ -79,7 +79,9 @@ public class FingerprintHandler extends
         /*Toast.makeText(appContext,
                 "Authentication succeeded.",
                 Toast.LENGTH_LONG).show();*/
-        appContext.startActivity(new Intent(appContext,
-                MainActivity.class));
+        Intent intent = new Intent(appContext,MainActivity.class);
+        intent.putExtra("userName", "Master");
+        intent.putExtra("userEmail", "");
+        appContext.startActivity(intent);
     }
 }
