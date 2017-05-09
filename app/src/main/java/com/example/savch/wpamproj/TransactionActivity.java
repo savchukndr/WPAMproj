@@ -2,24 +2,39 @@ package com.example.savch.wpamproj;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.shapes.Shape;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.example.savch.wpamproj.base.MySQLAdapter;
 
-public class TransactionActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import static com.example.savch.wpamproj.Constants.FIRST_COLUMN;
+import static com.example.savch.wpamproj.Constants.SECOND_COLUMN;
+import static com.example.savch.wpamproj.Constants.THIRD_COLUMN;
+
+public class TransactionActivity extends AppCompatActivity{
     MySQLAdapter dbHelper;
+    private List<History> historyList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private HistoriesAdapter hAdapter;
+    private View view;
+    private Paint p = new Paint();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,35 +62,16 @@ public class TransactionActivity extends AppCompatActivity {
         {
             // Moving the cursor to the first row in the table
             cursor.moveToFirst();
-            TableLayout ll = (TableLayout) findViewById(R.id.main_table);
 
-            GradientDrawable gd = new GradientDrawable();
-            gd.setCornerRadius(5);
-            gd.setStroke(5, Color.rgb(239, 240, 242));
-            gd.setShape(GradientDrawable.RECTANGLE);
-            TableRow row0 = new TableRow(this);
-            gd.setColor(Color.GRAY);
-            row0.setBackgroundDrawable(gd);
-            TextView tv01 = new TextView(this);
-            tv01.setGravity(Gravity.CENTER);
-            tv01.setText("ID");
-            tv01.setTextSize(30);
-            tv01.setTextColor(Color.WHITE);
-            TextView tv02 = new TextView(this);
-            tv02.setText("Transfer date");
-            tv02.setTextSize(30);
-            tv02.setTextColor(Color.WHITE);
-            tv02.setGravity(Gravity.CENTER);
-            TextView tv03 = new TextView(this);
-            tv03.setText("Amount");
-            tv03.setTextSize(30);
-            tv03.setTextColor(Color.WHITE);
-            tv03.setGravity(Gravity.CENTER);
+            recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+            recyclerView.setHasFixedSize(true);
+            hAdapter = new HistoriesAdapter(historyList);
+            RecyclerView.LayoutManager hLayoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(hLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-            row0.addView(tv01);
-            row0.addView(tv02);
-            row0.addView(tv03);
-            ll.addView(row0);
+
+            recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
             int count = 1;
             do
@@ -84,99 +80,29 @@ public class TransactionActivity extends AppCompatActivity {
                 String columnDate = cursor.getString(cursor.getColumnIndex("currentdate"));
                 String columnAmount = cursor.getString(cursor.getColumnIndex("amount"));
 
+                /*
                 if (Integer.parseInt(columnAmount) > 0) {
-                    GradientDrawable gd1 = new GradientDrawable();
-                    gd1.setCornerRadius(5);
-                    gd1.setStroke(5, Color.rgb(239, 240, 242));
-                    gd1.setShape(GradientDrawable.RECTANGLE);
-                    TableRow row = new TableRow(this);
-                    gd1.setColor(Color.rgb(14, 204, 134));
-                    row.setBackgroundDrawable(gd1);
-                    TextView tv1 = new TextView(this);
-                    tv1.setText(String.valueOf(count));
-                    tv1.setTextSize(25);
-                    tv1.setTextColor(Color.WHITE);
-                    tv1.setGravity(Gravity.CENTER);
-                    TextView tv2 = new TextView(this);
-                    tv2.setText(columnDate);
-                    tv2.setTextSize(25);
-                    tv2.setTextColor(Color.WHITE);
-                    tv2.setGravity(Gravity.CENTER);
-                    TextView tv3 = new TextView(this);
-                    tv3.setText(columnAmount);
-                    tv3.setTextSize(25);
-                    tv3.setTextColor(Color.WHITE);
-                    tv3.setGravity(Gravity.CENTER);
 
-                    row.addView(tv1);
-                    row.addView(tv2);
-                    row.addView(tv3);
-                    ll.addView(row);
                 }else if (Integer.parseInt(columnAmount) < 0){
-                    GradientDrawable gd2 = new GradientDrawable();
-                    gd2.setCornerRadius(5);
-                    gd2.setStroke(5, Color.rgb(239, 240, 242));
-                    gd2.setShape(GradientDrawable.RECTANGLE);
-                    TableRow row = new TableRow(this);
-                    gd2.setColor(Color.rgb(255, 104, 104));
-                    row.setBackgroundDrawable(gd2);
-                    TextView tv1 = new TextView(this);
-                    tv1.setText(String.valueOf(count));
-                    tv1.setTextSize(25);
-                    tv1.setTextColor(Color.WHITE);
-                    tv1.setGravity(Gravity.CENTER);
-                    TextView tv2 = new TextView(this);
-                    tv2.setText(columnDate);
-                    tv2.setTextSize(25);
-                    tv2.setTextColor(Color.WHITE);
-                    tv2.setGravity(Gravity.CENTER);
-                    TextView tv3 = new TextView(this);
-                    tv3.setText(columnAmount);
-                    tv3.setTextSize(25);
-                    tv3.setTextColor(Color.WHITE);
-                    tv3.setGravity(Gravity.CENTER);
 
-                    row.addView(tv1);
-                    row.addView(tv2);
-                    row.addView(tv3);
-                    ll.addView(row);
                 }else{
-                    GradientDrawable gd3 = new GradientDrawable();
-                    gd3.setCornerRadius(5);
-                    gd3.setStroke(5, Color.rgb(239, 240, 242));
-                    gd3.setShape(GradientDrawable.RECTANGLE);
-                    TableRow row = new TableRow(this);
-                    gd3.setColor(Color.rgb(168, 155, 16));
-                    row.setBackgroundDrawable(gd3);
-                    TextView tv1 = new TextView(this);
-                    tv1.setText(String.valueOf(count));
-                    tv1.setTextSize(25);
-                    tv1.setTextColor(Color.WHITE);
-                    tv1.setGravity(Gravity.CENTER);
-                    TextView tv2 = new TextView(this);
-                    tv2.setText(columnDate);
-                    tv2.setTextSize(25);
-                    tv2.setTextColor(Color.WHITE);
-                    tv2.setGravity(Gravity.CENTER);
-                    TextView tv3 = new TextView(this);
-                    tv3.setText(columnAmount);
-                    tv3.setTextSize(25);
-                    tv3.setTextColor(Color.WHITE);
-                    tv3.setGravity(Gravity.CENTER);
 
-                    row.addView(tv1);
-                    row.addView(tv2);
-                    row.addView(tv3);
-                    ll.addView(row);
-                }
+                }*/
+                prepareMovieData(String.valueOf(count), columnDate, columnAmount);
+
                 count++;
             }while(cursor.moveToNext()); // Moves to the next row
+            hAdapter.notifyDataSetChanged();
+            initSwipe();
+            recyclerView.setAdapter(hAdapter);
         }
 
         // Closing the cursor
         assert cursor != null;
         cursor.close();
         //dbHelper.deleteAll();
+
+
         // Closing the database
         dbHelper.close();
 
@@ -201,5 +127,62 @@ public class TransactionActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
+    private void prepareMovieData(String id, String date,String amount) {
+        History movie = new History(amount, id, date);
+        historyList.add(movie);
+    }
 
+
+    private void initSwipe(){
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+
+                if (direction == ItemTouchHelper.LEFT){
+                    hAdapter.removeItem(position);
+                    //TODO: SQL query
+                } else {
+                    //TODO
+                }
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                Bitmap icon;
+                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+
+                    View itemView = viewHolder.itemView;
+                    float height = (float) itemView.getBottom() - (float) itemView.getTop();
+                    float width = height / 3;
+
+                    if(dX < 0) {
+                        p.setColor(Color.parseColor("#D32F2F"));
+                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
+                        c.drawRect(background,p);
+                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_white);
+                        RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
+                        c.drawBitmap(icon,null,icon_dest,p);
+                    }
+                }
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+
+    /*private void removeView(){
+        if(view.getParent()!=null) {
+            ((ViewGroup) view.getParent()).removeView(view);
+        }
+    }*/
 }
