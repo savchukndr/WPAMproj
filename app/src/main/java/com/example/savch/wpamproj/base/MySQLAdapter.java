@@ -56,8 +56,8 @@ public class MySQLAdapter {
         sqLiteHelper.close();
     }
 
-    public int deleteAll() {
-        return sqLiteDatabase.delete(TABLE, null, null);
+    public int deleteAll(String date) {
+        return sqLiteDatabase.delete(TABLE_TRANSACTION, "currentdate='" + date + "'", null);
     }
 
     public long insert(String name, String email, String password,
@@ -101,6 +101,10 @@ public class MySQLAdapter {
 
     public Cursor queueTransaction(String email){
         return sqLiteDatabase.rawQuery("SELECT id, currentdate, amount FROM trans WHERE email = '" + email + "';", null);
+    }
+
+    public Cursor deleteTransaction(String date){
+        return sqLiteDatabase.rawQuery("DELETE FROM trans WHERE currentdate = '" + date + "';", null);
     }
 
     public Cursor querySum(String email){

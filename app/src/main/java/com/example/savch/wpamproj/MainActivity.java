@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     private boolean inputMoneyFlag = true;
     private boolean plusMinusChoise = true;
     MySQLAdapter dbHelper;
+    TextView textViewInfo;
 
 
     @Override
@@ -64,11 +65,11 @@ public class MainActivity extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
         mCurrentEmail = extras.getString("userEmail");
 
-        setActivityBackgroundColor(getResources().getColor(R.color.primary));
+        setActivityBackgroundColor(getResources().getColor(R.color.jumbo));
 
         dbHelper = new MySQLAdapter(this);
 
-        TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
+        textViewInfo = (TextView) findViewById(R.id.amount_view);
         textViewInfo.setText(String.format( "%.2f", controlSum));
 
         dbHelper.openToWrite();

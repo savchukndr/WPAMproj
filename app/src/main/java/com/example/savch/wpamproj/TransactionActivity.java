@@ -1,5 +1,6 @@
 package com.example.savch.wpamproj;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -16,16 +17,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.savch.wpamproj.base.MySQLAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import static com.example.savch.wpamproj.Constants.FIRST_COLUMN;
-import static com.example.savch.wpamproj.Constants.SECOND_COLUMN;
-import static com.example.savch.wpamproj.Constants.THIRD_COLUMN;
 
 public class TransactionActivity extends AppCompatActivity{
     MySQLAdapter dbHelper;
@@ -34,7 +31,10 @@ public class TransactionActivity extends AppCompatActivity{
     private HistoriesAdapter hAdapter;
     private View view;
     private Paint p = new Paint();
-
+    private String email;
+    static private double controlSum = 0.0d;
+    private TextView textViewInfo;
+    private Context contextApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +43,12 @@ public class TransactionActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         dbHelper = new MySQLAdapter(this);
         dbHelper.openToWrite();
 
         Bundle extras = getIntent().getExtras();
-        String email = "";
+        email = "";
         if(extras !=null) {
             email = extras.getString("userEmail");
         }
@@ -76,18 +77,8 @@ public class TransactionActivity extends AppCompatActivity{
             int count = 1;
             do
             {
-                //String columnID = cursor.getString(cursor.getColumnIndex("id"));
                 String columnDate = cursor.getString(cursor.getColumnIndex("currentdate"));
                 String columnAmount = cursor.getString(cursor.getColumnIndex("amount"));
-
-                /*
-                if (Integer.parseInt(columnAmount) > 0) {
-
-                }else if (Integer.parseInt(columnAmount) < 0){
-
-                }else{
-
-                }*/
                 prepareMovieData(String.valueOf(count), columnDate, columnAmount);
 
                 count++;
@@ -100,21 +91,10 @@ public class TransactionActivity extends AppCompatActivity{
         // Closing the cursor
         assert cursor != null;
         cursor.close();
-        //dbHelper.deleteAll();
 
 
         // Closing the database
         dbHelper.close();
-
-        //Floating button "fabTrans"
-        /*FloatingActionButton fabTrans = (FloatingActionButton) findViewById(R.id.fabTrans);
-        fabTrans.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Works!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
     @Override
@@ -134,7 +114,7 @@ public class TransactionActivity extends AppCompatActivity{
 
 
     private void initSwipe(){
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -146,11 +126,24 @@ public class TransactionActivity extends AppCompatActivity{
                 int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT){
-                    hAdapter.removeItem(position);
+                    dbHelper.openToWrite();
+
                     //TODO: SQL query
-                } else {
+                    History history11 = historyList.get(position);
+                    String date1 = history11.getAmount();
+                    dbHelper.deleteAll(date1);
+                    hAdapter.removeItem(position);
+                    //
+                    /*Cursor cursor = dbHelper.querySum(email);
+                    while(cursor.moveToNext())
+                    {
+                        textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+                    }
+                    dbHelper.close();*/
+                } /*else {
                     //TODO
-                }
+                }*/
+                String k = "k";
             }
 
             @Override
