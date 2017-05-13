@@ -44,33 +44,44 @@
                 android:hint="@string/password"/>
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_login"
+        <LinearLayout
+            android:id="@+id/LinearLayout02"
+            android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="@string/login"/>
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:weightSum="1">
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="18dp"
+                android:text="@string/login"
+                android:layout_weight="0.56" />
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/btn_login_gog"
-            android:layout_width="335dp"
-            android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/fing_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/finger_btn"
+                android:layout_weight="0.28" />
+        </LinearLayout>
+        <LinearLayout
+        android:id="@+id/LinearLayout03"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:weightSum="1">
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btn_login_gog"
+                android:layout_width="307dp"
+                android:layout_height="wrap_content"
+                android:text="@string/common_signin_button_text_long"/>
+        </LinearLayout>
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="30dp" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/fing_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/finger_btn" />
 
         <TextView android:id="@+id/link_signup"
             android:layout_width="fill_parent"
@@ -79,6 +90,15 @@
             android:text="@string/no_account_yet"
             android:gravity="center"
             android:textSize="16dip"/>
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 </ScrollView>

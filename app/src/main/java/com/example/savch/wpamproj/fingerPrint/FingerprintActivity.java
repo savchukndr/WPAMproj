@@ -4,12 +4,14 @@ package com.example.savch.wpamproj.fingerPrint;
  * Created by savch on 02.04.2017.
  */
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.KeyguardManager;
@@ -51,6 +53,8 @@ public class FingerprintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fingerprint);
+
+
 
         keyguardManager =
                 (KeyguardManager) getSystemService(KEYGUARD_SERVICE);

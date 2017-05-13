@@ -1,6 +1,8 @@
 package com.example.savch.wpamproj.login;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -132,8 +134,19 @@ public class LoginActivity extends AppCompatActivity implements
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FingerprintActivity.class);
-                startActivity(intent);
+                AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
+                alertDialog.setTitle("Attention!");
+                alertDialog.setMessage("If you want to use fingerprint sensor for logining in," +
+                        " you will be loged in as a superuser without e-mail identification.");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Yes, I want to try",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), FingerprintActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                alertDialog.show();
             }
         });
 

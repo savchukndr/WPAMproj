@@ -66,7 +66,7 @@ public class FingerprintHandler extends
     @Override
     public void onAuthenticationFailed() {
         imge.setImageResource(R.drawable.failed_print);
-        txte.setText("Authentication failed =(");
+        txte.setText("Authentication failed");
         /*Toast.makeText(appContext,
                 "Authentication failed.",
                 Toast.LENGTH_LONG).show();*/
@@ -75,7 +75,7 @@ public class FingerprintHandler extends
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
         imge.setImageResource(R.drawable.done_print);
-        txte.setText("Authentication succeeded =)");
+        txte.setText("Authentication succeeded");
         /*Toast.makeText(appContext,
                 "Authentication succeeded.",
                 Toast.LENGTH_LONG).show();*/

@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +18,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.savch.wpamproj.base.MySQLAdapter;
 
@@ -29,12 +29,8 @@ public class TransactionActivity extends AppCompatActivity{
     private List<History> historyList = new ArrayList<>();
     private RecyclerView recyclerView;
     private HistoriesAdapter hAdapter;
-    private View view;
     private Paint p = new Paint();
     private String email;
-    static private double controlSum = 0.0d;
-    private TextView textViewInfo;
-    private Context contextApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +39,16 @@ public class TransactionActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabTrans);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
 
         dbHelper = new MySQLAdapter(this);
         dbHelper.openToWrite();
@@ -101,7 +107,6 @@ public class TransactionActivity extends AppCompatActivity{
     public void onBackPressed() {
         // Disable going back to the MainActivity
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-        //Start activitywithout entering onCreate()
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityIfNeeded(intent, 0);
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
@@ -133,17 +138,8 @@ public class TransactionActivity extends AppCompatActivity{
                     String date1 = history11.getAmount();
                     dbHelper.deleteAll(date1);
                     hAdapter.removeItem(position);
-                    //
-                    /*Cursor cursor = dbHelper.querySum(email);
-                    while(cursor.moveToNext())
-                    {
-                        textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
-                    }
-                    dbHelper.close();*/
-                } /*else {
                     //TODO
-                }*/
-                String k = "k";
+                }
             }
 
             @Override
@@ -171,11 +167,4 @@ public class TransactionActivity extends AppCompatActivity{
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
-
-
-    /*private void removeView(){
-        if(view.getParent()!=null) {
-            ((ViewGroup) view.getParent()).removeView(view);
-        }
-    }*/
 }

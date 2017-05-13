@@ -10,52 +10,102 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.savch.wpamproj.MainActivity">
 
-
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/LinearLayoutMain2"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:hint="@string/input_amount"
-        android:textColorHint="@color/accent"
-        android:ems="10"
-        android:layout_marginTop="61dp"
-        android:id="@+id/addEditText"
-        android:textColor="@color/accent"
+        android:layout_width="fill_parent"
+        android:gravity="center_horizontal"
+        android:weightSum="1"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/delEditText" />
-
-    <EditText
-        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true">
+        <EditText
+            android:id="@+id/addEditText"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="61dp"
+            android:ems="10"
+            android:hint="@string/input_amount"
+            android:inputType="numberDecimal"
+            android:textColor="@color/accent"
+            android:textColorHint="@color/accent" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LinearLayoutMain"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:hint="@string/input_delAmount"
-        android:textColorHint="@color/accent"
-        android:ems="10"
-        android:layout_marginTop="57dp"
-        android:id="@+id/delEditText"
-        android:textColor="@color/accent"
-        android:layout_below="@+id/addEditText"
+        android:layout_width="fill_parent"
+        android:gravity="center_horizontal"
+        android:weightSum="1"
+        android:layout_below="@+id/LinearLayoutMain2"
+        android:layout_alignParentStart="true">
+
+
+        <EditText
+            android:id="@+id/delEditText"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="57dp"
+            android:ems="10"
+            android:hint="@string/input_delAmount"
+            android:inputType="numberDecimal"
+            android:textColor="@color/accent"
+            android:textColorHint="@color/accent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutMain33"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:weightSum="1"
+        android:layout_below="@+id/LinearLayoutMain"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/amount_view" />
+        android:layout_marginTop="20dp">
 
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:id="@+id/amount_view"
-        android:textSize="50sp"
-        android:layout_marginTop="27dp"
-        android:textColor="@color/accent"
-        android:layout_below="@+id/textViewBalance"
-        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:text="@string/balance_text"
-        android:layout_width="95dp"
-        android:layout_height="40dp"
-        android:textSize="25sp"
-        android:id="@+id/textViewBalance"
-        android:textColor="@color/accent"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/amount_view" />
+        <TextView
+            android:id="@+id/textViewBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="140dp"
+            android:layout_marginLeft="10dp"
+
+            android:layout_weight="0.11"
+            android:text="@string/balance_text"
+            android:textColor="@color/accent"
+            android:textSize="27sp" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/refresh_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="onClick"
+            android:text="Refresh" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutMain3"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:gravity="center_horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/LinearLayoutMain33"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:id="@+id/amount_view"
+            android:layout_width="187dp"
+            android:layout_height="109dp"
+            android:layout_marginTop="27dp"
+            android:gravity="top"
+            android:textColor="@color/accent"
+            android:textSize="50sp"
+            android:layout_weight="0.55" />
+
+    </LinearLayout>
+
+
+
 </RelativeLayout>

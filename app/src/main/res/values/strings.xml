@@ -5,7 +5,7 @@
     <string name="input_delAmount">Input spendings</string>
     <string name="null_button">Clear</string>
     <string name="about_title">About</string>
-    <string name="about_text">Application for\nyour money transaction control.\nWas created by:\nAndrii Savchuk\n2017</string>
+    <string name="about_text">An application for keeping track of your funds.\nWas created by:\nAndrii Savchuk\n2017</string>
     <string name="title_activity_walet">WaletActivity</string>
     <string name="balance_text">Balance:</string>
     <string name="title_activity_menu">MenuActivity</string>

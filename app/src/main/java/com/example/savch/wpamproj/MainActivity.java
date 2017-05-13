@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity
     TextView textViewInfo;
 
 
+
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current game state
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +93,8 @@ public class MainActivity extends AppCompatActivity
                 TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
                 EditText addEditText = (EditText) findViewById(R.id.addEditText);
                 EditText delEditText = (EditText) findViewById(R.id.delEditText);
-                String tmpAdd = addEditText.getText().toString();;
-                String tmpDel = delEditText.getText().toString();;
+                String tmpAdd = addEditText.getText().toString();
+                String tmpDel = delEditText.getText().toString();
 
                 //check if not entered both field in one time
                 strCheck(tmpAdd, tmpDel);
@@ -102,8 +106,6 @@ public class MainActivity extends AppCompatActivity
                     }else{
                         amount = Double.parseDouble(tmpDel) * (-1);
                     }
-                    String ss  = mCurrentName;
-                    String kk = mCurrentEmail;
                     dbHelper.openToWrite();
                     long rowID = dbHelper.insertTransactionTable("name", "email", "amount", "currentdate",
                             mCurrentName, mCurrentEmail, amount);
@@ -249,6 +251,18 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    public void onClick(View view) {
+        EditText addEditText = (EditText) findViewById(R.id.addEditText);
+        EditText delEditText = (EditText) findViewById(R.id.delEditText);
+        dbHelper.openToWrite();
+        Cursor cursor = dbHelper.querySum(mCurrentEmail);
+        while(cursor.moveToNext())
+        {
+            textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+        }
+        addEditText.setText("");
+        delEditText.setText("");
+    }
 
     @Override
     public void onBackPressed() {
@@ -302,9 +316,9 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(getApplicationContext(),TransactionActivity.class);
             intent.putExtra("userEmail", mCurrentEmail);
             startActivity(intent);
-        } else if (id == R.id.nav_settings) {
+        }/* else if (id == R.id.nav_settings) {
 
-        }
+        }*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
