@@ -260,6 +260,9 @@ public class MainActivity extends AppCompatActivity
         {
             textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
         }
+        Snackbar.make(view, "Refreshed",
+                Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
         addEditText.setText("");
         delEditText.setText("");
     }
