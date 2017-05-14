@@ -1,17 +1,15 @@
-package com.example.savch.wpamproj.fingerPrint;
+package com.working.savch.walletas.fingerPrint;
 
 /**
  * Created by savch on 02.04.2017.
  */
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.KeyguardManager;
@@ -20,9 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.savch.wpamproj.Manifest;
-import com.example.savch.wpamproj.R;
-import com.example.savch.wpamproj.login.LoginActivity;
+import com.working.savch.walletas.Manifest;
+import com.working.savch.walletas.R;
+import com.working.savch.walletas.login.LoginActivity;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;

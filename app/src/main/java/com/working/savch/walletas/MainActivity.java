@@ -1,14 +1,12 @@
-package com.example.savch.wpamproj;
+package com.working.savch.walletas;
 
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,21 +18,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.savch.wpamproj.base.MySQLAdapter;
-import com.example.savch.wpamproj.login.LoginActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.working.savch.walletas.base.MySQLAdapter;
+import com.working.savch.walletas.login.LoginActivity;
 import com.facebook.login.LoginManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     static private double controlSum = 0.0d;
-    private final String LOG_TAG = "myLogs_MAIN";
+   // private final String LOG_TAG = "myLogs_MAIN";
     Context context;
     static final String STATE_NAME = "masterName";
     private String mCurrentName;
@@ -63,6 +63,14 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_main);
+        MobileAds.initialize(this, "ca-app-pub-7423558564398166~8368844739");
+        AdView  adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("619AF985B301CF86444F0AE42D8EC98F")
+                .build();
+        adView.loadAd(adRequest);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -99,7 +107,6 @@ public class MainActivity extends AppCompatActivity
                 //check if not entered both field in one time
                 strCheck(tmpAdd, tmpDel);
                 if(inputMoneyFlag) {
-                    //TODO: name, email and amount
                     double amount;
                     if(plusMinusChoise){
                         amount = Double.parseDouble(tmpAdd);
@@ -109,7 +116,7 @@ public class MainActivity extends AppCompatActivity
                     dbHelper.openToWrite();
                     long rowID = dbHelper.insertTransactionTable("name", "email", "amount", "currentdate",
                             mCurrentName, mCurrentEmail, amount);
-                    Log.d(LOG_TAG, "row inserted, ID = " + rowID);
+                    //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
                     Snackbar.make(view, "Record added!",
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -144,9 +151,9 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState != null) {
             mCurrentName = savedInstanceState.getString(STATE_NAME);
-            Log.d("STATE", "------ not null --------");
+            //Log.d("STATE", "------ not null --------");
         } else {
-            Log.d("STATE", "------ null --------");
+            //Log.d("STATE", "------ null --------");
             mCurrentName = extras.getString("userName");
         }
         // Probably initialize members with default values for a new instance

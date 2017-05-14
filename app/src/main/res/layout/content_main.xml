@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.savch.wpamproj.MainActivity">
+    tools:context="com.working.savch.walletas.MainActivity">
 
     <LinearLayout
         android:id="@+id/LinearLayoutMain2"
@@ -106,6 +107,14 @@
 
     </LinearLayout>
 
-
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-7423558564398166/2322311138"
+        android:layout_below="@+id/LinearLayoutMain3"
+        android:layout_centerHorizontal="true">
+        </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

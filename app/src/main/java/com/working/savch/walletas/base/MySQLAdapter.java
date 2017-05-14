@@ -1,4 +1,4 @@
-package com.example.savch.wpamproj.base;
+package com.working.savch.walletas.base;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,8 +16,8 @@ import java.util.Locale;
  */
 
 public class MySQLAdapter {
-    final String LOG_TAG = "myLogs";
-    private static final String DBNAME  = "DBv4";
+    //final String LOG_TAG = "myLogs";
+    private static final String DBNAME  = "DB_r_2";
     private static final String TABLE   = "user";
     private static final String TABLE_TRANSACTION   = "trans";
     public static final int    VERSION = 1;
@@ -126,11 +125,11 @@ public class MySQLAdapter {
             //Log.d(LOG_TAG, "--- onDrop database ---");
             //db.execSQL("DROP TABLE user");
             //db.execSQL("DROP TABLE trans");
-            Log.d(LOG_TAG, "--- onCreate database ---");
-            Log.d(LOG_TAG, "--- Create user ---");
+            //Log.d(LOG_TAG, "--- onCreate database ---");
+            //Log.d(LOG_TAG, "--- Create user ---");
             db.execSQL(CREATE_TABLE);
             db.execSQL("delete from sqlite_sequence where name='trans';");
-            Log.d(LOG_TAG, "--- Create transaction ---");
+            //Log.d(LOG_TAG, "--- Create transaction ---");
             db.execSQL(CREATE_TABLE_TRANS);
 
         }

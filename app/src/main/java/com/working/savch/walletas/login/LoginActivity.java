@@ -1,4 +1,4 @@
-package com.example.savch.wpamproj.login;
+package com.working.savch.walletas.login;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import android.content.Intent;
 import android.view.View;
@@ -15,12 +14,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.savch.wpamproj.TransactionActivity;
-import com.example.savch.wpamproj.fingerPrint.FingerprintActivity;
-import com.example.savch.wpamproj.MainActivity;
-import com.example.savch.wpamproj.base.MySQLAdapter;
-import com.example.savch.wpamproj.R;
-import com.example.savch.wpamproj.signup.SignupActivity;
+import com.working.savch.walletas.fingerPrint.FingerprintActivity;
+import com.working.savch.walletas.MainActivity;
+import com.working.savch.walletas.base.MySQLAdapter;
+import com.working.savch.walletas.R;
+import com.working.savch.walletas.signup.SignupActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -48,7 +46,7 @@ import butterknife.BindView;
 public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener{
     private static final String TAG = "LoginActivity";
-    final String LOG_TAG = "myLogs";
+    //final String LOG_TAG = "myLogs";
     private static final int REQUEST_SIGNUP = 0;
     MySQLAdapter dbHelper;
 
@@ -129,6 +127,14 @@ public class LoginActivity extends AppCompatActivity implements
             }
         });
 
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+
+
+        if (currentapiVersion >= 23) {
+            _fingerButton.setVisibility(View.VISIBLE);
+        }else{
+            _fingerButton.setVisibility(View.GONE);
+        }
         //Finger button sighnIn
         _fingerButton.setOnClickListener(new View.OnClickListener() {
 
@@ -161,13 +167,13 @@ public class LoginActivity extends AppCompatActivity implements
                 System.out.println("onSuccess");
                 mConnectionProgressDialog.show();
                 String accessToken = loginResult.getAccessToken().getToken();
-                Log.i("accessToken", accessToken);
+                //Log.i("accessToken", accessToken);
 
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
 
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.i("LoginActivity", response.toString());
+                       // Log. i("LoginActivity", response.toString());
                         // Get facebook data from login
                         Bundle bFacebookData = getFacebookData(object);
 
@@ -181,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements
                         if (!ifUserExsist(email)) {
                             dbHelper.openToWrite();
                             long rowID = dbHelper.insert("name", "email", "password", name, email, password);
-                            Log.d(LOG_TAG, "row inserted, ID = " + rowID);
+                            //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
                         }
 
                         new android.os.Handler().postDelayed(
@@ -228,12 +234,12 @@ public class LoginActivity extends AppCompatActivity implements
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
         // be available.
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        //Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 
     //login with Login Button
     public void login() {
-        Log.d(TAG, "Login");
+       // Log.d(TAG, "Login");
 
         if (!validate()) {
             onLoginFailed();
@@ -291,7 +297,7 @@ public class LoginActivity extends AppCompatActivity implements
             if (!ifUserExsist(email)) {
                 dbHelper.openToWrite();
                 long rowID = dbHelper.insert("name", "email", "password", name, email, password);
-                Log.d(LOG_TAG, "row inserted, ID = " + rowID);
+                //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
             }
 
             new android.os.Handler().postDelayed(
@@ -418,7 +424,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG1, "handleSignInResult:" + result.isSuccess());
+       // Log.d(TAG1, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
@@ -496,7 +502,7 @@ public class LoginActivity extends AppCompatActivity implements
             return bundle;
         }
         catch(JSONException e) {
-            Log.d(TAG,"Error parsing JSON");
+           // Log.d(TAG,"Error parsing JSON");
             return new Bundle();
         }
     }

@@ -1,4 +1,4 @@
-package com.example.savch.wpamproj;
+package com.working.savch.walletas;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

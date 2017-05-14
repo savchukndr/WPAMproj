@@ -1,6 +1,5 @@
-package com.example.savch.wpamproj;
+package com.working.savch.walletas;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,7 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import com.example.savch.wpamproj.base.MySQLAdapter;
+import com.working.savch.walletas.base.MySQLAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

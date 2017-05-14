@@ -1,4 +1,4 @@
-package com.example.savch.wpamproj.fingerPrint;
+package com.working.savch.walletas.fingerPrint;
 
 /**
  * Created by savch on 02.04.2017.
@@ -14,8 +14,8 @@ import android.support.v4.app.ActivityCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.savch.wpamproj.MainActivity;
-import com.example.savch.wpamproj.R;
+import com.working.savch.walletas.MainActivity;
+import com.working.savch.walletas.R;
 
 public class FingerprintHandler extends
         FingerprintManager.AuthenticationCallback {

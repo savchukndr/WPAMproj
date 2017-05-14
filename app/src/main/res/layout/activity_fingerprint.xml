@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.savch.wpamproj.login.LoginActivity">
+    tools:context="com.working.savch.walletas.login.LoginActivity">
 
     <ImageView
         android:layout_marginTop="42dp"

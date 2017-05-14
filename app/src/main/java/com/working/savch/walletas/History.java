@@ -1,4 +1,4 @@
-package com.example.savch.wpamproj;
+package com.working.savch.walletas;
 
 /**
  * Created by savch on 09.05.2017.

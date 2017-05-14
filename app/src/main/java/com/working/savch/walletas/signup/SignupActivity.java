@@ -1,4 +1,4 @@
-package com.example.savch.wpamproj.signup;
+package com.working.savch.walletas.signup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,10 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.savch.wpamproj.MainActivity;
-import com.example.savch.wpamproj.R;
-import com.example.savch.wpamproj.base.MySQLAdapter;
-import com.example.savch.wpamproj.login.LoginActivity;
+import com.working.savch.walletas.MainActivity;
+import com.working.savch.walletas.R;
+import com.working.savch.walletas.base.MySQLAdapter;
+import com.working.savch.walletas.login.LoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

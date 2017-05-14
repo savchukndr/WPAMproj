@@ -1,4 +1,4 @@
-package com.example.savch.wpamproj;
+package com.working.savch.walletas;
 
 import org.junit.Test;
 

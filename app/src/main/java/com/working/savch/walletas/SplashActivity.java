@@ -1,11 +1,11 @@
-package com.example.savch.wpamproj;
+package com.working.savch.walletas;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.savch.wpamproj.login.LoginActivity;
+import com.working.savch.walletas.login.LoginActivity;
 
 /**
  * Created by savch on 10.05.2017.

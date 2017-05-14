@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "946131272889",
-    "project_id": "wpamproj"
+    "project_number": "788345352037",
+    "project_id": "firebase-walletas"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:946131272889:android:48e4605e2b41866e",
+        "mobilesdk_app_id": "1:788345352037:android:a65c801e4e705925",
         "android_client_info": {
-          "package_name": "com.example.savch.wpamproj"
+          "package_name": "com.working.savch.walletas"
         }
       },
       "oauth_client": [
         {
-          "client_id": "946131272889-06q8jf6b6lner3ijilfg28qo58hmsmrh.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "946131272889-11157q9uo2ggi9s9h6na44djb3tth4tc.apps.googleusercontent.com",
+          "client_id": "788345352037-l1kvio6do5u367t6mvihgj7aq9nghaql.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.savch.wpamproj",
+            "package_name": "com.working.savch.walletas",
             "certificate_hash": "a233b728f60b6ee609810de920aa62b867560b2b"
           }
+        },
+        {
+          "client_id": "788345352037-6k77uipk03mls3rsqlas4lrqt8epnf8l.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDrZq66PN1dV_QpzmS9x47wl79f4xX2C9A"
+          "current_key": "AIzaSyDUdgAIRlDiIlbMiT34MQbxgEW6Jf_Du5M"
         }
       ],
       "services": {
