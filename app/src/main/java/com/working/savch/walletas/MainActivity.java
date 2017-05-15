@@ -272,37 +272,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void onClick(View view) {
-        EditText addEditText = (EditText) findViewById(R.id.addEditText);
-        EditText delEditText = (EditText) findViewById(R.id.delEditText);
-        dbHelper.openToWrite();
-        Cursor cursor = dbHelper.querySum(mCurrentEmail);
-        while(cursor.moveToNext())
-        {
-            textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
-        }
-        Snackbar.make(view, "Refreshed",
-                Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-        addEditText.setText("");
-        delEditText.setText("");
-    }
-
     @Override
     public void onBackPressed() {
-        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            //super.onBackPressed();
-            if (LoginActivity.isLoggedIn()){
-                //if user logged in with Facebook, then after onBeckPressed - log out will be
-                LoginManager.getInstance().logOut();
-            }
-            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-        }*/
         moveTaskToBack(true);
     }
 

@@ -74,13 +74,6 @@
             android:text="@string/balance_text"
             android:textColor="@color/accent"
             android:textSize="27sp" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/refresh_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:onClick="onClick"
-            android:text="Refresh" />
     </LinearLayout>
 
 
