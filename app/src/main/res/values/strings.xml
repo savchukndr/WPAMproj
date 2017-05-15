@@ -1,22 +1,33 @@
 <resources>
-    <string name="app_name">WalletAS</string>
+
+    <!--Manu action bar activity-->
+    <string name="about_title">About</string>
+    <string name="main_logout_title">Log out</string>
+    <string name="about_text">An application for keeping track of your funds.\nWas created by:\nAndrii Savchuk\n2017</string>
+    <string name="action_settings">Settings</string>
+
+    <!--FingerprintActivity-->
+    <string name="fingerprint_text">Touch Sensor</string>
+    <string name="finger_btn">FINGER LOGIN</string>
+
+    <!--MainActivity-->
+    <string name="title_activity_walet">WaletActivity</string>
+    <string name="balance_text">Balance:</string>
+    <string name="title_activity_menu">MenuActivity</string>
     <string name="calculate_button">Count</string>
     <string name="input_amount">Input earnings</string>
     <string name="input_delAmount">Input spendings</string>
     <string name="null_button">Clear</string>
-    <string name="about_title">About</string>
-    <string name="about_text">An application for keeping track of your funds.\nWas created by:\nAndrii Savchuk\n2017</string>
-    <string name="title_activity_walet">WaletActivity</string>
-    <string name="balance_text">Balance:</string>
-    <string name="title_activity_menu">MenuActivity</string>
-    <string name="fingerprint_text">Touch Sensor</string>
-    <string name="finger_btn">FINGER LOGIN</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!--HistoryActivity-->
+    <string name="title_activity_transaction">History</string>
 
-    <string name="action_settings">Settings</string>
+    <!--LoginActivity-->
     <string name="no_account_yet">No account yet? Create one</string>
+    <string name="facebook_app_id">1221477314616303</string>
+    <string name="signed_in_fmt">Signed in as: %s</string>
+
+    <!--SignupActivity-->
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
@@ -25,11 +36,14 @@
     <string name="create_account">Create Account</string>
     <string name="already_a_member">Already a member? Login</string>
 
-    <string name="signed_in_fmt">Signed in as: %s</string>
+    <string name="app_name">WalletAS</string>
 
-    <string name="facebook_app_id">1221477314616303</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_activity_transaction">History</string>
 
     <string name="title_activity_settings">Settings</string>
 
