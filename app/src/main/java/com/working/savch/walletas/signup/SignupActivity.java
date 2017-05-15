@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.working.savch.walletas.MainActivity;
 import com.working.savch.walletas.R;
+import com.working.savch.walletas.Session;
 import com.working.savch.walletas.base.MySQLAdapter;
 import com.working.savch.walletas.login.LoginActivity;
 
@@ -24,6 +25,7 @@ public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     final String LOG_TAG = "myLogs";
     MySQLAdapter dbHelper;
+    private Session session;
 
     @BindView(R.id.input_name) EditText _nameText;
     @BindView(R.id.input_email) EditText _emailText;
@@ -37,6 +39,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+        session = new Session(this);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +118,9 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupSuccess(String name, String email) {
+        session.setLoggedin(true);
+        session.setName(name);
+        session.setEmail(email);
         _signupButton.setEnabled(true);
         /*setResult(RESULT_OK, null);
         finish();*/

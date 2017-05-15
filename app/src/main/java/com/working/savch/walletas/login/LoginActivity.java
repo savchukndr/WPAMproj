@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.working.savch.walletas.Session;
 import com.working.savch.walletas.fingerPrint.FingerprintActivity;
 import com.working.savch.walletas.MainActivity;
 import com.working.savch.walletas.base.MySQLAdapter;
@@ -65,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements
     private boolean gogSignIn = false;
 
     private CallbackManager callbackManager;
+    private Session session;
 
 
     @BindView(R.id.input_email) EditText _emailText;
@@ -78,6 +80,10 @@ public class LoginActivity extends AppCompatActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        session = new Session(this);
+
         ButterKnife.bind(this);
 
         //Butterknife error !!!
@@ -102,7 +108,10 @@ public class LoginActivity extends AppCompatActivity implements
                 signIn();
             }
         });
-
+        if(session.loggedin()){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
 
         //Login button listener
         _loginButton.setOnClickListener(new View.OnClickListener() {
@@ -339,6 +348,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     public void onLoginSuccess(String name, String email) {
+        session.setLoggedin(true);
         _loginButton.setEnabled(true);
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         intent.putExtra("userName", name);
@@ -394,15 +404,17 @@ public class LoginActivity extends AppCompatActivity implements
             do
             {
                 // Checking if the user name provided by the user exists in the database
-                if(cursor.getString(cursor.getColumnIndex("email")).equals(email))
-                {
-                    if(cursor.getString(cursor.getColumnIndex("password")).equals(password))
-                    {
-                        personNameSimple = cursor.getString(cursor.getColumnIndex("name"));
-                        records_Exist = true;
-                        break;
+                //if(cursor.getString(cursor.getColumnIndex("email")) == null) {
+                  //  records_Exist = false;
+                //}else{
+                    if (cursor.getString(cursor.getColumnIndex("email")).equals(email)) {
+                        if (cursor.getString(cursor.getColumnIndex("password")).equals(password)) {
+                            personNameSimple = cursor.getString(cursor.getColumnIndex("name"));
+                            records_Exist = true;
+                            break;
+                        }
                     }
-                }
+                //}
 
             }while(cursor.moveToNext()); // Moves to the next row
         }
@@ -464,11 +476,14 @@ public class LoginActivity extends AppCompatActivity implements
             cursor.moveToFirst();
             do
             {
-                if(cursor.getString(cursor.getColumnIndex("email")).equals(email))
-                {
+                if (cursor.getString(cursor.getColumnIndex("email")) == null) {
+                    ifExsist = false;
+                }else{
+                    if (cursor.getString(cursor.getColumnIndex("email")).equals(email)) {
 
-                    ifExsist = true;
-                    break;
+                        ifExsist = true;
+                        break;
+                    }
                 }
             }while(cursor.moveToNext());
         }

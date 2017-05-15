@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class MySQLAdapter {
     //final String LOG_TAG = "myLogs";
-    private static final String DBNAME  = "DB_r_2";
+    private static final String DBNAME  = "DB_r_8";
     private static final String TABLE   = "user";
     private static final String TABLE_TRANSACTION   = "trans";
     public static final int    VERSION = 1;
@@ -128,7 +128,7 @@ public class MySQLAdapter {
             //Log.d(LOG_TAG, "--- onCreate database ---");
             //Log.d(LOG_TAG, "--- Create user ---");
             db.execSQL(CREATE_TABLE);
-            db.execSQL("delete from sqlite_sequence where name='trans';");
+            //db.execSQL("delete from sqlite_sequence where name='trans';");
             //Log.d(LOG_TAG, "--- Create transaction ---");
             db.execSQL(CREATE_TABLE_TRANS);
 

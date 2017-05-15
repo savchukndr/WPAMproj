@@ -23,6 +23,11 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.working.savch.walletas.base.MySQLAdapter;
 import com.working.savch.walletas.login.LoginActivity;
 import com.facebook.login.LoginManager;
@@ -43,6 +48,8 @@ public class MainActivity extends AppCompatActivity
     private boolean plusMinusChoise = true;
     MySQLAdapter dbHelper;
     TextView textViewInfo;
+    private GoogleApiClient mGoogleApiClient;
+    private Session session;
 
 
 
@@ -63,6 +70,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_main);
+
+        session = new Session(this);
+        if(session.loggedin()){
+            mCurrentEmail = session.getEmail();
+            mCurrentName = session.getName();
+        }
+
         MobileAds.initialize(this, "ca-app-pub-7423558564398166~8368844739");
         AdView  adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
@@ -74,8 +88,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Bundle extras = getIntent().getExtras();
-        mCurrentEmail = extras.getString("userEmail");
+        //Bundle extras = getIntent().getExtras();
+        //mCurrentEmail = extras.getString("userEmail");
 
         setActivityBackgroundColor(getResources().getColor(R.color.jumbo));
 
@@ -149,13 +163,13 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        if (savedInstanceState != null) {
+        /*if (savedInstanceState != null) {
             mCurrentName = savedInstanceState.getString(STATE_NAME);
             //Log.d("STATE", "------ not null --------");
         } else {
             //Log.d("STATE", "------ null --------");
             mCurrentName = extras.getString("userName");
-        }
+        }*/
         // Probably initialize members with default values for a new instance
 
         //if (extras != null) {
@@ -276,7 +290,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -288,7 +302,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-        }
+        }*/
+        moveTaskToBack(true);
     }
 
     @Override
@@ -308,6 +323,8 @@ public class MainActivity extends AppCompatActivity
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 return true;
             case R.id.action_logout:
+                logOut();
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -369,5 +386,12 @@ public class MainActivity extends AppCompatActivity
         }else{
             return "NO";
         }
+    }
+
+
+    private void logOut(){
+        session.setLoggedin(false);
+        finish();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 }
