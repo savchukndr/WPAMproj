@@ -16,20 +16,24 @@ import android.widget.TextView;
 
 import com.working.savch.walletas.MainActivity;
 import com.working.savch.walletas.R;
+import com.working.savch.walletas.Session;
 
 public class FingerprintHandler extends
         FingerprintManager.AuthenticationCallback {
 
     private CancellationSignal cancellationSignal;
     private Context appContext;
-    boolean ttt = true;
+    public boolean ifEntered;
     private ImageView imge;
     private TextView txte;
+    private Session sessione;
 
-    public FingerprintHandler(Context context, ImageView img, TextView txt) {
+
+    public FingerprintHandler(Context context, ImageView img, TextView txt, Session session) {
         appContext = context;
         imge = img;
         txte = txt;
+        sessione = session;
     }
 
     public void startAuth(FingerprintManager manager,
@@ -79,7 +83,11 @@ public class FingerprintHandler extends
         /*Toast.makeText(appContext,
                 "Authentication succeeded.",
                 Toast.LENGTH_LONG).show();*/
+        sessione.setLoggedin(true);
+        sessione.setName("Master");
+        sessione.setEmail("");
         Intent intent = new Intent(appContext,MainActivity.class);
+
         intent.putExtra("userName", "Master");
         intent.putExtra("userEmail", "");
         appContext.startActivity(intent);

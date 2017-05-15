@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.working.savch.walletas.Manifest;
 import com.working.savch.walletas.R;
+import com.working.savch.walletas.Session;
 import com.working.savch.walletas.login.LoginActivity;
 
 import java.io.IOException;
@@ -46,13 +47,14 @@ public class FingerprintActivity extends AppCompatActivity {
     private KeyGenerator keyGenerator;
     private Cipher cipher;
     private FingerprintManager.CryptoObject cryptoObject;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fingerprint);
 
-
+        session = new Session(this);
 
         keyguardManager =
                 (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
@@ -93,7 +95,7 @@ public class FingerprintActivity extends AppCompatActivity {
                     new FingerprintManager.CryptoObject(cipher);
             ImageView img = (ImageView) findViewById(R.id.imageFingerPrint);
             TextView txt= (TextView) findViewById(R.id.fing_txt);
-            FingerprintHandler helper = new FingerprintHandler(this, img, txt);
+            FingerprintHandler helper = new FingerprintHandler(this, img, txt, session);
             helper.startAuth(fingerprintManager, cryptoObject);
         }
     }
