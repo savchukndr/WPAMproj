@@ -17,6 +17,11 @@
     <string name="about_text">Приложение для отслеживания ваших средств.\nСоздано:\nАндрей Савчук\n2017</string>
     <string name="action_settings">Settings</string>
 
+    <!--Menu nav bar-->
+    <string name="nav_history">История</string>
+    <string name="nav_main">Главная</string>
+    <string name="nav_hello">Привет,</string>
+
     <!--MainActivity-->
     <string name="title_activity_walet">WaletActivity</string>
     <string name="balance_text">Баланс:</string>

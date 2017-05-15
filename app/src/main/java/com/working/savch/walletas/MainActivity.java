@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity
 
             String firstLetter = imageSelecter(mCurrentName);
             View hView =  navigationView.getHeaderView(0);
-            String helloNameUser = "Hello, " + firstWord(mCurrentName) + "!";
+            String helloNameUser = getString(R.string.nav_hello) + " " + firstWord(mCurrentName) + "!";
 
             TextView txtHelloName = (TextView) hView.findViewById(R.id.userNameHelloTextView);
             txtHelloName.setText(helloNameUser);

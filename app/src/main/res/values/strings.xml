@@ -16,6 +16,11 @@
     <string name="about_text">An application for keeping track of your funds.\nWas created by:\nAndrii Savchuk\n2017</string>
     <string name="action_settings">Settings</string>
 
+    <!--Menu nav bar-->
+    <string name="nav_history">History</string>
+    <string name="nav_main">Main</string>
+    <string name="nav_hello">Hello,</string>
+
     <!--MainActivity-->
     <string name="title_activity_walet">WaletActivity</string>
     <string name="balance_text">Balance:</string>
