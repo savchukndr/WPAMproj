@@ -326,6 +326,21 @@ public class MainActivity extends AppCompatActivity
                 logOut();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 return true;
+            case R.id.action_refresh:
+                EditText addEditText = (EditText) findViewById(R.id.addEditText);
+                EditText delEditText = (EditText) findViewById(R.id.delEditText);
+                dbHelper.openToWrite();
+                Cursor cursor = dbHelper.querySum(mCurrentEmail);
+                while(cursor.moveToNext())
+                {
+                    textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+                }
+                Snackbar.make(addEditText, "Refreshed",
+                        Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                addEditText.setText("");
+                delEditText.setText("");
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

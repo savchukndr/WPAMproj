@@ -150,10 +150,9 @@ public class LoginActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
-                alertDialog.setTitle("Attention!");
-                alertDialog.setMessage("If you want to use fingerprint sensor for logining in," +
-                        " you will be loged in as a superuser without e-mail identification.");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Yes, I want to try",
+                alertDialog.setTitle(R.string.attention_alert);
+                alertDialog.setMessage(getString(R.string.attention_alert_text));
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.attention_alert_button),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
