@@ -5,7 +5,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.working.savch.walletas"
+        applicationId "com.working.savch.was"
         minSdkVersion 22
         targetSdkVersion 25
         versionCode 1

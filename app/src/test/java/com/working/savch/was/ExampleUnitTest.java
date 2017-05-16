@@ -1,4 +1,4 @@
-package com.working.savch.walletas;
+package com.working.savch.was;
 
 import org.junit.Test;
 

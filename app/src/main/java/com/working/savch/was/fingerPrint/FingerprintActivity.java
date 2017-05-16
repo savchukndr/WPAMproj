@@ -1,4 +1,4 @@
-package com.working.savch.walletas.fingerPrint;
+package com.working.savch.was.fingerPrint;
 
 /**
  * Created by savch on 02.04.2017.
@@ -18,10 +18,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.working.savch.walletas.Manifest;
-import com.working.savch.walletas.R;
-import com.working.savch.walletas.Session;
-import com.working.savch.walletas.login.LoginActivity;
+import com.working.savch.was.Manifest;
+import com.working.savch.was.R;
+import com.working.savch.was.Session;
+import com.working.savch.was.login.LoginActivity;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;

@@ -1,4 +1,4 @@
-package com.working.savch.walletas;
+package com.working.savch.was;
 
 /**
  * Created by savch on 09.05.2017.

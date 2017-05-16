@@ -1,4 +1,4 @@
-package com.working.savch.walletas.login;
+package com.working.savch.was.login;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -15,13 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.working.savch.walletas.IntroActivity;
-import com.working.savch.walletas.Session;
-import com.working.savch.walletas.fingerPrint.FingerprintActivity;
-import com.working.savch.walletas.MainActivity;
-import com.working.savch.walletas.base.MySQLAdapter;
-import com.working.savch.walletas.R;
-import com.working.savch.walletas.signup.SignupActivity;
+import com.working.savch.was.IntroActivity;
+import com.working.savch.was.Session;
+import com.working.savch.was.fingerPrint.FingerprintActivity;
+import com.working.savch.was.MainActivity;
+import com.working.savch.was.base.MySQLAdapter;
+import com.working.savch.was.R;
+import com.working.savch.was.signup.SignupActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;

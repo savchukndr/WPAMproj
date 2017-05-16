@@ -1,4 +1,4 @@
-package com.working.savch.walletas.signup;
+package com.working.savch.was.signup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,12 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.working.savch.walletas.IntroActivity;
-import com.working.savch.walletas.MainActivity;
-import com.working.savch.walletas.R;
-import com.working.savch.walletas.Session;
-import com.working.savch.walletas.base.MySQLAdapter;
-import com.working.savch.walletas.login.LoginActivity;
+import com.working.savch.was.IntroActivity;
+import com.working.savch.was.R;
+import com.working.savch.was.Session;
+import com.working.savch.was.base.MySQLAdapter;
+import com.working.savch.was.login.LoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

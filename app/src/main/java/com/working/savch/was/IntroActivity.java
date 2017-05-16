@@ -1,4 +1,4 @@
-package com.working.savch.walletas;
+package com.working.savch.was;
 
 import android.content.Intent;
 import android.graphics.Color;

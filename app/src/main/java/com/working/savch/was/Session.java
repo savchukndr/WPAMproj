@@ -1,8 +1,7 @@
-package com.working.savch.walletas;
+package com.working.savch.was;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.StrictMode;
 
 /**
  * Created by Administrator on 5/5/2016.

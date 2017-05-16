@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.working.savch.walletas">
+    package="com.working.savch.was">
 
     <permission android:name="android.permission.USE_FINGERPRINT" />
 
@@ -21,11 +21,11 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name="com.working.savch.walletas.AboutActivity"
+            android:name="com.working.savch.was.AboutActivity"
             android:label="@string/about_title"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name="com.working.savch.walletas.login.LoginActivity"
+            android:name="com.working.savch.was.login.LoginActivity"
             android:theme="@style/AppTheme.Dark">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
             </intent-filter>-->
         </activity>
         <activity
-            android:name="com.working.savch.walletas.SplashActivity"
+            android:name="com.working.savch.was.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,21 +43,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.working.savch.walletas.signup.SignupActivity"
+            android:name="com.working.savch.was.signup.SignupActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name="com.working.savch.walletas.fingerPrint.FingerprintActivity"
+            android:name="com.working.savch.was.fingerPrint.FingerprintActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name="com.working.savch.walletas.MainActivity"
+            android:name="com.working.savch.was.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name="com.working.savch.walletas.TransactionActivity"
+            android:name="com.working.savch.was.TransactionActivity"
             android:label="@string/title_activity_transaction"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name="com.working.savch.walletas.IntroActivity"
+        <activity android:name="com.working.savch.was.IntroActivity"
             android:label="@string/app_name" />
     </application>
 

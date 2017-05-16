@@ -1,12 +1,11 @@
-package com.working.savch.walletas;
+package com.working.savch.was;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.working.savch.walletas.login.LoginActivity;
-import com.working.savch.walletas.Session;
+import com.working.savch.was.login.LoginActivity;
 
 /**
  * Created by savch on 10.05.2017.

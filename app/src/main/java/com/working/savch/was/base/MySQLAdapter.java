@@ -1,4 +1,4 @@
-package com.working.savch.walletas.base;
+package com.working.savch.was.base;
 
 import android.content.ContentValues;
 import android.content.Context;
