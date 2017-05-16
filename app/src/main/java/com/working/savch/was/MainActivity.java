@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
             mCurrentName = session.getName();
         }
 
-        MobileAds.initialize(this, "ca-app-pub-7423558564398166~8368844739");
+        MobileAds.initialize(this, "ca-app-pub-7423558564398166~3561711933");
         AdView  adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
