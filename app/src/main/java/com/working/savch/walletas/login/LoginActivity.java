@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.working.savch.walletas.IntroActivity;
 import com.working.savch.walletas.Session;
 import com.working.savch.walletas.fingerPrint.FingerprintActivity;
 import com.working.savch.walletas.MainActivity;
@@ -67,6 +69,8 @@ public class LoginActivity extends AppCompatActivity implements
 
     private CallbackManager callbackManager;
     private Session session;
+    private Uri personPhoto;
+    private boolean hasPhoto = false;
 
 
     @BindView(R.id.input_email) EditText _emailText;
@@ -292,7 +296,10 @@ public class LoginActivity extends AppCompatActivity implements
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
-
+            /*GoogleSignInAccount acct = result.getSignInAccount();
+            assert acct != null;
+            personPhoto = acct.getPhotoUrl();
+            hasPhoto = true;*/
 
             final String email;
             final String password;
@@ -348,11 +355,18 @@ public class LoginActivity extends AppCompatActivity implements
 
     public void onLoginSuccess(String name, String email) {
         session.setLoggedin(true);
+        session.setEmail(email);
+        session.setName(name);
+        /*if(hasPhoto){
+            session.setPhoto(personPhoto.toString());
+            session.setHasPhoto(hasPhoto);
+        }*/
         _loginButton.setEnabled(true);
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        /*Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         intent.putExtra("userName", name);
-        intent.putExtra("userEmail", email);
-        startActivity(intent);
+        intent.putExtra("userEmail", email);*/
+        Intent intentIntro = new Intent(getApplicationContext(), IntroActivity.class);
+        startActivity(intentIntro);
         //finish();
     }
 

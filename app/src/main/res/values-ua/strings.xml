@@ -1,0 +1,153 @@
+<resources>
+    <!--Alert Fingerprint-->
+    <string name="attention_alert">Увага!</string>
+    <string name="attention_alert_text">Якщо Пан або Пані хоче використовувати дактилоскопічний сенсор для входу, то Пан або Пані війде як суперкористувач і без ідентифікації за допомоги ел. пошти</string>
+    <string name="attention_alert_button">Так, хочу спробувати</string>
+
+
+    <!--FingerprintActivity-->
+    <string name="fingerprint_text">Доторкніться до сенсора!</string>
+    <string name="fingerprint_sacc">Аутентифікація вдала</string>
+    <string name="fingerprint_failed">Аутентифікація не вдала</string>
+    <string name="finger_btn">Відбиток пальця</string>
+
+    <!--Manu action bar activity-->
+    <string name="about_title">Про додаток</string>
+    <string name="main_logout_title">Вихід</string>
+    <string name="about_text">Дадаток для відстежування Ваших коштівПриложение для отслеживания ваших средств.\nАвтор:\nАндрій Савчук\n2017</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Menu nav bar-->
+    <string name="nav_history">Історія</string>
+    <string name="nav_main">Головна</string>
+    <string name="nav_hello">Привіт,</string>
+
+    <!--MainActivity-->
+    <string name="title_activity_walet">WaletActivity</string>
+    <string name="balance_text">Баланс:</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="calculate_button">Count</string>
+    <string name="input_amount">Введіть прибуток</string>
+    <string name="input_delAmount">Введіть витрати</string>
+    <string name="null_button">Clear</string>
+    <string name="main_refresh_snack">Оновлено!</string>
+    <string name="main_one_field">Ви можете вводити суму тільки в одне поле одночасно!</string>
+    <string name="main_record_add">Запис доданий!</string>
+
+    <!--HistoryActivity-->
+    <string name="title_activity_transaction">Історія</string>
+
+    <!--LoginActivity-->
+    <string name="no_account_yet">Не маєте облікового запису? Створіть</string>
+    <string name="facebook_app_id">1221477314616303</string>
+    <string name="signed_in_fmt">Війшли як: %s</string>
+
+    <!--SignupActivity-->
+    <string name="login">Логsн</string>
+    <string name="password">Пароль</string>
+    <string name="email">Ел. пошта</string>
+    <string name="name">Ім\'я</string>
+    <string name="re_enter_password">Введіть пароль повторно</string>
+    <string name="create_account">Створити обліковий запис</string>
+    <string name="already_a_member">Вже маєте обліковий запис? Ввійдіть</string>
+
+    <!--IntroActivity-->
+    <string name="intro_title">Привіт!</string>
+    <string name="slide1_title">Скажи привіт</string>
+    <string name="slide1_text">Найзручнішому способу стежити за своїми коштами!</string>
+    <string name="slide2_title">Записуйте прибуток</string>
+    <string name="slide2_text">Просто ввівши число</string>
+    <string name="slide3_title">Записуйте витрати</string>
+    <string name="slide3_text">Так само просто як і прибуток</string>
+    <string name="slide4_title">А потім</string>
+    <string name="slide4_text">Просто натисніть цю кнопку</string>
+    <string name="slide5_title">І кожну позицію</string>
+    <string name="slide5_text">Ви можете знайти в історії</string>
+    <string name="slide6_title">І звичайно</string>
+    <string name="slide6_text">Насолоджуйтесь своїм додатком!</string>
+
+    <string name="app_name">WalletAS</string>
+
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="userHelloNameTaxtView">Здравствуйте!</string>
+    <string name="userHelloEmailTaxtView">Здравствуйте!</string>
+</resources>

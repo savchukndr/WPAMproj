@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.working.savch.walletas.IntroActivity;
 import com.working.savch.walletas.MainActivity;
 import com.working.savch.walletas.R;
 import com.working.savch.walletas.Session;
@@ -124,10 +125,15 @@ public class SignupActivity extends AppCompatActivity {
         _signupButton.setEnabled(true);
         /*setResult(RESULT_OK, null);
         finish();*/
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        /*Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         intent.putExtra("userName", name);
         intent.putExtra("userEmail", email);
-        startActivity(intent);
+        startActivity(intent);*/
+        /*Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        intent.putExtra("userName", name);
+        intent.putExtra("userEmail", email);*/
+        Intent intentIntro = new Intent(getApplicationContext(), IntroActivity.class);
+        startActivity(intentIntro);
     }
 
     //If user exist call toast massage

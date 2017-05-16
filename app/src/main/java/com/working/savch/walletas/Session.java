@@ -13,11 +13,18 @@ public class Session {
     Context ctx;
     String email;
     String name;
+    String personPhoto;
 
     public Session(Context ctx){
         this.ctx = ctx;
         prefs = ctx.getSharedPreferences("myapp", Context.MODE_PRIVATE);
         editor = prefs.edit();
+    }
+
+    public void setPhoto(String personPhoto){
+        this.personPhoto = personPhoto;
+        editor.putString("photo", this.personPhoto);
+        editor.commit();
     }
 
     public void setEmail(String email){
@@ -40,6 +47,10 @@ public class Session {
         return prefs.getString("email", null);
     }
 
+    public String getPhoto(){
+        return prefs.getString("photo", null);
+    }
+
     public void setLoggedin(boolean logggedin){
         editor.putBoolean("loggedInmode",logggedin);
         editor.commit();
@@ -47,5 +58,14 @@ public class Session {
 
     public boolean loggedin(){
         return prefs.getBoolean("loggedInmode", false);
+    }
+
+    public void setHasPhoto(boolean hasPhoto){
+        editor.putBoolean("hasPhoto",hasPhoto);
+        editor.commit();
+    }
+
+    public boolean hasPhoto(){
+        return prefs.getBoolean("hasPhoto", false);
     }
 }

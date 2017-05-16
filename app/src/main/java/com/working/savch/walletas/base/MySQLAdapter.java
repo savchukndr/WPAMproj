@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class MySQLAdapter {
     //final String LOG_TAG = "myLogs";
-    private static final String DBNAME  = "DB_r_8";
+    private static final String DBNAME  = "DB_r_11";
     private static final String TABLE   = "user";
     private static final String TABLE_TRANSACTION   = "trans";
     public static final int    VERSION = 1;

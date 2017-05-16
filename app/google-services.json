@@ -13,21 +13,21 @@
       },
       "oauth_client": [
         {
-          "client_id": "788345352037-l1kvio6do5u367t6mvihgj7aq9nghaql.apps.googleusercontent.com",
+          "client_id": "788345352037-hebgiprmjbm5dfqgnk449htv774a4a5c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.working.savch.walletas",
-            "certificate_hash": "a233b728f60b6ee609810de920aa62b867560b2b"
+            "certificate_hash": "0df976a129f06a30088f5129e7bfe73c8f8ad6e4"
           }
         },
         {
-          "client_id": "788345352037-6k77uipk03mls3rsqlas4lrqt8epnf8l.apps.googleusercontent.com",
+          "client_id": "788345352037-vgce7pk0fd10u9eg4gfq7ab7jvfmubuj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUdgAIRlDiIlbMiT34MQbxgEW6Jf_Du5M"
+          "current_key": "AIzaSyAkdPPHjSNgrZqAMl-PtEg6tqtqWOnWC4I"
         }
       ],
       "services": {

@@ -6,6 +6,7 @@
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -56,6 +57,8 @@
             android:name="com.working.savch.walletas.TransactionActivity"
             android:label="@string/title_activity_transaction"
             android:theme="@style/AppTheme.Dark" />
+        <activity android:name="com.working.savch.walletas.IntroActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

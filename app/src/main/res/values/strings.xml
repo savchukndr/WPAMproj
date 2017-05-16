@@ -29,6 +29,9 @@
     <string name="input_amount">Input earnings</string>
     <string name="input_delAmount">Input spendings</string>
     <string name="null_button">Clear</string>
+    <string name="main_refresh_snack">Refreshed!</string>
+    <string name="main_one_field">You can input just in one field at the same time!</string>
+    <string name="main_record_add">Record added!</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">History</string>
@@ -46,6 +49,22 @@
     <string name="re_enter_password">Re-enter Password</string>
     <string name="create_account">Create Account</string>
     <string name="already_a_member">Already a member? Login</string>
+
+    <!--IntroActivity-->
+    <string name="intro_title">Hello!</string>
+    <string name="slide1_title">Say Hello to</string>
+    <string name="slide1_text">The simplest app fro money tracking!</string>
+    <string name="slide2_title">Add earnings</string>
+    <string name="slide2_text">Just enter an amount</string>
+    <string name="slide3_title">Add spendings</string>
+    <string name="slide3_text">The same simple way like adding earnings</string>
+    <string name="slide4_title">And then</string>
+    <string name="slide5_text">You can find in History</string>
+    <string name="slide4_text">Just press that button</string>
+    <string name="slide5_title">Every position</string>
+
+    <string name="slide6_title">And</string>
+    <string name="slide6_text">Your amazing app!</string>
 
     <string name="app_name">WalletAS</string>
 

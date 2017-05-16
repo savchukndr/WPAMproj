@@ -17,10 +17,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        /*debug {
-            debuggable true
-        }*/
+        debug {
+            debuggable false
+        }
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -38,5 +42,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:10.2.4'
     compile 'com.google.android.gms:play-services-ads:10.2.4'
     compile 'com.android.support:recyclerview-v7:21.0.+'
+    compile 'com.github.paolorotolo:appintro:4.1.0'
 }
 apply plugin: 'com.google.gms.google-services'

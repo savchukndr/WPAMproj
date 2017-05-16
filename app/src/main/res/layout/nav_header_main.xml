@@ -15,11 +15,10 @@
 
     <ImageView
         android:id="@+id/imageAcc"
-        android:layout_width="wrap_content"
+        android:layout_width="71dp"
         android:layout_height="73dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/w"
-        android:layout_weight="0.32" />
+        app:srcCompat="@drawable/w" />
 
     <TextView
         android:id="@+id/userNameHelloTextView"

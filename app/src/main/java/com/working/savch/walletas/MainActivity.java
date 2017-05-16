@@ -3,7 +3,11 @@ package com.working.savch.walletas;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,7 +28,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -32,6 +38,9 @@ import com.working.savch.walletas.base.MySQLAdapter;
 import com.working.savch.walletas.login.LoginActivity;
 import com.facebook.login.LoginManager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +59,7 @@ public class MainActivity extends AppCompatActivity
     TextView textViewInfo;
     private GoogleApiClient mGoogleApiClient;
     private Session session;
+    private Bitmap bitmap;
 
 
 
@@ -81,8 +91,8 @@ public class MainActivity extends AppCompatActivity
         AdView  adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("619AF985B301CF86444F0AE42D8EC98F")
                 .build();
+        /*.addTestDevice("619AF985B301CF86444F0AE42D8EC98F")*/
         adView.loadAd(adRequest);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -131,7 +141,7 @@ public class MainActivity extends AppCompatActivity
                     long rowID = dbHelper.insertTransactionTable("name", "email", "amount", "currentdate",
                             mCurrentName, mCurrentEmail, amount);
                     //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
-                    Snackbar.make(view, "Record added!",
+                    Snackbar.make(view, getString(R.string.main_record_add),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
@@ -143,7 +153,7 @@ public class MainActivity extends AppCompatActivity
                     addEditText.setText("");
                     delEditText.setText("");
                 }else{
-                    Snackbar.make(view, "You can input just in one field at the same time!",
+                    Snackbar.make(view, getString(R.string.main_one_field),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     addEditText.setText("");
@@ -185,90 +195,123 @@ public class MainActivity extends AppCompatActivity
             txtHelloEmail.setText(mCurrentEmail);
 
             ImageView imgName = (ImageView) hView.findViewById(R.id.imageAcc);
-            switch (firstLetter) {
-                case "A":
-                    imgName.setImageResource(R.drawable.a);
-                    break;
-                case "B":
-                    imgName.setImageResource(R.drawable.b);
-                    break;
-                case "C":
-                    imgName.setImageResource(R.drawable.c);
-                    break;
-                case "D":
-                    imgName.setImageResource(R.drawable.d);
-                    break;
-                case "E":
-                    imgName.setImageResource(R.drawable.e);
-                    break;
-                case "F":
-                    imgName.setImageResource(R.drawable.f);
-                    break;
-                case "G":
-                    imgName.setImageResource(R.drawable.g);
-                    break;
-                case "H":
-                    imgName.setImageResource(R.drawable.h);
-                    break;
-                case "I":
-                    imgName.setImageResource(R.drawable.i);
-                    break;
-                case "J":
-                    imgName.setImageResource(R.drawable.j);
-                    break;
-                case "K":
-                    imgName.setImageResource(R.drawable.k);
-                    break;
-                case "L":
-                    imgName.setImageResource(R.drawable.l);
-                    break;
-                case "M":
-                    imgName.setImageResource(R.drawable.m);
-                    break;
-                case "N":
-                    imgName.setImageResource(R.drawable.n);
-                    break;
-                case "O":
-                    imgName.setImageResource(R.drawable.o);
-                    break;
-                case "P":
-                    imgName.setImageResource(R.drawable.p);
-                    break;
-                case "Q":
-                    imgName.setImageResource(R.drawable.q);
-                    break;
-                case "R":
-                    imgName.setImageResource(R.drawable.r);
-                    break;
-                case "S":
-                    imgName.setImageResource(R.drawable.s);
-                    break;
-                case "T":
-                    imgName.setImageResource(R.drawable.t);
-                    break;
-                case "U":
-                    imgName.setImageResource(R.drawable.u);
-                    break;
-                case "V":
-                    imgName.setImageResource(R.drawable.v);
-                    break;
-                case "W":
-                    imgName.setImageResource(R.drawable.w);
-                    break;
-                case "X":
-                    imgName.setImageResource(R.drawable.x);
-                    break;
-                case "Y":
-                    imgName.setImageResource(R.drawable.y);
-                    break;
-                case "Z":
-                    imgName.setImageResource(R.drawable.z);
-                    break;
-                default:
-                    imgName.setImageResource(R.drawable.failed_print);
-                    break;
-            //}
-            }
+            /*if(session.hasPhoto()){
+                Uri imageUri = Uri.parse(session.getPhoto());
+                try {
+                    bitmap = getThumbnail(imageUri);
+                    imgName.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }else {*/
+                switch (firstLetter) {
+                    case "А":
+                    case "A":
+                        imgName.setImageResource(R.drawable.a);
+                        break;
+                    case "Б":
+                    case "B":
+                        imgName.setImageResource(R.drawable.b);
+                        break;
+                    case "Ц":
+                    case "C":
+                        imgName.setImageResource(R.drawable.c);
+                        break;
+                    case "Д":
+                    case "D":
+                        imgName.setImageResource(R.drawable.d);
+                        break;
+                    case "Е":
+                    case "Э":
+                    case "E":
+                        imgName.setImageResource(R.drawable.e);
+                        break;
+                    case "Ф":
+                    case "F":
+                        imgName.setImageResource(R.drawable.f);
+                        break;
+                    case "Г":
+                    case "G":
+                        imgName.setImageResource(R.drawable.g);
+                        break;
+                    case "Х":
+                    case "H":
+                        imgName.setImageResource(R.drawable.h);
+                        break;
+                    case "И":
+                    case "I":
+                        imgName.setImageResource(R.drawable.i);
+                        break;
+                    case "Ю":
+                    case "J":
+                        imgName.setImageResource(R.drawable.j);
+                        break;
+                    case "К":
+                    case "K":
+                        imgName.setImageResource(R.drawable.k);
+                        break;
+                    case "Л":
+                    case "L":
+                        imgName.setImageResource(R.drawable.l);
+                        break;
+                    case "М":
+                    case "M":
+                        imgName.setImageResource(R.drawable.m);
+                        break;
+                    case "Н":
+                    case "N":
+                        imgName.setImageResource(R.drawable.n);
+                        break;
+                    case "О":
+                    case "O":
+                        imgName.setImageResource(R.drawable.o);
+                        break;
+                    case "П":
+                    case "P":
+                        imgName.setImageResource(R.drawable.p);
+                        break;
+                    case "Q":
+                        imgName.setImageResource(R.drawable.q);
+                        break;
+                    case "Р":
+                    case "R":
+                        imgName.setImageResource(R.drawable.r);
+                        break;
+                    case "С":
+                    case "S":
+                        imgName.setImageResource(R.drawable.s);
+                        break;
+                    case "Т":
+                    case "T":
+                        imgName.setImageResource(R.drawable.t);
+                        break;
+                    case "У":
+                    case "U":
+                        imgName.setImageResource(R.drawable.u);
+                        break;
+                    case "В":
+                    case "V":
+                        imgName.setImageResource(R.drawable.v);
+                        break;
+                    case "W":
+                        imgName.setImageResource(R.drawable.w);
+                        break;
+                    case "X":
+                        imgName.setImageResource(R.drawable.x);
+                        break;
+                    case "Y":
+                        imgName.setImageResource(R.drawable.y);
+                        break;
+                    case "З":
+                    case "Z":
+                        imgName.setImageResource(R.drawable.z);
+                        break;
+                    default:
+                        imgName.setImageResource(R.drawable.failed_print);
+                        break;
+                }
+           // }
     }
 
 
@@ -306,7 +349,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
                 }
-                Snackbar.make(addEditText, "Refreshed",
+                Snackbar.make(addEditText, getString(R.string.main_refresh_snack),
                         Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 addEditText.setText("");
@@ -379,5 +422,37 @@ public class MainActivity extends AppCompatActivity
         session.setLoggedin(false);
         finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    }
+
+    public Bitmap getThumbnail(Uri uri) throws FileNotFoundException, IOException {
+        InputStream input = this.getContentResolver().openInputStream(uri);
+
+        BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
+        onlyBoundsOptions.inJustDecodeBounds = true;
+        onlyBoundsOptions.inDither=true;//optional
+        onlyBoundsOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;//optional
+        BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
+        input.close();
+        if ((onlyBoundsOptions.outWidth == -1) || (onlyBoundsOptions.outHeight == -1))
+            return null;
+
+        int originalSize = (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) ? onlyBoundsOptions.outHeight : onlyBoundsOptions.outWidth;
+
+        double ratio = (originalSize > 2) ? (originalSize / 2) : 1.0;
+
+        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
+        bitmapOptions.inDither=true;//optional
+        bitmapOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;//optional
+        input = this.getContentResolver().openInputStream(uri);
+        Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
+        input.close();
+        return bitmap;
+    }
+
+    private static int getPowerOfTwoForSampleRatio(double ratio){
+        int k = Integer.highestOneBit((int)Math.floor(ratio));
+        if(k==0) return 1;
+        else return k;
     }
 }
