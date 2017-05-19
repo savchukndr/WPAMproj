@@ -40,6 +40,8 @@
         <item>Покупки</item>
     </string-array>
     <string name="chooseCategoryAlert">Выберите категорию</string>
+    <string name="about_trans_alert_title">Описание расхода</string>
+    <string name="about_trans_alert_message">На что Вы потратили:</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">История</string>

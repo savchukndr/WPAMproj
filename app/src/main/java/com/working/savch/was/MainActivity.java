@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity
     private Bitmap bitmap;
     private int userId;
     private int categoryChoose;
+    private String userInputValue;
 
     /*@BindView(R.id.btn_income) Button _incomeButton;
     @BindView(R.id.btn_spend) Button _spendButton;*/
@@ -180,17 +181,37 @@ public class MainActivity extends AppCompatActivity
                                     // The 'which' argument contains the index position
                                     // of the selected item
                                     categoryChoose = which;
-                                    dbHelper.openToWrite();
-                                    long rowID = dbHelper.insertTransactionTable(amount, "aboutTODO", userId, categoryChoose); //TODO: insertTransaction userID current and category
-                                    Snackbar.make(view, getString(R.string.main_record_add),
-                                            Snackbar.LENGTH_LONG)
-                                            .setAction("Action", null).show();
-                                    Cursor cursor = dbHelper.querySum();
-                                    while(cursor.moveToNext())
-                                    {
-                                        textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
-                                    }
-                                    addEditText.setText("");
+
+
+                                    final AlertDialog.Builder inputAlert = new AlertDialog.Builder(context);
+                                    inputAlert.setTitle(R.string.about_trans_alert_title);
+                                    inputAlert.setMessage("We need your name to proceed");
+                                    final EditText userInput = new EditText(context);
+                                    inputAlert.setView(userInput);
+                                    inputAlert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            userInputValue = userInput.getText().toString();
+
+                                            dbHelper.openToWrite();
+                                            long rowID = dbHelper.insertTransactionTable(amount, userInputValue, userId, categoryChoose); //TODO: insertTransaction userID current and category
+                                            Snackbar.make(view, getString(R.string.main_record_add),
+                                                    Snackbar.LENGTH_LONG)
+                                                    .setAction("Action", null).show();
+                                            Cursor cursor = dbHelper.querySum();
+                                            while(cursor.moveToNext())
+                                            {
+                                                textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+                                            }
+                                            addEditText.setText("");
+                                        }
+                                    });
+
+                                    AlertDialog alertDialog = inputAlert.create();
+                                    alertDialog.show();
+
+
+
                                 }
                             });
                     AlertDialog alrt = builder.create();
