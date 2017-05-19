@@ -28,7 +28,8 @@
             android:hint="@string/input_amount"
             android:inputType="numberDecimal"
             android:textColor="@color/accent"
-            android:textColorHint="@color/accent" />
+            android:textColorHint="@color/accent"
+            android:layout_weight="0.98" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/LinearLayoutMain"
@@ -36,11 +37,30 @@
         android:layout_width="fill_parent"
         android:gravity="center_horizontal"
         android:weightSum="1"
-        android:layout_below="@+id/LinearLayoutMain2"
-        android:layout_alignParentStart="true">
+        android:layout_below="@+id/LinearLayoutMain2">
 
+        <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="18dp"
+                android:text="@string/income_btn"
+                android:layout_weight="0.56"
+                tools:ignore="RtlHardcoded" />
 
-        <EditText
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_spend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="18dp"
+            android:text="@string/spend_btn"
+            android:layout_weight="0.56"
+            tools:ignore="RtlHardcoded" />
+        <!--<EditText
             android:id="@+id/delEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -49,7 +69,7 @@
             android:hint="@string/input_delAmount"
             android:inputType="numberDecimal"
             android:textColor="@color/accent"
-            android:textColorHint="@color/accent" />
+            android:textColorHint="@color/accent" />-->
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-7423558564398166/5038445135"></com.google.android.gms.ads.AdView>
+            ads:adUnitId="ca-app-pub-7423558564398166/5038445135" />
     </LinearLayout>
 
     <LinearLayout

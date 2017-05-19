@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.working.savch.was.IntroActivity;
 import com.working.savch.was.R;
-import com.working.savch.was.Session;
+import com.working.savch.was.session.Session;
 import com.working.savch.was.base.MySQLAdapter;
 import com.working.savch.was.login.LoginActivity;
 
@@ -88,11 +88,10 @@ public class SignupActivity extends AppCompatActivity {
             progressDialog.setMessage("Creating Account...");
             progressDialog.show();
 
-            // TODO: Implement your own signup logic here.
             Log.d(LOG_TAG, "--- Insert in mytable: ---");
 
             dbHelper.openToWrite();
-            long rowID = dbHelper.insert("name", "email", "password", name, email, password);
+            long rowID = dbHelper.insert(name, email, password, 0); //TODO: isFinger implementation
             Log.d(LOG_TAG, "row inserted, ID = " + rowID);
 
             new android.os.Handler().postDelayed(

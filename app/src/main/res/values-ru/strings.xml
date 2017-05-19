@@ -14,7 +14,7 @@
     <!--Manu action bar activity-->
     <string name="about_title">О приложении</string>
     <string name="main_logout_title">Выход</string>
-    <string name="about_text">Приложение для отслеживания Ваших средств.\nАвтор:\nАндрей Савчук\n2017</string>
+    <string name="about_text">Приложение для отслеживания Ваших средств.\nАвтор: Андрей Савчук\n2017</string>
     <string name="action_settings">Settings</string>
 
     <!--Menu nav bar-->
@@ -33,6 +33,13 @@
     <string name="main_refresh_snack">Обновлено!</string>
     <string name="main_one_field">Вы можете вводить сумму только в одно поле одновременно!</string>
     <string name="main_record_add">Запись добавлена!</string>
+    <string name="income_btn">прибыль</string>
+    <string name="spend_btn">расходы</string>
+    <string-array name="category_array">
+        <item>Развлечение</item>
+        <item>Покупки</item>
+    </string-array>
+    <string name="chooseCategoryAlert">Выберите категорию</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">История</string>

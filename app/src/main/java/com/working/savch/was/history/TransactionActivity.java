@@ -1,4 +1,4 @@
-package com.working.savch.was;
+package com.working.savch.was.history;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,7 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
+import com.working.savch.was.MainActivity;
+import com.working.savch.was.R;
 import com.working.savch.was.base.MySQLAdapter;
+import com.working.savch.was.history.DividerItemDecoration;
+import com.working.savch.was.history.HistoriesAdapter;
+import com.working.savch.was.history.History;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +64,7 @@ public class TransactionActivity extends AppCompatActivity{
         }
 
         // Setting up the cursor which points to the desired table
-        Cursor cursor = dbHelper.queueTransaction(email);
+        Cursor cursor = dbHelper.queueTransaction();
 
 
 
@@ -132,12 +137,10 @@ public class TransactionActivity extends AppCompatActivity{
                 if (direction == ItemTouchHelper.LEFT){
                     dbHelper.openToWrite();
 
-                    //TODO: SQL query
                     History history11 = historyList.get(position);
                     String date1 = history11.getAmount();
                     dbHelper.deleteAll(date1);
                     hAdapter.removeItem(position);
-                    //TODO
                 }
             }
 

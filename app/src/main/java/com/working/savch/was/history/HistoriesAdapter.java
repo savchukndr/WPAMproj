@@ -1,4 +1,4 @@
-package com.working.savch.was;
+package com.working.savch.was.history;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.working.savch.was.R;
 
 import java.util.List;
 

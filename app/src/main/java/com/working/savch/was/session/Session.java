@@ -1,4 +1,4 @@
-package com.working.savch.was;
+package com.working.savch.was.session;
 
 import android.content.Context;
 import android.content.SharedPreferences;

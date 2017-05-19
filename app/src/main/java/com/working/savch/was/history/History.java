@@ -1,4 +1,4 @@
-package com.working.savch.was;
+package com.working.savch.was.history;
 
 /**
  * Created by savch on 09.05.2017.

@@ -13,7 +13,7 @@
     <!--Manu action bar activity-->
     <string name="about_title">About</string>
     <string name="main_logout_title">Log out</string>
-    <string name="about_text">An application for keeping track of your funds.\nWas created by:\nAndrii Savchuk\n2017</string>
+    <string name="about_text">An application for keeping track of your funds.\nWas created by: Andrii Savchuk\n2017</string>
     <string name="action_settings">Settings</string>
 
     <!--Menu nav bar-->
@@ -32,6 +32,13 @@
     <string name="main_refresh_snack">Refreshed!</string>
     <string name="main_one_field">You can input just in one field at the same time!</string>
     <string name="main_record_add">Record added!</string>
+    <string name="income_btn">income</string>
+    <string name="spend_btn">spend</string>
+    <string-array name="category_array">
+        <item>Entertainment</item>
+        <item>Purchases</item>
+    </string-array>
+    <string name="chooseCategoryAlert">Choose category</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">History</string>

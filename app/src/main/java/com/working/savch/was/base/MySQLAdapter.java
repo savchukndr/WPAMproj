@@ -16,36 +16,39 @@ import java.util.Locale;
  */
 
 public class MySQLAdapter {
-    //final String LOG_TAG = "myLogs";
-    private static final String DBNAME  = "DB_r_11";
+    private static final String DBNAME  = "DB_test_22"; //DB_r_11
     private static final String TABLE   = "user";
     private static final String TABLE_TRANSACTION   = "trans";
+    private static final String TABLE_CATEGORIES   = "categories";
     public static final int    VERSION = 1;
-
-    private static final String KEY_ID = "_id";
-    // Add other fields here
 
     SQLiteDatabase sqLiteDatabase;
     private SQLiteHelper sqLiteHelper;
     private Context mContext;
 
-    //this is how I write the create db script, you may do it you own way;)
-
     private static final String CREATE_TABLE =
             "CREATE TABLE user ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                    + "id_user INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + "name TEXT,"
                     + "email TEXT,"
-                    + "password TEXT);";
+                    + "password TEXT,"
+                    + "isFinger INTEGER);";
 
     private static final String CREATE_TABLE_TRANS =
             "CREATE TABLE trans ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-                    + "name TEXT,"
-                    + "email TEXT,"
+                    + "id_trans INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + "amount REAL,"
-                    + "currentdate DATETIME DEFAULT CURRENT_TIMESTAMP);";
+                    + "currentdate DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                    + "about TEXT,"
+                    + "track_user INTEGER,"
+                    + "track_categories INTEGER,"
+                    + "FOREIGN KEY(track_user) REFERENCES user(id_user),"
+                    + "FOREIGN KEY(track_categories) REFERENCES categories(id_categories));";
 
+    private static final String CREATE_TABLE_CATEGORIES =
+            "CREATE TABLE categories ("
+                    + "id_categories INTEGER PRIMARY KEY NOT NULL,"
+                    + "categories_name TEXT);";
 
     public MySQLAdapter(Context context){
         mContext = context;
@@ -59,22 +62,22 @@ public class MySQLAdapter {
         return sqLiteDatabase.delete(TABLE_TRANSACTION, "currentdate='" + date + "'", null);
     }
 
-    public long insert(String name, String email, String password,
-                       String nameVal, String emailVal, String passwordVal) {
+    public long insert(String nameVal, String emailVal, String passwordVal, int isFinger) {
         ContentValues cv = new ContentValues();
-        cv.put(name, nameVal);
-        cv.put(email, emailVal);
-        cv.put(password, passwordVal);
+        cv.put("name", nameVal);
+        cv.put("email", emailVal);
+        cv.put("password", passwordVal);
+        cv.put("isFinger", isFinger);
         return sqLiteDatabase.insert(TABLE, null, cv);
     }
 
-    public long insertTransactionTable(String name, String email, String amount, String currentdate,
-                                       String nameVal, String emailVal, double amountVal){
+    public long insertTransactionTable(double amountVal, String aboutVal, int userVal, int categoriesVal){
         ContentValues cv = new ContentValues();
-        cv.put(name, nameVal);
-        cv.put(email, emailVal);
-        cv.put(amount, amountVal);
-        cv.put(currentdate, getDateTime());
+        cv.put("amount", amountVal);
+        cv.put("currentdate", getDateTime());
+        cv.put("about", aboutVal);
+        cv.put("track_user", userVal);
+        cv.put("track_categories", categoriesVal);
         return sqLiteDatabase.insert(TABLE_TRANSACTION, null, cv);
     }
 
@@ -98,23 +101,23 @@ public class MySQLAdapter {
         return sqLiteDatabase.rawQuery("SELECT * FROM user", null);
     }
 
-    public Cursor queueTransaction(String email){
-        return sqLiteDatabase.rawQuery("SELECT id, currentdate, amount FROM trans WHERE email = '" + email + "';", null);
+    public Cursor queueUserId(String email){
+        return sqLiteDatabase.rawQuery("SELECT id_user FROM user WHERE email='" + email + "';", null);
     }
 
-    public Cursor deleteTransaction(String date){
-        return sqLiteDatabase.rawQuery("DELETE FROM trans WHERE currentdate = '" + date + "';", null);
+    public Cursor queueTransaction(){
+        return sqLiteDatabase.rawQuery("SELECT currentdate, amount FROM trans, user WHERE trans.track_user=user.id_user;", null);
     }
 
-    public Cursor querySum(String email){
-        return  sqLiteDatabase.rawQuery("SELECT sum(amount) AS totalSum FROM trans WHERE email = '" + email + "';", null);
+    public Cursor querySum(){
+        return  sqLiteDatabase.rawQuery("SELECT sum(amount) AS totalSum FROM trans, user WHERE trans.track_user=user.id_user;", null);
     }
 
 
-    public Cursor queueDay(String query) {
-        String[] KEYS = { KEY_ID /* and all other KEYS*/ };
+    /*public Cursor queueDay(String query) {
+        String[] KEYS = { KEY_ID *//* and all other KEYS*//* };
         return sqLiteDatabase.query(TABLE, KEYS, query, null, null, null, null);
-    }
+    }*/
 
     public class SQLiteHelper extends SQLiteOpenHelper {
         public SQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -122,14 +125,21 @@ public class MySQLAdapter {
         }
 
         public void onCreate(SQLiteDatabase db) {
-            //Log.d(LOG_TAG, "--- onDrop database ---");
-            //db.execSQL("DROP TABLE user");
-            //db.execSQL("DROP TABLE trans");
-            //Log.d(LOG_TAG, "--- onCreate database ---");
-            //Log.d(LOG_TAG, "--- Create user ---");
             db.execSQL(CREATE_TABLE);
-            //db.execSQL("delete from sqlite_sequence where name='trans';");
-            //Log.d(LOG_TAG, "--- Create transaction ---");
+            db.execSQL(CREATE_TABLE_CATEGORIES);
+
+            ContentValues cv = new ContentValues();
+            cv.put("id_categories", 0);
+            cv.put("categories_name", "entertainment");
+            db.insert(TABLE_CATEGORIES, null, cv);
+            cv = new ContentValues();
+            cv.put("id_categories", 1);
+            cv.put("categories_name", "purchases");
+            db.insert(TABLE_CATEGORIES, null, cv);
+            cv = new ContentValues();
+            cv.put("id_categories", 2);
+            cv.put("categories_name", "earnings");
+            db.insert(TABLE_CATEGORIES, null, cv);
             db.execSQL(CREATE_TABLE_TRANS);
 
         }

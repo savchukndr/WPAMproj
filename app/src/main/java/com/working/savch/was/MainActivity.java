@@ -1,6 +1,8 @@
 package com.working.savch.was;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -9,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,13 +31,17 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.working.savch.was.base.MySQLAdapter;
+import com.working.savch.was.history.TransactionActivity;
 import com.working.savch.was.login.LoginActivity;
+import com.working.savch.was.session.Session;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import butterknife.BindView;
 
 
 public class MainActivity extends AppCompatActivity
@@ -51,6 +59,11 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private Session session;
     private Bitmap bitmap;
+    private int userId;
+    private int categoryChoose;
+
+    /*@BindView(R.id.btn_income) Button _incomeButton;
+    @BindView(R.id.btn_spend) Button _spendButton;*/
 
 
 
@@ -100,14 +113,101 @@ public class MainActivity extends AppCompatActivity
         textViewInfo.setText(String.format( "%.2f", controlSum));
 
         dbHelper.openToWrite();
-        Cursor cursor = dbHelper.querySum(mCurrentEmail);
+        Cursor cursor = dbHelper.querySum();
         while(cursor.moveToNext())
         {
             textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
         }
 
+        Cursor cursorUserId = dbHelper.queueUserId(mCurrentEmail);
+        while(cursorUserId.moveToNext()){
+            userId = cursorUserId.getInt(cursorUserId.getColumnIndex("id_user"));
+        }
 
-        //Add transaction record to db
+        Button _incomeButton = (Button) findViewById(R.id.btn_income);
+        Button _spendButton = (Button) findViewById(R.id.btn_spend);
+
+        //income button
+        _incomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
+                EditText addEditText = (EditText) findViewById(R.id.addEditText);
+                String tmpAdd = addEditText.getText().toString();
+
+                strCheck(tmpAdd);
+                if(inputMoneyFlag) {
+                    double amount;
+                    amount = Double.parseDouble(tmpAdd);
+
+                    dbHelper.openToWrite();
+                    long rowID = dbHelper.insertTransactionTable(amount, "aboutTODO", userId, 2); //TODO: insertTransaction userID current and category
+                    Snackbar.make(view, getString(R.string.main_record_add),
+                            Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    Cursor cursor = dbHelper.querySum();
+                    while(cursor.moveToNext())
+                    {
+                        textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+                    }
+                    addEditText.setText("");
+                }else{
+                    Snackbar.make(view, getString(R.string.main_one_field),
+                            Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    addEditText.setText("");
+                }
+            }
+        });
+
+        //spend button
+        _spendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                final TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
+                final EditText addEditText = (EditText) findViewById(R.id.addEditText);
+                String tmpAdd = addEditText.getText().toString();
+
+                strCheck(tmpAdd);
+                if(inputMoneyFlag) {
+                    final double amount;
+                    amount = Double.parseDouble(tmpAdd) * (-1);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle(R.string.chooseCategoryAlert)
+                            .setItems(R.array.category_array, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // The 'which' argument contains the index position
+                                    // of the selected item
+                                    categoryChoose = which;
+                                    dbHelper.openToWrite();
+                                    long rowID = dbHelper.insertTransactionTable(amount, "aboutTODO", userId, categoryChoose); //TODO: insertTransaction userID current and category
+                                    Snackbar.make(view, getString(R.string.main_record_add),
+                                            Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
+                                    Cursor cursor = dbHelper.querySum();
+                                    while(cursor.moveToNext())
+                                    {
+                                        textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+                                    }
+                                    addEditText.setText("");
+                                }
+                            });
+                    AlertDialog alrt = builder.create();
+                    alrt.show();
+
+
+                }else{
+                    Snackbar.make(view, getString(R.string.main_one_field),
+                            Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    addEditText.setText("");
+                }
+            }
+        });
+
+
+        /*//Add transaction record to db
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,14 +229,13 @@ public class MainActivity extends AppCompatActivity
                         amount = Double.parseDouble(tmpDel) * (-1);
                     }
                     dbHelper.openToWrite();
-                    long rowID = dbHelper.insertTransactionTable("name", "email", "amount", "currentdate",
-                            mCurrentName, mCurrentEmail, amount);
+                    long rowID = dbHelper.insertTransactionTable(amount, "aboutTODO", 1, 3); //TODO: insertTransaction userID current and category
                     //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
                     Snackbar.make(view, getString(R.string.main_record_add),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
-                    Cursor cursor = dbHelper.querySum(mCurrentEmail);
+                    Cursor cursor = dbHelper.querySum();
                     while(cursor.moveToNext())
                     {
                         textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
@@ -151,7 +250,7 @@ public class MainActivity extends AppCompatActivity
                     delEditText.setText("");
                 }
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -333,9 +432,9 @@ public class MainActivity extends AppCompatActivity
                 return true;
             case R.id.action_refresh:
                 EditText addEditText = (EditText) findViewById(R.id.addEditText);
-                EditText delEditText = (EditText) findViewById(R.id.delEditText);
+                //EditText delEditText = (EditText) findViewById(R.id.delEditText);
                 dbHelper.openToWrite();
-                Cursor cursor = dbHelper.querySum(mCurrentEmail);
+                Cursor cursor = dbHelper.querySum();
                 while(cursor.moveToNext())
                 {
                     textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
@@ -344,7 +443,7 @@ public class MainActivity extends AppCompatActivity
                         Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 addEditText.setText("");
-                delEditText.setText("");
+                //delEditText.setText("");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -378,7 +477,7 @@ public class MainActivity extends AppCompatActivity
         view.setBackgroundColor(color);
     }
 
-    public void strCheck(String x, String y) {
+    /*public void strCheck(String x, String y) {
         //inputMoneyFlag = !x.isEmpty() && y.isEmpty() || !(!x.isEmpty() && !y.isEmpty());
         if (!x.isEmpty() && y.isEmpty()){
             inputMoneyFlag = true;
@@ -389,6 +488,14 @@ public class MainActivity extends AppCompatActivity
         }else if(x.isEmpty() && y.isEmpty()){
             inputMoneyFlag = false;
         }else if(!x.isEmpty() && !y.isEmpty()){
+            inputMoneyFlag = false;
+        }
+    }*/
+
+    public void strCheck(String x) {
+        if (!x.isEmpty()){
+            inputMoneyFlag = true;
+        }else if (x.isEmpty()){
             inputMoneyFlag = false;
         }
     }
@@ -446,4 +553,6 @@ public class MainActivity extends AppCompatActivity
         if(k==0) return 1;
         else return k;
     }
+
+
 }

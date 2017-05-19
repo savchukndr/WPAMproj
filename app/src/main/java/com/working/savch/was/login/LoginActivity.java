@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.working.savch.was.IntroActivity;
-import com.working.savch.was.Session;
+import com.working.savch.was.session.Session;
 import com.working.savch.was.fingerPrint.FingerprintActivity;
 import com.working.savch.was.MainActivity;
 import com.working.savch.was.base.MySQLAdapter;
@@ -73,10 +73,10 @@ public class LoginActivity extends AppCompatActivity implements
     private boolean hasPhoto = false;
 
 
-    @BindView(R.id.input_email) EditText _emailText;
+   /* @BindView(R.id.input_email) EditText _emailText;
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) Button _loginButton;
-    @BindView(R.id.link_signup) TextView _signupLink;
+    @BindView(R.id.link_signup) TextView _signupLink;*/
     @BindView(R.id.fing_btn) Button _fingerButton;
     private LoginButton _signupFaceButton;
 
@@ -117,7 +117,8 @@ public class LoginActivity extends AppCompatActivity implements
             finish();
         }
 
-        //Login button listener
+        //*****************************************************************************
+        /*//Login button listener
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -138,7 +139,8 @@ public class LoginActivity extends AppCompatActivity implements
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
-        });
+        });*/
+        //*****************************************************************************
 
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
 
@@ -198,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements
                         password = "adminacc";
                         if (!ifUserExsist(email)) {
                             dbHelper.openToWrite();
-                            long rowID = dbHelper.insert("name", "email", "password", name, email, password);
+                            long rowID = dbHelper.insert(name, email, password, 0); //TODO: isFinger implementation
                             //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
                         }
 
@@ -249,8 +251,9 @@ public class LoginActivity extends AppCompatActivity implements
         //Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 
+    //********************************************************************************
     //login with Login Button
-    public void login() {
+    /*public void login() {
        // Log.d(TAG, "Login");
 
         if (!validate()) {
@@ -269,13 +272,11 @@ public class LoginActivity extends AppCompatActivity implements
         final String email = _emailText.getText().toString();
         final String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
-
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        // TODO: Check from SQLlite
+
                         if (userAutentification(email, password)){
                             onLoginSuccess(personNameSimple, email);
                         }else{
@@ -285,7 +286,8 @@ public class LoginActivity extends AppCompatActivity implements
                         progressDialog.dismiss();
                     }
                 }, 3000);
-    }
+    }*/
+    //******************************************************************************
 
 
     @Override
@@ -311,7 +313,7 @@ public class LoginActivity extends AppCompatActivity implements
             password = "adminacc";
             if (!ifUserExsist(email)) {
                 dbHelper.openToWrite();
-                long rowID = dbHelper.insert("name", "email", "password", name, email, password);
+                long rowID = dbHelper.insert(name, email, password, 0); //TODO: isFinger implementation
                 //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
             }
 
@@ -333,8 +335,6 @@ public class LoginActivity extends AppCompatActivity implements
 
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
             }
@@ -361,7 +361,8 @@ public class LoginActivity extends AppCompatActivity implements
             session.setPhoto(personPhoto.toString());
             session.setHasPhoto(hasPhoto);
         }*/
-        _loginButton.setEnabled(true);
+        //_loginButton.setEnabled(true);
+
         /*Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         intent.putExtra("userName", name);
         intent.putExtra("userEmail", email);*/
@@ -373,10 +374,11 @@ public class LoginActivity extends AppCompatActivity implements
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
-        _loginButton.setEnabled(true);
+        //_loginButton.setEnabled(true);
     }
 
-    public boolean validate() {
+    //*************************************************************************************
+    /*public boolean validate() {
         boolean valid = true;
 
         String email = _emailText.getText().toString();
@@ -397,7 +399,8 @@ public class LoginActivity extends AppCompatActivity implements
         }
 
         return valid;
-    }
+    }*/
+    //*************************************************************************************
 
     public Boolean userAutentification(String email, String password)
     {

@@ -14,7 +14,7 @@
     <!--Manu action bar activity-->
     <string name="about_title">Про додаток</string>
     <string name="main_logout_title">Вихід</string>
-    <string name="about_text">Дадаток для відстежування Ваших коштівПриложение для отслеживания ваших средств.\nАвтор:\nАндрій Савчук\n2017</string>
+    <string name="about_text">Дадаток для відстежування Ваших коштів.\nАвтор: Андрій Савчук\n2017</string>
     <string name="action_settings">Settings</string>
 
     <!--Menu nav bar-->
@@ -33,6 +33,13 @@
     <string name="main_refresh_snack">Оновлено!</string>
     <string name="main_one_field">Ви можете вводити суму тільки в одне поле одночасно!</string>
     <string name="main_record_add">Запис доданий!</string>
+    <string name="income_btn">прибуток</string>
+    <string name="spend_btn">витрати</string>
+    <string-array name="category_array">
+        <item>Розваги</item>
+        <item>Покупки</item>
+    </string-array>
+    <string name="chooseCategoryAlert">Оберіть категорію</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">Історія</string>

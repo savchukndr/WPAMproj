@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.working.savch.was.login.LoginActivity;
+import com.working.savch.was.session.Session;
 
 /**
  * Created by savch on 10.05.2017.

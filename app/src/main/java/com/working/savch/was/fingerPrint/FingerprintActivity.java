@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.working.savch.was.Manifest;
 import com.working.savch.was.R;
-import com.working.savch.was.Session;
+import com.working.savch.was.session.Session;
 import com.working.savch.was.login.LoginActivity;
 
 import java.io.IOException;

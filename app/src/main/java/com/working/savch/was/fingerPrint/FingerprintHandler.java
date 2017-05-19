@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.working.savch.was.MainActivity;
 import com.working.savch.was.R;
-import com.working.savch.was.Session;
+import com.working.savch.was.session.Session;
 
 public class FingerprintHandler extends
         FingerprintManager.AuthenticationCallback {
