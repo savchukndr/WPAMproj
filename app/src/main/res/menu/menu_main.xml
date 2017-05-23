@@ -10,6 +10,13 @@
         app:showAsAction="never"
         />
 
+    <!--<item
+        android:id="@+id/myswitch"
+        android:title=""
+        android:showAsAction="always"
+        android:actionLayout="@layout/switch_layout"
+        />-->
+
     <item
         android:id="@+id/action_refresh"
         android:orderInCategory="100"

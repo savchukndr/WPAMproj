@@ -45,6 +45,7 @@
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">Історія</string>
+    <string name="about_trans_alert">Опис</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">Не маєте облікового запису? Створіть</string>

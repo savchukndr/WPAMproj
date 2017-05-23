@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity
 
                                     final AlertDialog.Builder inputAlert = new AlertDialog.Builder(context);
                                     inputAlert.setTitle(R.string.about_trans_alert_title);
-                                    inputAlert.setMessage("We need your name to proceed");
+                                    inputAlert.setMessage(R.string.about_trans_alert_message);
                                     final EditText userInput = new EditText(context);
                                     inputAlert.setView(userInput);
                                     inputAlert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity
                                             userInputValue = userInput.getText().toString();
 
                                             dbHelper.openToWrite();
-                                            long rowID = dbHelper.insertTransactionTable(amount, userInputValue, userId, categoryChoose); //TODO: insertTransaction userID current and category
+                                            long rowID = dbHelper.insertTransactionTable(amount, userInputValue, userId, categoryChoose);
                                             Snackbar.make(view, getString(R.string.main_record_add),
                                                     Snackbar.LENGTH_LONG)
                                                     .setAction("Action", null).show();

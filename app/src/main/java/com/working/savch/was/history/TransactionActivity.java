@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.working.savch.was.MainActivity;
@@ -35,6 +36,8 @@ public class TransactionActivity extends AppCompatActivity{
     private HistoriesAdapter hAdapter;
     private Paint p = new Paint();
     private String email;
+    private int userId;
+    private int categoriesID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,11 @@ public class TransactionActivity extends AppCompatActivity{
             email = extras.getString("userEmail");
         }
 
+        Cursor cursorUserId = dbHelper.queueUserId(email);
+        while(cursorUserId.moveToNext()){
+            userId = cursorUserId.getInt(cursorUserId.getColumnIndex("id_user"));
+        }
+
         // Setting up the cursor which points to the desired table
         Cursor cursor = dbHelper.queueTransaction();
 
@@ -76,7 +84,7 @@ public class TransactionActivity extends AppCompatActivity{
 
             recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
             recyclerView.setHasFixedSize(true);
-            hAdapter = new HistoriesAdapter(historyList);
+            hAdapter = new HistoriesAdapter(historyList, getApplicationContext(), String.valueOf(userId));
             RecyclerView.LayoutManager hLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(hLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -87,9 +95,10 @@ public class TransactionActivity extends AppCompatActivity{
             int count = 1;
             do
             {
-                String columnDate = cursor.getString(cursor.getColumnIndex("currentdate"));
-                String columnAmount = cursor.getString(cursor.getColumnIndex("amount"));
-                prepareMovieData(String.valueOf(count), columnDate, columnAmount);
+                String columnDate = cursor.getString(cursor.getColumnIndex("t.currentdate"));
+                String columnAmount = cursor.getString(cursor.getColumnIndex("t.amount"));
+                String columnCategory = cursor.getString(cursor.getColumnIndex("c.categories_name"));
+                prepareTransactioneData(columnCategory, columnDate, columnAmount);
 
                 count++;
             }while(cursor.moveToNext()); // Moves to the next row
@@ -116,14 +125,22 @@ public class TransactionActivity extends AppCompatActivity{
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
-    private void prepareMovieData(String id, String date,String amount) {
-        History movie = new History(amount, id, date);
-        historyList.add(movie);
+    private void prepareTransactioneData(String id, String date, String amount) {
+        History hist = new History(amount, id, date);
+        historyList.add(hist);
     }
+
+    /*@Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+        int position = viewHolder.getAdapterPosition();
+    }*/
 
 
     private void initSwipe(){
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -143,6 +160,8 @@ public class TransactionActivity extends AppCompatActivity{
                     hAdapter.removeItem(position);
                 }
             }
+
+
 
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {

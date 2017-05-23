@@ -1,18 +1,29 @@
 package com.working.savch.was.history;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.working.savch.was.R;
+import com.working.savch.was.base.MySQLAdapter;
 
 import java.util.List;
 
 public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyViewHolder> {
     private List<History> historiesList;
+    private MySQLAdapter dbHelper;
+    private Context context;
+    private String aboutTrans = "";
+    private String userID;
+    private int categoriesID;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView amount, date, id;
@@ -20,15 +31,19 @@ public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyVi
 
         public MyViewHolder(View view) {
             super(view);
-            amount = (TextView) view.findViewById(R.id.amountTrans);
+            id = (TextView) view.findViewById(R.id.amountTrans);
             date = (TextView) view.findViewById(R.id.dateTrans);
-            id = (TextView) view.findViewById(R.id.idTrans);
+            amount = (TextView) view.findViewById(R.id.idTrans);
+
         }
     }
 
 
-    public HistoriesAdapter(List<History> historiesList) {
+    public HistoriesAdapter(List<History> historiesList, Context cont, String userID) {
         this.historiesList = historiesList;
+        this.context = cont;
+        this.userID = userID;
+        dbHelper = new MySQLAdapter(this.context);
     }
 
 
@@ -41,19 +56,51 @@ public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyVi
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         History history = historiesList.get(position);
-        holder.amount.setText(history.getAmount());
+        holder.id.setText(history.getAmount());
         holder.date.setText(history.getDate());
-        holder.id.setText(history.getId());
+        holder.amount.setText(history.getId());
         if (Double.parseDouble(history.getId()) > 0) {
-            holder.id.setTextColor(Color.GREEN);
+            holder.amount.setTextColor(Color.GREEN);
         }else if (Double.parseDouble(history.getId()) < 0){
-            holder.id.setTextColor(Color.RED);
+            holder.amount.setTextColor(Color.RED);
         }else{
-            holder.id.setTextColor(Color.YELLOW);
+            holder.amount.setTextColor(Color.YELLOW);
         }
+        final String currentDate = history.getAmount();
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHelper.openToWrite();
+                Cursor cursor = dbHelper.queueTransactionAbout(currentDate);
+
+                // Checking if the table has values other than the header using the cursor
+                while(cursor.moveToNext()){
+                    aboutTrans = cursor.getString(cursor.getColumnIndex("about"));
+                    categoriesID = cursor.getInt(cursor.getColumnIndex("track_categories"));
+                }
+                if(categoriesID != 2) {
+                    final AlertDialog.Builder inputAlert = new AlertDialog.Builder(v.getContext());
+                    inputAlert.setTitle(R.string.about_trans_alert);
+                    inputAlert.setMessage(aboutTrans);
+                    inputAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog alertDialog = inputAlert.create();
+                    alertDialog.show();
+                    Toast.makeText(context, aboutTrans, Toast.LENGTH_LONG).show();
+
+                    // Closing the cursor
+                    cursor.close();
+                    // Closing the database
+                    dbHelper.close();
+                }
+            }
+        });
     }
 
     @Override

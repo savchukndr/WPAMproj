@@ -316,7 +316,6 @@ public class LoginActivity extends AppCompatActivity implements
                 long rowID = dbHelper.insert(name, email, password, 0); //TODO: isFinger implementation
                 //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
             }
-
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {

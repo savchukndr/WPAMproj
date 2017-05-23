@@ -16,7 +16,7 @@ import java.util.Locale;
  */
 
 public class MySQLAdapter {
-    private static final String DBNAME  = "DB_test_22"; //DB_r_11
+    private static final String DBNAME  = "DB_test_32"; //DB_r_11
     private static final String TABLE   = "user";
     private static final String TABLE_TRANSACTION   = "trans";
     private static final String TABLE_CATEGORIES   = "categories";
@@ -106,7 +106,14 @@ public class MySQLAdapter {
     }
 
     public Cursor queueTransaction(){
-        return sqLiteDatabase.rawQuery("SELECT currentdate, amount FROM trans, user WHERE trans.track_user=user.id_user;", null);
+        return sqLiteDatabase.rawQuery("SELECT t.currentdate, t.amount, c.categories_name " +
+                "FROM trans t, user u, categories c " +
+                "WHERE t.track_user=u.id_user " +
+                "AND t.track_categories=c.id_categories;", null);
+    }
+
+    public Cursor queueTransactionAbout(String currentDate){
+        return sqLiteDatabase.rawQuery("SELECT t.about, t.track_categories FROM trans t WHERE t.currentdate='" + currentDate + "';", null);
     }
 
     public Cursor querySum(){

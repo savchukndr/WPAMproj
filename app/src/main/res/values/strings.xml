@@ -44,6 +44,7 @@
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">History</string>
+    <string name="about_trans_alert">About</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">No account yet? Create one</string>
