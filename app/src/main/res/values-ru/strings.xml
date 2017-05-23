@@ -42,6 +42,7 @@
     <string name="chooseCategoryAlert">Выберите категорию</string>
     <string name="about_trans_alert_title">Описание расхода</string>
     <string name="about_trans_alert_message">На что Вы потратили:</string>
+    <string name="checkable">Отпечаток пальца</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">История</string>

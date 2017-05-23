@@ -64,6 +64,15 @@ public class Session {
         editor.commit();
     }
 
+    public void setFingerPrint(boolean fingerprint){
+        editor.putBoolean("fingerPrintMode",fingerprint);
+        editor.commit();
+    }
+
+    public boolean fingerPrint(){
+        return prefs.getBoolean("fingerPrintMode", false);
+    }
+
     public boolean hasPhoto(){
         return prefs.getBoolean("hasPhoto", false);
     }

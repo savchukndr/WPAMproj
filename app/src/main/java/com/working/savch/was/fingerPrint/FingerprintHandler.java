@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.working.savch.was.MainActivity;
 import com.working.savch.was.R;
+import com.working.savch.was.SplashActivity;
 import com.working.savch.was.session.Session;
 
 public class FingerprintHandler extends
@@ -91,5 +92,6 @@ public class FingerprintHandler extends
         intent.putExtra("userName", "Master");
         intent.putExtra("userEmail", "");
         appContext.startActivity(intent);
+        SplashActivity.spl.finish();
     }
 }

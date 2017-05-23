@@ -103,10 +103,11 @@ public class FingerprintActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Disable going back to the MainActivity
-        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+        /*Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityIfNeeded(intent, 0);
-        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);*/
+        moveTaskToBack(true);
     }
 
     protected void generateKey() {

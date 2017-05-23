@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     private int userId;
     private int categoryChoose;
     private String userInputValue;
+    MenuItem itemC;
 
     /*@BindView(R.id.btn_income) Button _incomeButton;
     @BindView(R.id.btn_spend) Button _spendButton;*/
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity
             mCurrentEmail = session.getEmail();
             mCurrentName = session.getName();
         }
+
 
         MobileAds.initialize(this, "ca-app-pub-7423558564398166~3561711933");
         AdView  adView = (AdView) findViewById(R.id.adView);
@@ -435,6 +438,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        itemC = menu.findItem(R.id.action_check);
+        if(session.fingerPrint()) {
+            itemC.setChecked(true);
+        }
         return true;
     }
 
@@ -448,6 +455,7 @@ public class MainActivity extends AppCompatActivity
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 return true;
             case R.id.action_logout:
+                session.setFingerPrint(false);
                 logOut();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 return true;
@@ -465,6 +473,15 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
                 addEditText.setText("");
                 //delEditText.setText("");
+                return true;
+            case R.id.action_check:
+                if (item.isChecked()){
+                    item.setChecked(false);
+                    session.setFingerPrint(false);
+                }else{
+                    item.setChecked(true);
+                    session.setFingerPrint(true);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

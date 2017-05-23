@@ -42,6 +42,7 @@
     <string name="chooseCategoryAlert">Оберіть категорію</string>
     <string name="about_trans_alert_title">Опис витрати</string>
     <string name="about_trans_alert_message">На що Ви витратили:</string>
+    <string name="checkable">Відбиток пальця</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">Історія</string>
