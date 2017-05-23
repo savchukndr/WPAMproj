@@ -92,12 +92,13 @@ public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyVi
                     });
                     AlertDialog alertDialog = inputAlert.create();
                     alertDialog.show();
-                    Toast.makeText(context, aboutTrans, Toast.LENGTH_LONG).show();
 
                     // Closing the cursor
                     cursor.close();
                     // Closing the database
                     dbHelper.close();
+                }else{
+                    Toast.makeText(context, R.string.earnings_toast, Toast.LENGTH_SHORT).show();
                 }
             }
         });

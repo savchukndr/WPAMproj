@@ -26,7 +26,7 @@
     <string name="balance_text">Balance:</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="calculate_button">Count</string>
-    <string name="input_amount">Input earnings</string>
+    <string name="input_amount">Input amount</string>
     <string name="input_delAmount">Input spendings</string>
     <string name="null_button">Clear</string>
     <string name="main_refresh_snack">Refreshed!</string>
@@ -51,6 +51,7 @@
     <!--HistoryActivity-->
     <string name="title_activity_transaction">History</string>
     <string name="about_trans_alert">About</string>
+    <string name="earnings_toast">Your earnings</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">No account yet? Create one</string>

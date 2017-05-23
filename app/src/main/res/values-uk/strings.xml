@@ -27,7 +27,7 @@
     <string name="balance_text">Баланс:</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="calculate_button">Count</string>
-    <string name="input_amount">Введіть прибуток</string>
+    <string name="input_amount">Введіть сумму</string>
     <string name="input_delAmount">Введіть витрати</string>
     <string name="null_button">Clear</string>
     <string name="main_refresh_snack">Оновлено!</string>
@@ -52,6 +52,7 @@
     <!--HistoryActivity-->
     <string name="title_activity_transaction">Історія</string>
     <string name="about_trans_alert">Опис</string>
+    <string name="earnings_toast">Ваш прибуток</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">Не маєте облікового запису? Створіть</string>
