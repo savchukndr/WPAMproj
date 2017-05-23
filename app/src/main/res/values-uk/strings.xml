@@ -43,6 +43,11 @@
     <string name="about_trans_alert_title">Опис витрати</string>
     <string name="about_trans_alert_message">На що Ви витратили:</string>
     <string name="checkable">Відбиток пальця</string>
+    <string name="exit_alert_title">Вихід</string>
+    <string name="exit_alert_messege">Ви хочете вийти?</string>
+    <string name="yes_button">Так</string>
+    <string name="no_button">Ні</string>
+    <string name="submit_button">Зберегти</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">Історія</string>

@@ -25,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -42,19 +41,15 @@ import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.BindView;
-
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     static private double controlSum = 0.0d;
-   // private final String LOG_TAG = "myLogs_MAIN";
     Context context;
     static final String STATE_NAME = "masterName";
     private String mCurrentName;
     private String mCurrentEmail;
     private boolean inputMoneyFlag = true;
-    private boolean plusMinusChoise = true;
     MySQLAdapter dbHelper;
     TextView textViewInfo;
     private GoogleApiClient mGoogleApiClient;
@@ -64,11 +59,6 @@ public class MainActivity extends AppCompatActivity
     private int categoryChoose;
     private String userInputValue;
     MenuItem itemC;
-
-    /*@BindView(R.id.btn_income) Button _incomeButton;
-    @BindView(R.id.btn_spend) Button _spendButton;*/
-
-
 
 
     @Override
@@ -191,7 +181,7 @@ public class MainActivity extends AppCompatActivity
                                     inputAlert.setMessage(R.string.about_trans_alert_message);
                                     final EditText userInput = new EditText(context);
                                     inputAlert.setView(userInput);
-                                    inputAlert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                                    inputAlert.setPositiveButton(R.string.submit_button, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             userInputValue = userInput.getText().toString();
@@ -455,9 +445,27 @@ public class MainActivity extends AppCompatActivity
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 return true;
             case R.id.action_logout:
-                session.setFingerPrint(false);
-                logOut();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                final AlertDialog.Builder exitAlert = new AlertDialog.Builder(context);
+                exitAlert.setTitle(R.string.exit_alert_title);
+                exitAlert.setMessage(R.string.exit_alert_messege);
+                //inputAlert.setView(userInput);
+                exitAlert.setPositiveButton(R.string.yes_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        session.setFingerPrint(false);
+                        logOut();
+                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                    }
+                });
+                exitAlert.setNegativeButton(R.string.no_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                AlertDialog alertDialog = exitAlert.create();
+                alertDialog.show();
                 return true;
             case R.id.action_refresh:
                 EditText addEditText = (EditText) findViewById(R.id.addEditText);

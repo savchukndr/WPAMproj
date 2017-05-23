@@ -42,6 +42,11 @@
     <string name="about_trans_alert_title">About spending</string>
     <string name="about_trans_alert_message">On what you spend:</string>
     <string name="checkable">Use fingerprint</string>
+    <string name="exit_alert_title">Exit</string>
+    <string name="exit_alert_messege">Do you want to exit?</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
+    <string name="submit_button">Submit</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">History</string>

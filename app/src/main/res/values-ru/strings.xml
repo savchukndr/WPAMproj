@@ -43,6 +43,11 @@
     <string name="about_trans_alert_title">Описание расхода</string>
     <string name="about_trans_alert_message">На что Вы потратили:</string>
     <string name="checkable">Отпечаток пальца</string>
+    <string name="exit_alert_title">Выход</string>
+    <string name="exit_alert_messege">Вы хотите выйти?</string>
+    <string name="yes_button">Да</string>
+    <string name="no_button">Нет</string>
+    <string name="submit_button">Сохранить</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">История</string>

@@ -85,8 +85,8 @@ public class FingerprintHandler extends
                 "Authentication succeeded.",
                 Toast.LENGTH_LONG).show();*/
         sessione.setLoggedin(true);
-        sessione.setName("Master");
-        sessione.setEmail("");
+        /*sessione.setName("Master");
+        sessione.setEmail("");*/
         Intent intent = new Intent(appContext,MainActivity.class);
 
         intent.putExtra("userName", "Master");

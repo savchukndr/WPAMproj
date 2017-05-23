@@ -71,13 +71,6 @@ public class LoginActivity extends AppCompatActivity implements
     private Session session;
     private Uri personPhoto;
     private boolean hasPhoto = false;
-
-
-   /* @BindView(R.id.input_email) EditText _emailText;
-    @BindView(R.id.input_password) EditText _passwordText;
-    @BindView(R.id.btn_login) Button _loginButton;
-    @BindView(R.id.link_signup) TextView _signupLink;*/
-    @BindView(R.id.fing_btn) Button _fingerButton;
     private LoginButton _signupFaceButton;
 
     @Override
@@ -141,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements
             }
         });*/
         //*****************************************************************************
-
+        /*
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
 
 
@@ -168,7 +161,7 @@ public class LoginActivity extends AppCompatActivity implements
                         });
                 alertDialog.show();
             }
-        });
+        });*/
 
         //FAcebook initialization
         FacebookSdk.sdkInitialize(getApplicationContext());
