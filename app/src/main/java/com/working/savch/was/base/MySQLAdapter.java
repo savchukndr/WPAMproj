@@ -16,7 +16,7 @@ import java.util.Locale;
  */
 
 public class MySQLAdapter {
-    private static final String DBNAME  = "DB_test_32"; //DB_r_11
+    private static final String DBNAME  = "DB_test_33"; //DB_r_11
     private static final String TABLE   = "user";
     private static final String TABLE_TRANSACTION   = "trans";
     private static final String TABLE_CATEGORIES   = "categories";
@@ -168,7 +168,7 @@ public class MySQLAdapter {
     //Date format
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                "yyyy/MM/dd HH : mm : ss", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }

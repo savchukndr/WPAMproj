@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -425,8 +426,19 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         itemC = menu.findItem(R.id.action_check);
-        if(session.fingerPrint()) {
-            itemC.setChecked(true);
+        FingerprintManagerCompat fingerprintManagerCompat = FingerprintManagerCompat.from(context);
+
+        if (!fingerprintManagerCompat.isHardwareDetected()) {
+            // Device doesn't support fingerprint authentication
+            itemC.setVisible(false);
+        } else if (!fingerprintManagerCompat.hasEnrolledFingerprints()) {
+            // User hasn't enrolled any fingerprints to authenticate with
+            itemC.setVisible(false);
+        } else {
+            // Everything is ready for fingerprint authentication
+            if(session.fingerPrint()) {
+                itemC.setChecked(true);
+            }
         }
         return true;
     }

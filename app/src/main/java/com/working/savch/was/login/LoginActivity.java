@@ -290,39 +290,43 @@ public class LoginActivity extends AppCompatActivity implements
             mConnectionProgressDialog.dismiss();
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
+            if (!result.isSuccess()) {
+                onLoginFailed();
+            } else {
+                handleSignInResult(result);
             /*GoogleSignInAccount acct = result.getSignInAccount();
             assert acct != null;
             personPhoto = acct.getPhotoUrl();
             hasPhoto = true;*/
 
-            final String email;
-            final String password;
-            final String name;
+                final String email;
+                final String password;
+                final String name;
 
-            mConnectionProgressDialog.show();
-            name = personName;
-            email = personEmail;
-            password = "adminacc";
-            if (!ifUserExsist(email)) {
-                dbHelper.openToWrite();
-                long rowID = dbHelper.insert(name, email, password);
-                //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
-            }
-            new android.os.Handler().postDelayed(
-                    new Runnable() {
-                        public void run() {
-                            // On complete call either onLoginSuccess or onLoginFailed
-                            if (userAutentification(email, password)) {
-                                onLoginSuccess(name, email);
-                            } else {
-                                onLoginFailed();
-                                // onLoginFailed();
+                mConnectionProgressDialog.show();
+                name = personName;
+                email = personEmail;
+                password = "adminacc";
+                if (!ifUserExsist(email)) {
+                    dbHelper.openToWrite();
+                    long rowID = dbHelper.insert(name, email, password);
+                    //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
+                }
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                // On complete call either onLoginSuccess or onLoginFailed
+                                if (userAutentification(email, password)) {
+                                    onLoginSuccess(name, email);
+                                } else {
+                                    onLoginFailed();
+                                    // onLoginFailed();
+                                }
+                                mConnectionProgressDialog.dismiss();
                             }
-                            mConnectionProgressDialog.dismiss();
-                        }
-                    }, 3000);
+                        }, 3000);
 
+            }
         }
 
         if (requestCode == REQUEST_SIGNUP) {

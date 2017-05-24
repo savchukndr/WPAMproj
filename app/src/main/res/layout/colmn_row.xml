@@ -15,7 +15,7 @@
     <TextView
         android:id="@+id/idTrans"
         android:textColor="@color/amount"
-        android:textSize="16dp"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
@@ -25,14 +25,24 @@
         android:id="@+id/amountTrans"
         android:layout_below="@id/idTrans"
         android:layout_width="match_parent"
+        android:textSize="22sp"
         android:layout_height="20dp" />
+
+    <TextView
+        android:id="@+id/timeTrans"
+        android:layout_below="@id/amountTrans"
+        android:layout_width="match_parent"
+        android:textSize="15sp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:id="@+id/dateTrans"
         android:textColor="@color/date"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_height="20dp" />
+        android:layout_height="20dp"
+        android:textSize="20sp"/>
 
 
 </RelativeLayout>

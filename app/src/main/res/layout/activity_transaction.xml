@@ -38,10 +38,11 @@
         android:id="@+id/fabTrans"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        android:src="@drawable/ic_back"/>
-        <!--android:visibility="gone"-->
+        android:src="@drawable/ic_back"
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="bottom|right" />
+    <!--android:visibility="gone"-->
 
 </android.support.design.widget.CoordinatorLayout>
