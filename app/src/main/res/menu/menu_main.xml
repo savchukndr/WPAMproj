@@ -23,16 +23,6 @@
         app:showAsAction="never"
         />
 
-
-
-    <item
-        android:id="@+id/action_refresh"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_main_refresh"
-        android:title="@string/main_logout_title"
-        app:showAsAction="always"
-        />
-
     <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"

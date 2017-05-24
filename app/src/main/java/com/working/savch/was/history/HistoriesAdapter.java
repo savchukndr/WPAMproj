@@ -17,19 +17,17 @@ import com.working.savch.was.base.MySQLAdapter;
 
 import java.util.List;
 
-public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyViewHolder> {
+class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyViewHolder> {
     private List<History> historiesList;
     private MySQLAdapter dbHelper;
     private Context context;
     private String aboutTrans = "";
-    private String userID;
     private int categoriesID;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView amount, date, id;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView amount, date, id;
 
-
-        public MyViewHolder(View view) {
+        MyViewHolder(View view) {
             super(view);
             id = (TextView) view.findViewById(R.id.amountTrans);
             date = (TextView) view.findViewById(R.id.dateTrans);
@@ -38,14 +36,11 @@ public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyVi
         }
     }
 
-
-    public HistoriesAdapter(List<History> historiesList, Context cont, String userID) {
+    HistoriesAdapter(List<History> historiesList, Context cont) {
         this.historiesList = historiesList;
         this.context = cont;
-        this.userID = userID;
         dbHelper = new MySQLAdapter(this.context);
     }
-
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -81,7 +76,7 @@ public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyVi
                     aboutTrans = cursor.getString(cursor.getColumnIndex("about"));
                     categoriesID = cursor.getInt(cursor.getColumnIndex("track_categories"));
                 }
-                if(categoriesID != 2) {
+                if(categoriesID != 6) {
                     final AlertDialog.Builder inputAlert = new AlertDialog.Builder(v.getContext());
                     inputAlert.setTitle(R.string.about_trans_alert);
                     inputAlert.setMessage(aboutTrans);
@@ -109,7 +104,7 @@ public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyVi
         return historiesList.size();
     }
 
-    public void removeItem(int position) {
+    void removeItem(int position) {
         historiesList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, historiesList.size());

@@ -35,8 +35,12 @@
     <string name="income_btn">income</string>
     <string name="spend_btn">spend</string>
     <string-array name="category_array">
+        <item>Shopping, services</item>
         <item>Entertainment</item>
-        <item>Purchases</item>
+        <item>Food, dining</item>
+        <item>Vacation, travel</item>
+        <item>Bills</item>
+        <item>Consumer loans, fees, taxes</item>
     </string-array>
     <string name="chooseCategoryAlert">Choose category</string>
     <string name="about_trans_alert_title">About spending</string>
@@ -51,7 +55,7 @@
     <!--HistoryActivity-->
     <string name="title_activity_transaction">History</string>
     <string name="about_trans_alert">About</string>
-    <string name="earnings_toast">Your earnings</string>
+    <string name="earnings_toast">Your income</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">No account yet? Create one</string>

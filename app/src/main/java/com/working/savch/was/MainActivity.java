@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity
                     amount = Double.parseDouble(tmpAdd);
 
                     dbHelper.openToWrite();
-                    long rowID = dbHelper.insertTransactionTable(amount, "aboutTODO", userId, 2); //TODO: insertTransaction userID current and category
+                    long rowID = dbHelper.insertTransactionTable(amount, "aboutTODO", userId, 6); //TODO: insertTransaction userID current and category
                     Snackbar.make(view, getString(R.string.main_record_add),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -199,12 +199,8 @@ public class MainActivity extends AppCompatActivity
                                             addEditText.setText("");
                                         }
                                     });
-
                                     AlertDialog alertDialog = inputAlert.create();
                                     alertDialog.show();
-
-
-
                                 }
                             });
                     AlertDialog alrt = builder.create();
@@ -467,21 +463,6 @@ public class MainActivity extends AppCompatActivity
                 AlertDialog alertDialog = exitAlert.create();
                 alertDialog.show();
                 return true;
-            case R.id.action_refresh:
-                EditText addEditText = (EditText) findViewById(R.id.addEditText);
-                //EditText delEditText = (EditText) findViewById(R.id.delEditText);
-                dbHelper.openToWrite();
-                Cursor cursor = dbHelper.querySum();
-                while(cursor.moveToNext())
-                {
-                    textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
-                }
-                Snackbar.make(addEditText, getString(R.string.main_refresh_snack),
-                        Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                addEditText.setText("");
-                //delEditText.setText("");
-                return true;
             case R.id.action_check:
                 if (item.isChecked()){
                     item.setChecked(false);
@@ -566,32 +547,6 @@ public class MainActivity extends AppCompatActivity
         session.setLoggedin(false);
         finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
-    }
-
-    public Bitmap getThumbnail(Uri uri) throws FileNotFoundException, IOException {
-        InputStream input = this.getContentResolver().openInputStream(uri);
-
-        BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
-        onlyBoundsOptions.inJustDecodeBounds = true;
-        onlyBoundsOptions.inDither=true;//optional
-        onlyBoundsOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;//optional
-        BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
-        input.close();
-        if ((onlyBoundsOptions.outWidth == -1) || (onlyBoundsOptions.outHeight == -1))
-            return null;
-
-        int originalSize = (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) ? onlyBoundsOptions.outHeight : onlyBoundsOptions.outWidth;
-
-        double ratio = (originalSize > 2) ? (originalSize / 2) : 1.0;
-
-        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-        bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
-        bitmapOptions.inDither=true;//optional
-        bitmapOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;//optional
-        input = this.getContentResolver().openInputStream(uri);
-        Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
-        input.close();
-        return bitmap;
     }
 
     private static int getPowerOfTwoForSampleRatio(double ratio){

@@ -35,9 +35,6 @@ public class TransactionActivity extends AppCompatActivity{
     private RecyclerView recyclerView;
     private HistoriesAdapter hAdapter;
     private Paint p = new Paint();
-    private String email;
-    private int userId;
-    private int categoriesID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,25 +48,15 @@ public class TransactionActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivityIfNeeded(intent, 0);
+                /*intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);*/
+                startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 
         dbHelper = new MySQLAdapter(this);
         dbHelper.openToWrite();
-
-        Bundle extras = getIntent().getExtras();
-        email = "";
-        if(extras !=null) {
-            email = extras.getString("userEmail");
-        }
-
-        Cursor cursorUserId = dbHelper.queueUserId(email);
-        while(cursorUserId.moveToNext()){
-            userId = cursorUserId.getInt(cursorUserId.getColumnIndex("id_user"));
-        }
 
         // Setting up the cursor which points to the desired table
         Cursor cursor = dbHelper.queueTransaction();
@@ -84,23 +71,20 @@ public class TransactionActivity extends AppCompatActivity{
 
             recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
             recyclerView.setHasFixedSize(true);
-            hAdapter = new HistoriesAdapter(historyList, getApplicationContext(), String.valueOf(userId));
+            hAdapter = new HistoriesAdapter(historyList, getApplicationContext());
             RecyclerView.LayoutManager hLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(hLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
             recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
-            int count = 1;
             do
             {
                 String columnDate = cursor.getString(cursor.getColumnIndex("t.currentdate"));
                 String columnAmount = cursor.getString(cursor.getColumnIndex("t.amount"));
                 String columnCategory = cursor.getString(cursor.getColumnIndex("c.categories_name"));
+                //TODO: make category in different language
                 prepareTransactioneData(columnCategory, columnDate, columnAmount);
 
-                count++;
             }while(cursor.moveToNext()); // Moves to the next row
             hAdapter.notifyDataSetChanged();
             initSwipe();
@@ -120,8 +104,9 @@ public class TransactionActivity extends AppCompatActivity{
     public void onBackPressed() {
         // Disable going back to the MainActivity
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivityIfNeeded(intent, 0);
+        /*intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivityIfNeeded(intent, 0);*/
+        startActivity(intent);
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
@@ -130,17 +115,8 @@ public class TransactionActivity extends AppCompatActivity{
         historyList.add(hist);
     }
 
-    /*@Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
-        int position = viewHolder.getAdapterPosition();
-    }*/
-
-
     private void initSwipe(){
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-
-
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -160,8 +136,6 @@ public class TransactionActivity extends AppCompatActivity{
                     hAdapter.removeItem(position);
                 }
             }
-
-
 
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {

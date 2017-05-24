@@ -120,14 +120,8 @@ public class MySQLAdapter {
         return  sqLiteDatabase.rawQuery("SELECT sum(amount) AS totalSum FROM trans, user WHERE trans.track_user=user.id_user;", null);
     }
 
-
-    /*public Cursor queueDay(String query) {
-        String[] KEYS = { KEY_ID *//* and all other KEYS*//* };
-        return sqLiteDatabase.query(TABLE, KEYS, query, null, null, null, null);
-    }*/
-
-    public class SQLiteHelper extends SQLiteOpenHelper {
-        public SQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    private class SQLiteHelper extends SQLiteOpenHelper {
+        SQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
             super(context, name, factory, version);
         }
 
@@ -136,16 +130,32 @@ public class MySQLAdapter {
             db.execSQL(CREATE_TABLE_CATEGORIES);
 
             ContentValues cv = new ContentValues();
+            cv = new ContentValues();
             cv.put("id_categories", 0);
-            cv.put("categories_name", "entertainment");
+            cv.put("categories_name", "Shopping, services");
             db.insert(TABLE_CATEGORIES, null, cv);
             cv = new ContentValues();
             cv.put("id_categories", 1);
-            cv.put("categories_name", "purchases");
+            cv.put("categories_name", "Entertainment");
             db.insert(TABLE_CATEGORIES, null, cv);
             cv = new ContentValues();
             cv.put("id_categories", 2);
-            cv.put("categories_name", "earnings");
+            cv.put("categories_name", "Food, dining");
+            db.insert(TABLE_CATEGORIES, null, cv);
+            cv = new ContentValues();
+            cv.put("id_categories", 3);
+            cv.put("categories_name", "Vacation, travel");
+            db.insert(TABLE_CATEGORIES, null, cv);
+            cv = new ContentValues();
+            cv.put("id_categories", 4);
+            cv.put("categories_name", "Bills");
+            db.insert(TABLE_CATEGORIES, null, cv);
+            cv = new ContentValues();
+            cv.put("id_categories", 5);
+            cv.put("categories_name", "Consumer loans, fees, taxes");
+            db.insert(TABLE_CATEGORIES, null, cv);
+            cv.put("id_categories", 6);
+            cv.put("categories_name", "Income");
             db.insert(TABLE_CATEGORIES, null, cv);
             db.execSQL(CREATE_TABLE_TRANS);
 

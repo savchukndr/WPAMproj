@@ -36,8 +36,12 @@
     <string name="income_btn">прибыль</string>
     <string name="spend_btn">расходы</string>
     <string-array name="category_array">
-        <item>Развлечение</item>
-        <item>Покупки</item>
+        <item>Покупки, услуги</item>
+        <item>Развлечения</item>
+        <item>Питание, рестораны</item>
+        <item>Отдых, путешествия</item>
+        <item>Счета</item>
+        <item>Потребительские кредиты, сборы, налоги</item>
     </string-array>
     <string name="chooseCategoryAlert">Выберите категорию</string>
     <string name="about_trans_alert_title">Описание расхода</string>

@@ -36,8 +36,12 @@
     <string name="income_btn">прибуток</string>
     <string name="spend_btn">витрати</string>
     <string-array name="category_array">
+        <item>Покупки, послуги</item>
         <item>Розваги</item>
-        <item>Покупки</item>
+        <item>Продукти харчування, ресторани</item>
+        <item>Відпустка, подорожі</item>
+        <item>Рахунки</item>
+        <item>Споживчі кредити, збори, податки</item>
     </string-array>
     <string name="chooseCategoryAlert">Оберіть категорію</string>
     <string name="about_trans_alert_title">Опис витрати</string>
