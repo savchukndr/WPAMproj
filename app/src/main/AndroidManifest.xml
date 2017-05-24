@@ -23,10 +23,12 @@
         <activity
             android:name="com.working.savch.was.AboutActivity"
             android:label="@string/about_title"
-            android:theme="@style/Theme.AppCompat.Dialog" />
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.working.savch.was.login.LoginActivity"
-            android:theme="@style/AppTheme.Dark">
+            android:theme="@style/AppTheme.Dark"
+            android:screenOrientation="portrait">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +37,8 @@
         </activity>
         <activity
             android:name="com.working.savch.was.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,10 +47,12 @@
         </activity>
         <activity
             android:name="com.working.savch.was.signup.SignupActivity"
-            android:theme="@style/AppTheme.Dark" />
+            android:theme="@style/AppTheme.Dark"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.working.savch.was.fingerPrint.FingerprintActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" />
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.working.savch.was.MainActivity"
             android:label="@string/app_name"
@@ -56,9 +61,11 @@
         <activity
             android:name="com.working.savch.was.history.TransactionActivity"
             android:label="@string/title_activity_transaction"
-            android:theme="@style/AppTheme.Dark" />
+            android:theme="@style/AppTheme.Dark"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.working.savch.was.IntroActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
