@@ -57,6 +57,13 @@
     <string name="title_activity_transaction">История</string>
     <string name="about_trans_alert">Описание</string>
     <string name="earnings_toast">Ваша прибыль</string>
+    <string name="category_0">Покупки, услуги</string>
+    <string name="category_1">Развлечения</string>
+    <string name="category_2">Питание, рестораны</string>
+    <string name="category_3">Отдых, путешествия</string>
+    <string name="category_4">Счета</string>
+    <string name="category_5">Потребительские кредиты, сборы, налоги</string>
+    <string name="category_6">Прибыль</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">Не имеете аккаунта? Создайте</string>

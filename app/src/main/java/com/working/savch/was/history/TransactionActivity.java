@@ -82,7 +82,29 @@ public class TransactionActivity extends AppCompatActivity{
                 String columnDate = cursor.getString(cursor.getColumnIndex("t.currentdate"));
                 String columnAmount = cursor.getString(cursor.getColumnIndex("t.amount"));
                 String columnCategory = cursor.getString(cursor.getColumnIndex("c.categories_name"));
-                //TODO: make category in different language
+                switch (columnCategory){
+                    case "Income":
+                        columnCategory = getString(R.string.category_6);
+                        break;
+                    case "Shopping, services":
+                        columnCategory = getString(R.string.category_0);
+                        break;
+                    case "Entertainment":
+                        columnCategory = getString(R.string.category_1);
+                        break;
+                    case "Food, dining":
+                        columnCategory = getString(R.string.category_2);
+                        break;
+                    case "Vacation, travel":
+                        columnCategory = getString(R.string.category_3);
+                        break;
+                    case "Bills":
+                        columnCategory = getString(R.string.category_4);
+                        break;
+                    case "Consumer loans, fees, taxes":
+                        columnCategory = getString(R.string.category_5);
+                        break;
+                }
                 prepareTransactioneData(columnCategory, columnDate, columnAmount);
 
             }while(cursor.moveToNext()); // Moves to the next row

@@ -52,10 +52,18 @@
     <string name="no_button">No</string>
     <string name="submit_button">Submit</string>
 
+
     <!--HistoryActivity-->
     <string name="title_activity_transaction">History</string>
     <string name="about_trans_alert">About</string>
     <string name="earnings_toast">Your income</string>
+    <string name="category_0">Shopping, services</string>
+    <string name="category_1">Entertainment</string>
+    <string name="category_2">Food, dining</string>
+    <string name="category_3">Vacation, travel</string>
+    <string name="category_4">Bills</string>
+    <string name="category_5">Consumer loans, fees, taxes</string>
+    <string name="category_6">Income</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">No account yet? Create one</string>
