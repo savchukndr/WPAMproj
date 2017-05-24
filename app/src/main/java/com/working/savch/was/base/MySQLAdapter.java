@@ -31,8 +31,7 @@ public class MySQLAdapter {
                     + "id_user INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + "name TEXT,"
                     + "email TEXT,"
-                    + "password TEXT,"
-                    + "isFinger INTEGER);";
+                    + "password TEXT);";
 
     private static final String CREATE_TABLE_TRANS =
             "CREATE TABLE trans ("
@@ -62,12 +61,11 @@ public class MySQLAdapter {
         return sqLiteDatabase.delete(TABLE_TRANSACTION, "currentdate='" + date + "'", null);
     }
 
-    public long insert(String nameVal, String emailVal, String passwordVal, int isFinger) {
+    public long insert(String nameVal, String emailVal, String passwordVal) {
         ContentValues cv = new ContentValues();
         cv.put("name", nameVal);
         cv.put("email", emailVal);
         cv.put("password", passwordVal);
-        cv.put("isFinger", isFinger);
         return sqLiteDatabase.insert(TABLE, null, cv);
     }
 

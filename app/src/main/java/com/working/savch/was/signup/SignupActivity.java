@@ -91,7 +91,7 @@ public class SignupActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "--- Insert in mytable: ---");
 
             dbHelper.openToWrite();
-            long rowID = dbHelper.insert(name, email, password, 0); //TODO: isFinger implementation
+            long rowID = dbHelper.insert(name, email, password);
             Log.d(LOG_TAG, "row inserted, ID = " + rowID);
 
             new android.os.Handler().postDelayed(
