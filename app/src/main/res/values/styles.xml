@@ -6,7 +6,7 @@
         <!--<item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>-->
-        <item name="colorPrimary">@color/jumbo</item>
+        <item name="colorPrimary">@color/aluminum</item>
         <item name="colorPrimaryDark">@color/monsoon</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
@@ -47,7 +47,7 @@
         <!--<item name="colorButtonNormal">@color/primary_darker</item>
         <item name="android:colorButtonNormal">@color/primary_darker</item>-->
         <item name="colorButtonNormal">@color/amount</item>
-        <item name="android:colorButtonNormal">@color/jet</item>
+        <item name="android:colorButtonNormal">@color/amount</item>
     </style>
 
     <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">

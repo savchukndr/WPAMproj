@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.working.savch.was.R;
 import com.working.savch.was.base.MySQLAdapter;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyViewHolder> {
@@ -57,15 +59,22 @@ class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyViewHolde
         String time = tmp.substring(0, 9);
         String yeMoDe = tmp.substring(11);
         holder.id.setText(time);
-        holder.date.setText(history.getDate());
-        holder.amount.setText(history.getId());
+        if (history.getId().equals("0")){
+            holder.amount.setText(history.getId());
+        }else {
+            holder.date.setText(history.getDate());
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+            symbols.setGroupingSeparator(' ');
+            DecimalFormat format = new DecimalFormat("#,###.00", symbols);
+            holder.amount.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(Double.parseDouble(history.getId()))))));
+        }
         holder.time.setText(yeMoDe);
         if (Double.parseDouble(history.getId()) > 0) {
-            holder.amount.setTextColor(Color.GREEN);
+            holder.amount.setTextColor(Color.parseColor("#C6FF00"));
         }else if (Double.parseDouble(history.getId()) < 0){
-            holder.amount.setTextColor(Color.RED);
+            holder.amount.setTextColor(Color.parseColor("#FF5722"));
         }else{
-            holder.amount.setTextColor(Color.YELLOW);
+            holder.amount.setTextColor(Color.parseColor("#FFC400"));
         }
         final String currentDate = history.getAmount();
 
@@ -112,5 +121,9 @@ class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyViewHolde
         historiesList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, historiesList.size());
+    }
+
+    private String delSpacesInString(String inputStr){
+        return inputStr.replaceAll("^\\s+","");
     }
 }

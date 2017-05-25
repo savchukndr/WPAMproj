@@ -39,6 +39,8 @@ import com.working.savch.was.session.Session;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -111,7 +113,19 @@ public class MainActivity extends AppCompatActivity
         Cursor cursor = dbHelper.querySum();
         while(cursor.moveToNext())
         {
-            textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+            String tmp = String.valueOf(cursor.getDouble(cursor.getColumnIndex("totalSum")));
+            if (tmp.equals("0.0")) {
+                textViewInfo.setText("0.00");
+            } else {
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setGroupingSeparator(' ');
+                DecimalFormat format = new DecimalFormat("#,###.00", symbols);
+                textViewInfo.setTextSize(50);
+                textViewInfo.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum")))))));
+                if (delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum"))))).length() >= 12) {
+                    textViewInfo.setTextSize(30);
+                }
+            }
         }
 
         Cursor cursorUserId = dbHelper.queueUserId(mCurrentEmail);
@@ -141,9 +155,20 @@ public class MainActivity extends AppCompatActivity
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     Cursor cursor = dbHelper.querySum();
-                    while(cursor.moveToNext())
-                    {
-                        textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+                    while(cursor.moveToNext()) {
+                        String tmp = String.valueOf(cursor.getDouble(cursor.getColumnIndex("totalSum")));
+                        if (tmp.equals("0.0")) {
+                            textViewInfo.setText("0.00");
+                        } else {
+                            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                            symbols.setGroupingSeparator(' ');
+                            DecimalFormat format = new DecimalFormat("#,###.00", symbols);
+                            textViewInfo.setTextSize(50);
+                            textViewInfo.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum")))))));
+                            if (delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum"))))).length() >= 12) {
+                                textViewInfo.setTextSize(30);
+                            }
+                        }
                     }
                     addEditText.setText("");
                 }else{
@@ -195,7 +220,19 @@ public class MainActivity extends AppCompatActivity
                                             Cursor cursor = dbHelper.querySum();
                                             while(cursor.moveToNext())
                                             {
-                                                textViewInfo.setText(String.valueOf(String.format("%.2f",cursor.getDouble(cursor.getColumnIndex("totalSum")))));
+                                                String tmp = String.valueOf(cursor.getDouble(cursor.getColumnIndex("totalSum")));
+                                                if (tmp.equals("0.0")) {
+                                                    textViewInfo.setText("0.00");
+                                                } else {
+                                                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                                                    symbols.setGroupingSeparator(' ');
+                                                    DecimalFormat format = new DecimalFormat("#,###.00", symbols);
+                                                    textViewInfo.setTextSize(50);
+                                                    textViewInfo.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum")))))));
+                                                    if (delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum"))))).length() >= 12) {
+                                                        textViewInfo.setTextSize(30);
+                                                    }
+                                                }
                                             }
                                             addEditText.setText("");
                                         }
@@ -567,5 +604,8 @@ public class MainActivity extends AppCompatActivity
         else return k;
     }
 
+    private String delSpacesInString(String inputStr){
+        return inputStr.replaceAll("^\\s+","");
+    }
 
 }

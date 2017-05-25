@@ -1,12 +1,12 @@
 <resources>
     <!--Alert Fingerprint-->
-    <string name="attention_alert">Увага!</string>
+    <string name="attention_alert">Увага</string>
     <string name="attention_alert_text">Якщо Пан або Пані хоче використовувати дактилоскопічний сенсор для входу, то Пан або Пані війде як суперкористувач і без ідентифікації за допомоги ел. пошти</string>
     <string name="attention_alert_button">Так, хочу спробувати</string>
 
 
     <!--FingerprintActivity-->
-    <string name="fingerprint_text">Доторкніться до сенсора!</string>
+    <string name="fingerprint_text">Доторкніться до сенсора</string>
     <string name="fingerprint_sacc">Аутентифікація вдала</string>
     <string name="fingerprint_failed">Аутентифікація не вдала</string>
     <string name="finger_btn">Відбиток пальця</string>
@@ -30,9 +30,9 @@
     <string name="input_amount">Введіть сумму</string>
     <string name="input_delAmount">Введіть витрати</string>
     <string name="null_button">Clear</string>
-    <string name="main_refresh_snack">Оновлено!</string>
-    <string name="main_one_field">Ви можете вводити суму тільки в одне поле одночасно!</string>
-    <string name="main_record_add">Запис доданий!</string>
+    <string name="main_refresh_snack">Оновлено</string>
+    <string name="main_one_field">Введіть суму в поле</string>
+    <string name="main_record_add">Запис доданий</string>
     <string name="income_btn">прибуток</string>
     <string name="spend_btn">витрати</string>
     <string-array name="category_array">
@@ -80,9 +80,9 @@
     <string name="already_a_member">Вже маєте обліковий запис? Ввійдіть</string>
 
     <!--IntroActivity-->
-    <string name="intro_title">Привіт!</string>
+    <string name="intro_title">Привіт</string>
     <string name="slide1_title">Скажи привіт</string>
-    <string name="slide1_text">Найзручнішому способу стежити за своїми коштами!</string>
+    <string name="slide1_text">Найзручнішому способу стежити за своїми коштами</string>
     <string name="slide2_title">Записуйте прибуток</string>
     <string name="slide2_text">Просто ввівши число</string>
     <string name="slide3_title">Записуйте витрати</string>
@@ -92,7 +92,7 @@
     <string name="slide5_title">І кожну позицію</string>
     <string name="slide5_text">Ви можете знайти в історії</string>
     <string name="slide6_title">І звичайно</string>
-    <string name="slide6_text">Насолоджуйтесь своїм додатком!</string>
+    <string name="slide6_text">Насолоджуйтесь своїм додатком</string>
 
     <string name="app_name">WalletAS</string>
 

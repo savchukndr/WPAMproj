@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/idTrans"
-        android:textColor="@color/amount"
+        android:textColor="@color/date"
         android:textSize="40sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
