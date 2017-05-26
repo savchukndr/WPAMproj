@@ -19,11 +19,14 @@
     <color name="iron">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
 
+
     <color name="date">#FFFFFF</color>
     <color name="amount">#00E5FF</color>
 
     <color name="amount_green">#558B2F</color>
     <color name="amount_red">#D84315</color>
     <color name="amount_yellow">#FF8F00</color>
+
+    <color name="btn_color">#FF8F00</color>
 </resources>
 

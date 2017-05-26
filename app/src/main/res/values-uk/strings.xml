@@ -14,7 +14,7 @@
     <!--Manu action bar activity-->
     <string name="about_title">Про додаток</string>
     <string name="main_logout_title">Вихід</string>
-    <string name="about_text">Дадаток для відстежування Ваших коштів.\nАвтор: Андрій Савчук\n2017</string>
+    <string name="about_text">Дадаток для відстежування Ваших коштів.\nСтворено: Андрій Савчук\n2017 р.\nверсія додатку 1.2</string>
     <string name="action_settings">Settings</string>
 
     <!--Menu nav bar-->
@@ -59,10 +59,10 @@
     <string name="earnings_toast">Ваш прибуток</string>
     <string name="category_0">Покупки, послуги</string>
     <string name="category_1">Розваги</string>
-    <string name="category_2">Продукти харчування, ресторани</string>
+    <string name="category_2">Прод. харчування,\nресторани</string>
     <string name="category_3">Відпустка, подорожі</string>
     <string name="category_4">Рахунки</string>
-    <string name="category_5">Споживчі кредити, збори, податки</string>
+    <string name="category_5">Спож. кредити,\nзбори, податки</string>
     <string name="category_6">Прибуток</string>
 
     <!--LoginActivity-->
@@ -83,16 +83,14 @@
     <string name="intro_title">Привіт</string>
     <string name="slide1_title">Скажи привіт</string>
     <string name="slide1_text">Найзручнішому способу стежити за своїми коштами</string>
-    <string name="slide2_title">Записуйте прибуток</string>
+    <string name="slide2_title">Записуйте прибуток і витрати</string>
     <string name="slide2_text">Просто ввівши число</string>
-    <string name="slide3_title">Записуйте витрати</string>
-    <string name="slide3_text">Так само просто як і прибуток</string>
-    <string name="slide4_title">А потім</string>
-    <string name="slide4_text">Просто натисніть цю кнопку</string>
-    <string name="slide5_title">І кожну позицію</string>
-    <string name="slide5_text">Ви можете знайти в історії</string>
-    <string name="slide6_title">І звичайно</string>
-    <string name="slide6_text">Насолоджуйтесь своїм додатком</string>
+    <string name="slide3_title">Розподіляйте на категорії</string>
+    <string name="slide3_text">І описуйте кожну покупку</string>
+    <string name="slide4_title">Переглядайте історію</string>
+    <string name="slide4_text">Ваших витрат і прибутків</string>
+    <string name="slide5_title">І звичайно</string>
+    <string name="slide5_text">Насолоджуйтесь своїм чудовим додатком</string>
 
     <string name="app_name">WalletAS</string>
 

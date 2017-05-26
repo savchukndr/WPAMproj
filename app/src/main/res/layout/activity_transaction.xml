@@ -43,7 +43,7 @@
         android:src="@drawable/ic_arrow_white_white_24dp"
         app:layout_anchor="@+id/app_bar"
         app:layout_anchorGravity="bottom|right"
-        android:backgroundTint="@color/amount"
+        android:backgroundTint="@color/btn_color"
         app:borderWidth="0dp"/>
     <!--android:visibility="gone"-->
 

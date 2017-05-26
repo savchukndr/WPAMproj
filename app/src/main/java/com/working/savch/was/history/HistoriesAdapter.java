@@ -56,7 +56,7 @@ class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyViewHolde
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         History history = historiesList.get(position);
         String tmp = history.getAmount();
-        String time = tmp.substring(0, 9);
+        String time = tmp.substring(0, 10);
         String yeMoDe = tmp.substring(11);
         holder.id.setText(time);
         if (history.getId().equals("0")){

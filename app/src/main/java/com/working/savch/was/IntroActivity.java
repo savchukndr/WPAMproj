@@ -29,11 +29,11 @@ public class IntroActivity extends AppIntro {
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
-        addSlide(AppIntroFragment.newInstance(getString(R.string.slide1_title), getString(R.string.slide1_text), R.drawable.logo, Color.parseColor("#777777")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.slide2_title),  getString(R.string.slide2_text), R.drawable.intro_earnings, Color.parseColor("#777777")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.slide3_title),  getString(R.string.slide3_text), R.drawable.intro_spendings, Color.parseColor("#777777")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.slide4_title),  getString(R.string.slide4_text), R.drawable.intro_button, Color.parseColor("#777777")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.slide5_title),  getString(R.string.slide5_text), R.drawable.intro_history, Color.parseColor("#777777")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide1_title), getString(R.string.slide1_text), R.drawable.logo, Color.parseColor("#00BCD4")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide2_title),  getString(R.string.slide2_text), R.drawable.intro_earnings, Color.parseColor("#00BCD4")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide3_title),  getString(R.string.slide3_text), R.drawable.intro_categories, Color.parseColor("#00BCD4")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide4_title),  getString(R.string.slide4_text), R.drawable.intro_history, Color.parseColor("#00BCD4")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide5_title),  getString(R.string.slide5_text), R.drawable.logo, Color.parseColor("#00BCD4")));
         /*addSlide(AppIntroFragment.newInstance(getString(R.string.slide6_title),  getString(R.string.slide6_text), R.drawable.intro_enjoy, Color.parseColor("#3F51B5")));*/
 
         // OPTIONAL METHODS
@@ -42,7 +42,7 @@ public class IntroActivity extends AppIntro {
         setSeparatorColor(Color.parseColor("#2196F3"));*/
 
         // Hide Skip/Done button.
-        showSkipButton(true);
+        showSkipButton(false);
         setProgressButtonEnabled(true);
 
         // Turn vibration on and set intensity.
@@ -71,5 +71,10 @@ public class IntroActivity extends AppIntro {
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
         // Do something when the slide changes.
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

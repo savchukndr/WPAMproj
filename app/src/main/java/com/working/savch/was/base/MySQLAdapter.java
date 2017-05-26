@@ -16,11 +16,11 @@ import java.util.Locale;
  */
 
 public class MySQLAdapter {
-    private static final String DBNAME  = "DB_test_33"; //DB_r_11
+    private static final String DBNAME  = "DB_r_11"; //DB_r_11
     private static final String TABLE   = "user";
     private static final String TABLE_TRANSACTION   = "trans";
     private static final String TABLE_CATEGORIES   = "categories";
-    public static final int    VERSION = 1;
+    public static final int    VERSION = 2;
 
     SQLiteDatabase sqLiteDatabase;
     private SQLiteHelper sqLiteHelper;
@@ -81,7 +81,7 @@ public class MySQLAdapter {
 
     public MySQLAdapter openToRead() throws SQLException {
         try {
-            sqLiteHelper = new SQLiteHelper(mContext, DBNAME, null, 1);
+            sqLiteHelper = new SQLiteHelper(mContext, DBNAME, null, VERSION);
             sqLiteDatabase = sqLiteHelper.getReadableDatabase();
         } catch (Exception e){}
         return this;
@@ -89,7 +89,7 @@ public class MySQLAdapter {
 
     public MySQLAdapter openToWrite() throws SQLException {
         try {
-            sqLiteHelper = new SQLiteHelper(mContext, DBNAME, null, 1);
+            sqLiteHelper = new SQLiteHelper(mContext, DBNAME, null, VERSION);
             sqLiteDatabase = sqLiteHelper.getWritableDatabase();
         } catch (Exception e){}
         return this;
@@ -159,7 +159,13 @@ public class MySQLAdapter {
 
         }
 
-        public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {}
+        public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {
+            if(oldversion < 2){
+                db.execSQL("DROP TABLE IF EXISTS 'user'");
+                db.execSQL("DROP TABLE IF EXISTS 'trans'");
+            }
+            onCreate(db);
+        }
 
 
 

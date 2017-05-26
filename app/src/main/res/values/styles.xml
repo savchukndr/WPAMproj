@@ -46,8 +46,8 @@
 
         <!--<item name="colorButtonNormal">@color/primary_darker</item>
         <item name="android:colorButtonNormal">@color/primary_darker</item>-->
-        <item name="colorButtonNormal">@color/amount</item>
-        <item name="android:colorButtonNormal">@color/amount</item>
+        <item name="colorButtonNormal">@color/btn_color</item>
+        <item name="android:colorButtonNormal">@color/btn_color</item>
     </style>
 
     <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
