@@ -14,7 +14,16 @@
     <!--Manu action bar activity-->
     <string name="about_title">О приложении</string>
     <string name="main_logout_title">Выход</string>
-    <string name="about_text">Приложение для отслеживания Ваших средств.\nСоздано: Андрей Савчук\n2017 г.\nверсия приложения 1.2</string>
+    <string name="about_text">Приложение для отслеживания Ваших средств.\n
+        Создано: Андрей Савчук\n
+        20172\n
+        \n
+        версия приложения 1.22\n
+        \n
+        *** ЧТО НОВОГО ***\n
+        - Добавлена поддержка девайсов начиная от Android 4.4.+;\n
+        - Исправлены ошибки;\n
+        - Улучшена стабильность приложения.</string>
     <string name="action_settings">Settings</string>
 
     <!--Menu nav bar-->
@@ -52,6 +61,8 @@
     <string name="yes_button">Да</string>
     <string name="no_button">Нет</string>
     <string name="submit_button">Сохранить</string>
+    <string name="setFinger_alert_text">Чтобы Ваши данные были под замком, просто закройте приложение.</string>
+    <string name="gotIt_btn">Понятно</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">История</string>
@@ -91,6 +102,13 @@
     <string name="slide4_text">Ваших расходов и прибыли</string>
     <string name="slide5_title">И конечно</string>
     <string name="slide5_text">Наслаждайтесь своим прекрасным приложением</string>
+
+    <!--AppRater-->
+    <string name="rate_alert_title">Оцени меня</string>
+    <string name="rate_alert_message">Если Вам нравится использовать WalletAS, пожалуйста, найдите минутку, чтобы оценить приложение. Спасибо за поддержку!</string>
+    <string name="rate_alert_pos_btn">Оценитьe WalletAS</string>
+    <string name="rate_alert_neut_btn">Напомнить позже</string>
+    <string name="rate_alert_neg_btn">Нет, спасибо</string>
 
     <string name="app_name">WalletAS</string>
 

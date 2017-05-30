@@ -1,7 +1,7 @@
 <resources>
     <!--Alert Fingerprint-->
     <string name="attention_alert">Attention</string>
-    <string name="attention_alert_text">If you want to use fingerprint sensor for logining in,you will be loged in as a superuser without e-mail identification.</string>
+    <string name="attention_alert_text">If you want to use fingerprint sensor for logging in,you will be logged in as a super user without email identification.</string>
     <string name="attention_alert_button">Yes, I want to try</string>
 
     <!--FingerprintActivity-->
@@ -13,7 +13,16 @@
     <!--Manu action bar activity-->
     <string name="about_title">About</string>
     <string name="main_logout_title">Log out</string>
-    <string name="about_text">An application for keeping track of your funds.\nWas created by: Andrii Savchuk\n2017 y.\napplication version 1.2</string>
+    <string name="about_text">An application for keeping track of your funds.\n
+        Was created by: Andrii Savchuk\n
+        2017 y.\n
+        \n
+        application version 1.22\n
+        \n
+        *** WHAT IS NEW ***\n
+        - Added Android 4.4.+ support;\n
+        - Fixed bugs;\n
+        - Improved stability.</string>
     <string name="action_settings">Settings</string>
 
     <!--Menu nav bar-->
@@ -51,6 +60,8 @@
     <string name="yes_button">Yes</string>
     <string name="no_button">No</string>
     <string name="submit_button">Submit</string>
+    <string name="setFinger_alert_text">To keep your data in safety, just close the application.</string>
+    <string name="gotIt_btn">Got it</string>
 
 
     <!--HistoryActivity-->
@@ -93,6 +104,12 @@
     <string name="slide5_text">Enjoy your beautiful app</string>
 
 
+    <!--AppRater-->
+    <string name="rate_alert_title">Rate me</string>
+    <string name="rate_alert_message">If you enjoy using WalletAS, please take a moment to rate it. Thanks for your support!</string>
+    <string name="rate_alert_pos_btn">Rate WalletAS</string>
+    <string name="rate_alert_neut_btn">Remind me later</string>
+    <string name="rate_alert_neg_btn">No, thanks</string>
 
     <string name="app_name">WalletAS</string>
 

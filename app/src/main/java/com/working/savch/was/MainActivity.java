@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity
             mCurrentName = session.getName();
         }
 
-
+        AppRater.app_launched(this);
         MobileAds.initialize(this, "ca-app-pub-7423558564398166~3561711933");
         AdView  adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
@@ -481,7 +481,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         int id = item.getItemId();
         switch (id){
             case R.id.action_about:
@@ -513,12 +513,24 @@ public class MainActivity extends AppCompatActivity
                 alertDialog.show();
                 return true;
             case R.id.action_check:
+
                 if (item.isChecked()){
                     item.setChecked(false);
                     session.setFingerPrint(false);
                 }else{
-                    item.setChecked(true);
-                    session.setFingerPrint(true);
+                    final AlertDialog.Builder fingerAlert = new AlertDialog.Builder(context);
+                    fingerAlert.setTitle(R.string.attention_alert);
+                    fingerAlert.setMessage(R.string.setFinger_alert_text);
+                    //inputAlert.setView(userInput);
+                    fingerAlert.setNeutralButton(R.string.gotIt_btn, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            item.setChecked(true);
+                            session.setFingerPrint(true);
+                        }
+                    });
+                    AlertDialog alertDialogFinger = fingerAlert.create();
+                    alertDialogFinger.show();
                 }
                 return true;
             default:
