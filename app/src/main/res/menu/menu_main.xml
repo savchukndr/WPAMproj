@@ -9,6 +9,14 @@
         android:title="@string/checkable"/>-->
 
     <item
+        android:id="@+id/action_check_pin"
+        android:title="Use PIN"
+        android:orderInCategory="300"
+        app:showAsAction="never"
+        android:visible="true"
+        android:checkable="true"/>
+
+    <item
         android:id="@+id/action_check"
         android:title="@string/checkable"
         android:orderInCategory="200"

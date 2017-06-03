@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:background="#FFFFBB33"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/logo" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutMain"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/pin_1"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:nextFocusRight="@+id/pin_2"
+            android:weightSum="1" />
+
+        <EditText
+            android:id="@+id/pin_2"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:nextFocusRight="@+id/pin_3"
+            android:weightSum="1" />
+
+        <EditText
+            android:id="@+id/pin_3"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:nextFocusForward="@+id/pin_4"
+            android:weightSum="1" />
+
+        <EditText
+            android:id="@+id/pin_4"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:weightSum="1" />
+    </LinearLayout>
+</LinearLayout>

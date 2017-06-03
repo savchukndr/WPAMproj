@@ -1,27 +1,24 @@
 package com.working.savch.was;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
-import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,9 +33,6 @@ import com.working.savch.was.history.TransactionActivity;
 import com.working.savch.was.login.LoginActivity;
 import com.working.savch.was.session.Session;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.regex.Matcher;
@@ -47,22 +41,26 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    static private double controlSum = 0.0d;
-    Context context;
     static final String STATE_NAME = "masterName";
+    Context context;
+    MySQLAdapter dbHelper;
+    TextView textViewInfo;
+    MenuItem itemC;
     private String mCurrentName;
     private String mCurrentEmail;
     private boolean inputMoneyFlag = true;
-    MySQLAdapter dbHelper;
-    TextView textViewInfo;
     private GoogleApiClient mGoogleApiClient;
     private Session session;
     private Bitmap bitmap;
     private int userId;
     private int categoryChoose;
     private String userInputValue;
-    MenuItem itemC;
 
+    private static int getPowerOfTwoForSampleRatio(double ratio) {
+        int k = Integer.highestOneBit((int) Math.floor(ratio));
+        if (k == 0) return 1;
+        else return k;
+    }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -73,8 +71,6 @@ public class MainActivity extends AppCompatActivity
         super.onSaveInstanceState(savedInstanceState);
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,14 +78,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         session = new Session(this);
-        if(session.loggedin()){
+        if (session.loggedin()) {
             mCurrentEmail = session.getEmail();
             mCurrentName = session.getName();
         }
 
         AppRater.app_launched(this);
         MobileAds.initialize(this, "ca-app-pub-7423558564398166~3561711933");
-        AdView  adView = (AdView) findViewById(R.id.adView);
+        AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
@@ -107,12 +103,12 @@ public class MainActivity extends AppCompatActivity
         dbHelper = new MySQLAdapter(this);
 
         textViewInfo = (TextView) findViewById(R.id.amount_view);
-        textViewInfo.setText(String.format( "%.2f", controlSum));
+        double controlSum = 0.0d;
+        textViewInfo.setText(String.format("%.2f", controlSum));
 
         dbHelper.openToWrite();
         Cursor cursor = dbHelper.querySum();
-        while(cursor.moveToNext())
-        {
+        while (cursor.moveToNext()) {
             String tmp = String.valueOf(cursor.getDouble(cursor.getColumnIndex("totalSum")));
             if (tmp.equals("0.0")) {
                 textViewInfo.setText("0.00");
@@ -129,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         Cursor cursorUserId = dbHelper.queueUserId(mCurrentEmail);
-        while(cursorUserId.moveToNext()){
+        while (cursorUserId.moveToNext()) {
             userId = cursorUserId.getInt(cursorUserId.getColumnIndex("id_user"));
         }
 
@@ -145,17 +141,17 @@ public class MainActivity extends AppCompatActivity
                 String tmpAdd = addEditText.getText().toString();
 
                 strCheck(tmpAdd);
-                if(inputMoneyFlag) {
+                if (inputMoneyFlag) {
                     double amount;
                     amount = Double.parseDouble(tmpAdd);
 
                     dbHelper.openToWrite();
-                    long rowID = dbHelper.insertTransactionTable(amount, "aboutTODO", userId, 6); //TODO: insertTransaction userID current and category
+                    dbHelper.insertTransactionTable(amount, "aboutTODO", userId, 6);
                     Snackbar.make(view, getString(R.string.main_record_add),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     Cursor cursor = dbHelper.querySum();
-                    while(cursor.moveToNext()) {
+                    while (cursor.moveToNext()) {
                         String tmp = String.valueOf(cursor.getDouble(cursor.getColumnIndex("totalSum")));
                         if (tmp.equals("0.0")) {
                             textViewInfo.setText("0.00");
@@ -171,7 +167,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                     addEditText.setText("");
-                }else{
+                } else {
                     Snackbar.make(view, getString(R.string.main_one_field),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -189,7 +185,7 @@ public class MainActivity extends AppCompatActivity
                 String tmpAdd = addEditText.getText().toString();
 
                 strCheck(tmpAdd);
-                if(inputMoneyFlag) {
+                if (inputMoneyFlag) {
                     final double amount;
                     amount = Double.parseDouble(tmpAdd) * (-1);
 
@@ -218,8 +214,7 @@ public class MainActivity extends AppCompatActivity
                                                     Snackbar.LENGTH_LONG)
                                                     .setAction("Action", null).show();
                                             Cursor cursor = dbHelper.querySum();
-                                            while(cursor.moveToNext())
-                                            {
+                                            while (cursor.moveToNext()) {
                                                 String tmp = String.valueOf(cursor.getDouble(cursor.getColumnIndex("totalSum")));
                                                 if (tmp.equals("0.0")) {
                                                     textViewInfo.setText("0.00");
@@ -245,7 +240,7 @@ public class MainActivity extends AppCompatActivity
                     alrt.show();
 
 
-                }else{
+                } else {
                     Snackbar.make(view, getString(R.string.main_one_field),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -260,13 +255,11 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
                 EditText addEditText = (EditText) findViewById(R.id.addEditText);
                 EditText delEditText = (EditText) findViewById(R.id.delEditText);
                 String tmpAdd = addEditText.getText().toString();
                 String tmpDel = delEditText.getText().toString();
-
                 //check if not entered both field in one time
                 strCheck(tmpAdd, tmpDel);
                 if(inputMoneyFlag) {
@@ -277,12 +270,11 @@ public class MainActivity extends AppCompatActivity
                         amount = Double.parseDouble(tmpDel) * (-1);
                     }
                     dbHelper.openToWrite();
-                    long rowID = dbHelper.insertTransactionTable(amount, "aboutTODO", 1, 3); //TODO: insertTransaction userID current and category
+                    long rowID = dbHelper.insertTransactionTable(amount, "aboutTODO", 1, 3);
                     //Log.d(LOG_TAG, "row inserted, ID = " + rowID);
                     Snackbar.make(view, getString(R.string.main_record_add),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-
                     Cursor cursor = dbHelper.querySum();
                     while(cursor.moveToNext())
                     {
@@ -322,17 +314,17 @@ public class MainActivity extends AppCompatActivity
 
         //if (extras != null) {
 
-            String firstLetter = imageSelecter(mCurrentName);
-            View hView =  navigationView.getHeaderView(0);
-            String helloNameUser = getString(R.string.nav_hello) + " " + firstWord(mCurrentName) + "!";
+        String firstLetter = imageSelecter(mCurrentName);
+        View hView = navigationView.getHeaderView(0);
+        String helloNameUser = getString(R.string.nav_hello) + " " + firstWord(mCurrentName) + "!";
 
-            TextView txtHelloName = (TextView) hView.findViewById(R.id.userNameHelloTextView);
-            txtHelloName.setText(helloNameUser);
+        TextView txtHelloName = (TextView) hView.findViewById(R.id.userNameHelloTextView);
+        txtHelloName.setText(helloNameUser);
 
-            TextView txtHelloEmail = (TextView) hView.findViewById(R.id.userEmailHelloTextView);
-            txtHelloEmail.setText(mCurrentEmail);
+        TextView txtHelloEmail = (TextView) hView.findViewById(R.id.userEmailHelloTextView);
+        txtHelloEmail.setText(mCurrentEmail);
 
-            ImageView imgName = (ImageView) hView.findViewById(R.id.imageAcc);
+        ImageView imgName = (ImageView) hView.findViewById(R.id.imageAcc);
             /*if(session.hasPhoto()){
                 Uri imageUri = Uri.parse(session.getPhoto());
                 try {
@@ -341,117 +333,115 @@ public class MainActivity extends AppCompatActivity
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }else {*/
-                switch (firstLetter) {
-                    case "А":
-                    case "A":
-                        imgName.setImageResource(R.drawable.a);
-                        break;
-                    case "Б":
-                    case "B":
-                        imgName.setImageResource(R.drawable.b);
-                        break;
-                    case "Ц":
-                    case "C":
-                        imgName.setImageResource(R.drawable.c);
-                        break;
-                    case "Д":
-                    case "D":
-                        imgName.setImageResource(R.drawable.d);
-                        break;
-                    case "Е":
-                    case "Э":
-                    case "E":
-                        imgName.setImageResource(R.drawable.e);
-                        break;
-                    case "Ф":
-                    case "F":
-                        imgName.setImageResource(R.drawable.f);
-                        break;
-                    case "Г":
-                    case "G":
-                        imgName.setImageResource(R.drawable.g);
-                        break;
-                    case "Х":
-                    case "H":
-                        imgName.setImageResource(R.drawable.h);
-                        break;
-                    case "И":
-                    case "I":
-                        imgName.setImageResource(R.drawable.i);
-                        break;
-                    case "Ю":
-                    case "J":
-                        imgName.setImageResource(R.drawable.j);
-                        break;
-                    case "К":
-                    case "K":
-                        imgName.setImageResource(R.drawable.k);
-                        break;
-                    case "Л":
-                    case "L":
-                        imgName.setImageResource(R.drawable.l);
-                        break;
-                    case "М":
-                    case "M":
-                        imgName.setImageResource(R.drawable.m);
-                        break;
-                    case "Н":
-                    case "N":
-                        imgName.setImageResource(R.drawable.n);
-                        break;
-                    case "О":
-                    case "O":
-                        imgName.setImageResource(R.drawable.o);
-                        break;
-                    case "П":
-                    case "P":
-                        imgName.setImageResource(R.drawable.p);
-                        break;
-                    case "Q":
-                        imgName.setImageResource(R.drawable.q);
-                        break;
-                    case "Р":
-                    case "R":
-                        imgName.setImageResource(R.drawable.r);
-                        break;
-                    case "С":
-                    case "S":
-                        imgName.setImageResource(R.drawable.s);
-                        break;
-                    case "Т":
-                    case "T":
-                        imgName.setImageResource(R.drawable.t);
-                        break;
-                    case "У":
-                    case "U":
-                        imgName.setImageResource(R.drawable.u);
-                        break;
-                    case "В":
-                    case "V":
-                        imgName.setImageResource(R.drawable.v);
-                        break;
-                    case "W":
-                        imgName.setImageResource(R.drawable.w);
-                        break;
-                    case "X":
-                        imgName.setImageResource(R.drawable.x);
-                        break;
-                    case "Y":
-                        imgName.setImageResource(R.drawable.y);
-                        break;
-                    case "З":
-                    case "Z":
-                        imgName.setImageResource(R.drawable.z);
-                        break;
-                    default:
-                        imgName.setImageResource(R.drawable.failed_print);
-                        break;
-                }
-           // }
+        switch (firstLetter) {
+            case "А":
+            case "A":
+                imgName.setImageResource(R.drawable.a);
+                break;
+            case "Б":
+            case "B":
+                imgName.setImageResource(R.drawable.b);
+                break;
+            case "Ц":
+            case "C":
+                imgName.setImageResource(R.drawable.c);
+                break;
+            case "Д":
+            case "D":
+                imgName.setImageResource(R.drawable.d);
+                break;
+            case "Е":
+            case "Э":
+            case "E":
+                imgName.setImageResource(R.drawable.e);
+                break;
+            case "Ф":
+            case "F":
+                imgName.setImageResource(R.drawable.f);
+                break;
+            case "Г":
+            case "G":
+                imgName.setImageResource(R.drawable.g);
+                break;
+            case "Х":
+            case "H":
+                imgName.setImageResource(R.drawable.h);
+                break;
+            case "И":
+            case "I":
+                imgName.setImageResource(R.drawable.i);
+                break;
+            case "Ю":
+            case "J":
+                imgName.setImageResource(R.drawable.j);
+                break;
+            case "К":
+            case "K":
+                imgName.setImageResource(R.drawable.k);
+                break;
+            case "Л":
+            case "L":
+                imgName.setImageResource(R.drawable.l);
+                break;
+            case "М":
+            case "M":
+                imgName.setImageResource(R.drawable.m);
+                break;
+            case "Н":
+            case "N":
+                imgName.setImageResource(R.drawable.n);
+                break;
+            case "О":
+            case "O":
+                imgName.setImageResource(R.drawable.o);
+                break;
+            case "П":
+            case "P":
+                imgName.setImageResource(R.drawable.p);
+                break;
+            case "Q":
+                imgName.setImageResource(R.drawable.q);
+                break;
+            case "Р":
+            case "R":
+                imgName.setImageResource(R.drawable.r);
+                break;
+            case "С":
+            case "S":
+                imgName.setImageResource(R.drawable.s);
+                break;
+            case "Т":
+            case "T":
+                imgName.setImageResource(R.drawable.t);
+                break;
+            case "У":
+            case "U":
+                imgName.setImageResource(R.drawable.u);
+                break;
+            case "В":
+            case "V":
+                imgName.setImageResource(R.drawable.v);
+                break;
+            case "W":
+                imgName.setImageResource(R.drawable.w);
+                break;
+            case "X":
+                imgName.setImageResource(R.drawable.x);
+                break;
+            case "Y":
+                imgName.setImageResource(R.drawable.y);
+                break;
+            case "З":
+            case "Z":
+                imgName.setImageResource(R.drawable.z);
+                break;
+            default:
+                imgName.setImageResource(R.drawable.failed_print);
+                break;
+        }
+        // }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -473,7 +463,7 @@ public class MainActivity extends AppCompatActivity
             itemC.setVisible(false);
         } else {
             // Everything is ready for fingerprint authentication
-            if(session.fingerPrint()) {
+            if (session.fingerPrint()) {
                 itemC.setChecked(true);
             }
         }
@@ -483,7 +473,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.action_about:
                 Intent intent = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(intent);
@@ -514,10 +504,10 @@ public class MainActivity extends AppCompatActivity
                 return true;
             case R.id.action_check:
 
-                if (item.isChecked()){
+                if (item.isChecked()) {
                     item.setChecked(false);
                     session.setFingerPrint(false);
-                }else{
+                } else {
                     final AlertDialog.Builder fingerAlert = new AlertDialog.Builder(context);
                     fingerAlert.setTitle(R.string.attention_alert);
                     fingerAlert.setMessage(R.string.setFinger_alert_text);
@@ -540,7 +530,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Intent intent = null;
@@ -549,20 +539,14 @@ public class MainActivity extends AppCompatActivity
             //intent = new Intent(getApplicationContext(),MainActivity.class);
 
         } else if (id == R.id.nav_transaction) {
-            intent = new Intent(getApplicationContext(),TransactionActivity.class);
+            intent = new Intent(getApplicationContext(), TransactionActivity.class);
             intent.putExtra("userEmail", mCurrentEmail);
             startActivity(intent);
         }/* else if (id == R.id.nav_settings) {
-
         }*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void setActivityBackgroundColor(int color) {
-        View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(color);
     }
 
     /*public void strCheck(String x, String y) {
@@ -580,44 +564,41 @@ public class MainActivity extends AppCompatActivity
         }
     }*/
 
+    public void setActivityBackgroundColor(int color) {
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(color);
+    }
+
     public void strCheck(String x) {
-        if (!x.isEmpty()){
+        if (!x.isEmpty()) {
             inputMoneyFlag = true;
-        }else if (x.isEmpty()){
+        } else if (x.isEmpty()) {
             inputMoneyFlag = false;
         }
     }
 
-    private String imageSelecter(String name){
-        return name.substring(0,1).toUpperCase();
+    private String imageSelecter(String name) {
+        return name.substring(0, 1).toUpperCase();
     }
 
-    private String firstWord(String sentense){
+    private String firstWord(String sentense) {
         Pattern p = Pattern.compile("^([\\w\\-]+)");
         Matcher m = p.matcher(sentense);
-        if (m.find())
-        {
+        if (m.find()) {
             return m.group(1);
-        }else{
+        } else {
             return "NO";
         }
     }
 
-
-    private void logOut(){
+    private void logOut() {
         session.setLoggedin(false);
         finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
-    private static int getPowerOfTwoForSampleRatio(double ratio){
-        int k = Integer.highestOneBit((int)Math.floor(ratio));
-        if(k==0) return 1;
-        else return k;
-    }
-
-    private String delSpacesInString(String inputStr){
-        return inputStr.replaceAll("^\\s+","");
+    private String delSpacesInString(String inputStr) {
+        return inputStr.replaceAll("^\\s+", "");
     }
 
 }

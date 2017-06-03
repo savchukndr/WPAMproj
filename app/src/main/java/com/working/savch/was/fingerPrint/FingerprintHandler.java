@@ -1,15 +1,13 @@
 package com.working.savch.was.fingerPrint;
 
-/**
- * Created by savch on 02.04.2017.
- */
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.CancellationSignal;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,28 +17,28 @@ import com.working.savch.was.R;
 import com.working.savch.was.SplashActivity;
 import com.working.savch.was.session.Session;
 
-public class FingerprintHandler extends
+@RequiresApi(api = Build.VERSION_CODES.M)
+class FingerprintHandler extends
         FingerprintManager.AuthenticationCallback {
 
-    private CancellationSignal cancellationSignal;
     private Context appContext;
-    public boolean ifEntered;
     private ImageView imge;
     private TextView txte;
     private Session sessione;
 
 
-    public FingerprintHandler(Context context, ImageView img, TextView txt, Session session) {
+    FingerprintHandler(Context context, ImageView img, TextView txt, Session session) {
         appContext = context;
         imge = img;
         txte = txt;
         sessione = session;
     }
 
-    public void startAuth(FingerprintManager manager,
-                          FingerprintManager.CryptoObject cryptoObject) {
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    void startAuth(FingerprintManager manager,
+                   FingerprintManager.CryptoObject cryptoObject) {
 
-        cancellationSignal = new CancellationSignal();
+        CancellationSignal cancellationSignal = new CancellationSignal();
 
         if (ActivityCompat.checkSelfPermission(appContext,
                 Manifest.permission.USE_FINGERPRINT) !=
@@ -87,7 +85,7 @@ public class FingerprintHandler extends
         sessione.setLoggedin(true);
         /*sessione.setName("Master");
         sessione.setEmail("");*/
-        Intent intent = new Intent(appContext,MainActivity.class);
+        Intent intent = new Intent(appContext, MainActivity.class);
 
         intent.putExtra("userName", "Master");
         intent.putExtra("userEmail", "");

@@ -1,31 +1,21 @@
 package com.working.savch.was.login;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.working.savch.was.IntroActivity;
-import com.working.savch.was.session.Session;
-import com.working.savch.was.fingerPrint.FingerprintActivity;
-import com.working.savch.was.MainActivity;
-import com.working.savch.was.base.MySQLAdapter;
-import com.working.savch.was.R;
-import com.working.savch.was.signup.SignupActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
@@ -37,41 +27,42 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-
-import com.facebook.FacebookSdk;
+import com.working.savch.was.IntroActivity;
+import com.working.savch.was.MainActivity;
+import com.working.savch.was.R;
+import com.working.savch.was.base.MySQLAdapter;
+import com.working.savch.was.session.Session;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.ButterKnife;
-import butterknife.BindView;
 
 public class LoginActivity extends AppCompatActivity implements
-        GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = "LoginActivity";
     //final String LOG_TAG = "myLogs";
     private static final int REQUEST_SIGNUP = 0;
-    MySQLAdapter dbHelper;
-
-
-    private GoogleApiClient mGoogleApiClient;
     private static final String TAG1 = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final int FB_SIGN_IN = 64206;
+    MySQLAdapter dbHelper;
+    private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private ProgressDialog mConnectionProgressDialog;
 
     private String personName;
     private String personEmail;
-    private String personNameSimple;
-
-    private boolean gogSignIn = false;
 
     private CallbackManager callbackManager;
     private Session session;
     private Uri personPhoto;
     private boolean hasPhoto = false;
-    private LoginButton _signupFaceButton;
+
+    public static boolean isLoggedIn() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements
                 signIn();
             }
         });
-        if(session.loggedin()){
+        if (session.loggedin()) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -166,7 +157,7 @@ public class LoginActivity extends AppCompatActivity implements
         //FAcebook initialization
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        _signupFaceButton = (LoginButton)findViewById(R.id.login_button);
+        LoginButton _signupFaceButton = (LoginButton) findViewById(R.id.login_button);
         _signupFaceButton.setReadPermissions("email");
         _signupFaceButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -180,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements
 
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                       // Log. i("LoginActivity", response.toString());
+                        // Log. i("LoginActivity", response.toString());
                         // Get facebook data from login
                         Bundle bFacebookData = getFacebookData(object);
 
@@ -238,12 +229,6 @@ public class LoginActivity extends AppCompatActivity implements
         mConnectionProgressDialog.setMessage("Signing in...");
     }
 
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
-        // be available.
-        //Log.d(TAG, "onConnectionFailed:" + connectionResult);
-    }
-
     //********************************************************************************
     //login with Login Button
     /*public void login() {
@@ -282,6 +267,11 @@ public class LoginActivity extends AppCompatActivity implements
     }*/
     //******************************************************************************
 
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        //Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -367,12 +357,6 @@ public class LoginActivity extends AppCompatActivity implements
         //finish();
     }
 
-    public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
-        //_loginButton.setEnabled(true);
-    }
-
     //*************************************************************************************
     /*public boolean validate() {
         boolean valid = true;
@@ -398,8 +382,13 @@ public class LoginActivity extends AppCompatActivity implements
     }*/
     //*************************************************************************************
 
-    public Boolean userAutentification(String email, String password)
-    {
+    public void onLoginFailed() {
+        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+
+        //_loginButton.setEnabled(true);
+    }
+
+    public Boolean userAutentification(String email, String password) {
         dbHelper.openToWrite();
 
         // Setting up the cursor which points to the desired table
@@ -408,27 +397,24 @@ public class LoginActivity extends AppCompatActivity implements
         Boolean records_Exist = false;
 
         // Checking if the table has values other than the header using the cursor
-        if(cursor != null && cursor.getCount() > 0)
-        {
+        if (cursor != null && cursor.getCount() > 0) {
             // Moving the cursor to the first row in the table
             cursor.moveToFirst();
 
-            do
-            {
+            do {
                 // Checking if the user name provided by the user exists in the database
                 //if(cursor.getString(cursor.getColumnIndex("email")) == null) {
-                  //  records_Exist = false;
+                //  records_Exist = false;
                 //}else{
-                    if (cursor.getString(cursor.getColumnIndex("email")).equals(email)) {
-                        if (cursor.getString(cursor.getColumnIndex("password")).equals(password)) {
-                            personNameSimple = cursor.getString(cursor.getColumnIndex("name"));
-                            records_Exist = true;
-                            break;
-                        }
+                if (cursor.getString(cursor.getColumnIndex("email")).equals(email)) {
+                    if (cursor.getString(cursor.getColumnIndex("password")).equals(password)) {
+                        records_Exist = true;
+                        break;
                     }
+                }
                 //}
 
-            }while(cursor.moveToNext()); // Moves to the next row
+            } while (cursor.moveToNext()); // Moves to the next row
         }
 
         // Closing the cursor
@@ -448,14 +434,13 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-       // Log.d(TAG1, "handleSignInResult:" + result.isSuccess());
+        // Log.d(TAG1, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             assert acct != null;
             personName = acct.getDisplayName();
             personEmail = acct.getEmail();
-            gogSignIn = true;
             //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             updateUI(true);
         } else {
@@ -473,31 +458,24 @@ public class LoginActivity extends AppCompatActivity implements
         }*/
     }
 
-    public boolean ifUserExsist(String email){
+    public boolean ifUserExsist(String email) {
         dbHelper.openToRead();
 
         Cursor cursor = dbHelper.queueAll();
-        if(cursor == null){
-            String dd = "nolik";
-        }else{
-            String dd = "nie nolik";
-        }
         boolean ifExsist = false;
-        if(cursor != null && cursor.getCount() > 0)
-        {
+        if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
-            do
-            {
+            do {
                 if (cursor.getString(cursor.getColumnIndex("email")) == null) {
                     ifExsist = false;
-                }else{
+                } else {
                     if (cursor.getString(cursor.getColumnIndex("email")).equals(email)) {
 
                         ifExsist = true;
                         break;
                     }
                 }
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         assert cursor != null;
         cursor.close();
@@ -527,15 +505,9 @@ public class LoginActivity extends AppCompatActivity implements
                 bundle.putString("email", object.getString("email"));
 
             return bundle;
-        }
-        catch(JSONException e) {
-           // Log.d(TAG,"Error parsing JSON");
+        } catch (JSONException e) {
+            // Log.d(TAG,"Error parsing JSON");
             return new Bundle();
         }
-    }
-
-    public static boolean isLoggedIn() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        return accessToken != null;
     }
 }

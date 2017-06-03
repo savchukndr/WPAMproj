@@ -1,19 +1,21 @@
-package com.working.savch.was.fingerPrint;
-
-/**
+package com.working.savch.was.fingerPrint; /**
  * Created by savch on 02.04.2017.
+ * All rights are reserved.
+ * If you will have any cuastion, please
+ * contact via email (savchukndr@gmail.com)
  */
 
-import android.content.Intent;
+import android.app.KeyguardManager;
 import android.content.pm.PackageManager;
+import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
+import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.app.KeyguardManager;
-import android.hardware.fingerprint.FingerprintManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +23,6 @@ import android.widget.Toast;
 import com.working.savch.was.Manifest;
 import com.working.savch.was.R;
 import com.working.savch.was.session.Session;
-import com.working.savch.was.login.LoginActivity;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -41,25 +42,19 @@ import javax.crypto.SecretKey;
 public class FingerprintActivity extends AppCompatActivity {
 
     private static final String KEY_NAME = "example_key";
-    private FingerprintManager fingerprintManager;
-    private KeyguardManager keyguardManager;
     private KeyStore keyStore;
-    private KeyGenerator keyGenerator;
     private Cipher cipher;
-    private FingerprintManager.CryptoObject cryptoObject;
-    private Session session;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fingerprint);
 
-        session = new Session(this);
+        Session session = new Session(this);
 
-        keyguardManager =
-                (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-        fingerprintManager =
-                (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
+        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+        FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 
         if (!keyguardManager.isKeyguardSecure()) {
 
@@ -91,10 +86,9 @@ public class FingerprintActivity extends AppCompatActivity {
         generateKey();
 
         if (cipherInit()) {
-            cryptoObject =
-                    new FingerprintManager.CryptoObject(cipher);
+            FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(cipher);
             ImageView img = (ImageView) findViewById(R.id.imageFingerPrint);
-            TextView txt= (TextView) findViewById(R.id.fing_txt);
+            TextView txt = (TextView) findViewById(R.id.fing_txt);
             FingerprintHandler helper = new FingerprintHandler(this, img, txt, session);
             helper.startAuth(fingerprintManager, cryptoObject);
         }
@@ -102,14 +96,10 @@ public class FingerprintActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // Disable going back to the MainActivity
-        /*Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivityIfNeeded(intent, 0);
-        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);*/
         moveTaskToBack(true);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void generateKey() {
         try {
             keyStore = KeyStore.getInstance("AndroidKeyStore");
@@ -117,6 +107,7 @@ public class FingerprintActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        KeyGenerator keyGenerator;
         try {
             keyGenerator = KeyGenerator.getInstance(
                     KeyProperties.KEY_ALGORITHM_AES,
@@ -146,6 +137,7 @@ public class FingerprintActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean cipherInit() {
         try {
             cipher = Cipher.getInstance(

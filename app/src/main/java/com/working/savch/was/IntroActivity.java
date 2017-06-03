@@ -11,6 +11,9 @@ import com.github.paolorotolo.appintro.AppIntroFragment;
 
 /**
  * Created by savch on 15.05.2017.
+ * All rights are reserved.
+ * If you will have any cuastion, please
+ * contact via email (savchukndr@gmail.com)
  */
 
 public class IntroActivity extends AppIntro {
@@ -30,10 +33,10 @@ public class IntroActivity extends AppIntro {
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
         addSlide(AppIntroFragment.newInstance(getString(R.string.slide1_title), getString(R.string.slide1_text), R.drawable.logo, Color.parseColor("#00BCD4")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.slide2_title),  getString(R.string.slide2_text), R.drawable.intro_earnings, Color.parseColor("#00BCD4")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.slide3_title),  getString(R.string.slide3_text), R.drawable.intro_categories, Color.parseColor("#00BCD4")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.slide4_title),  getString(R.string.slide4_text), R.drawable.intro_history, Color.parseColor("#00BCD4")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.slide5_title),  getString(R.string.slide5_text), R.drawable.logo, Color.parseColor("#00BCD4")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide2_title), getString(R.string.slide2_text), R.drawable.intro_earnings, Color.parseColor("#00BCD4")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide3_title), getString(R.string.slide3_text), R.drawable.intro_categories, Color.parseColor("#00BCD4")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide4_title), getString(R.string.slide4_text), R.drawable.intro_history, Color.parseColor("#00BCD4")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide5_title), getString(R.string.slide5_text), R.drawable.logo, Color.parseColor("#00BCD4")));
         /*addSlide(AppIntroFragment.newInstance(getString(R.string.slide6_title),  getString(R.string.slide6_text), R.drawable.intro_enjoy, Color.parseColor("#3F51B5")));*/
 
         // OPTIONAL METHODS
@@ -55,7 +58,7 @@ public class IntroActivity extends AppIntro {
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
         // Do something when users tap on Skip button.
-        Intent intentMain = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intentMain);
     }
 
@@ -63,7 +66,7 @@ public class IntroActivity extends AppIntro {
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
         // Do something when users tap on Done button.
-        Intent intentMain = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intentMain);
     }
 

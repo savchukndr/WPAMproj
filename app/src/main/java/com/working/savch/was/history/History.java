@@ -2,16 +2,19 @@ package com.working.savch.was.history;
 
 /**
  * Created by savch on 09.05.2017.
+ * All rights are reserved.
+ * If you will have any cuastion, please
+ * contact via email (savchukndr@gmail.com)
  */
 
-public class History {
+class History {
     private String id, date, amount;
 
     public History(){
 
     }
 
-    public History(String id, String date, String amount) {
+    History(String id, String date, String amount) {
         this.id = id;
         this.date = date;
         this.amount = amount;
@@ -25,7 +28,7 @@ public class History {
         this.id = id;
     }
 
-    public String getDate() {
+    String getDate() {
         return date;
     }
 
@@ -33,7 +36,7 @@ public class History {
         this.date = date;
     }
 
-    public String getAmount() {
+    String getAmount() {
         return amount;
     }
 

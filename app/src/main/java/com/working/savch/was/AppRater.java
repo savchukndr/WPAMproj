@@ -9,18 +9,22 @@ import android.support.v7.app.AlertDialog;
 
 /**
  * Created by savch on 29.05.2017.
+ * All rights are reserved.
+ * If you will have any cuastion, please
+ * contact via email (savchukndr@gmail.com)
  */
 
-public class AppRater {
-    private final static String APP_TITLE = "WalletAS";// App Name
+class AppRater {
     private final static String APP_PNAME = "com.working.savch.was";// Package Name
 
     private final static int DAYS_UNTIL_PROMPT = 2;//Min number of days
     private final static int LAUNCHES_UNTIL_PROMPT = 3;//Min number of launches
 
-    public static void app_launched(Context mContext) {
+    static void app_launched(Context mContext) {
         SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);
-        if (prefs.getBoolean("dontshowagain", false)) { return ; }
+        if (prefs.getBoolean("dontshowagain", false)) {
+            return;
+        }
 
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -46,7 +50,7 @@ public class AppRater {
         editor.apply();
     }
 
-    public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
+    private static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
 
         final AlertDialog.Builder rateAlert = new AlertDialog.Builder(mContext);
         rateAlert.setTitle(R.string.rate_alert_title);
