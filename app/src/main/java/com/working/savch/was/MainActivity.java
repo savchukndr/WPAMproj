@@ -129,8 +129,10 @@ public class MainActivity extends AppCompatActivity
             userId = cursorUserId.getInt(cursorUserId.getColumnIndex("id_user"));
         }
 
+        //MainActivity buttons
         Button _incomeButton = (Button) findViewById(R.id.btn_income);
         Button _spendButton = (Button) findViewById(R.id.btn_spend);
+        Button _historyButton = (Button) findViewById(R.id.btn_history);
 
         //income button
         _incomeButton.setOnClickListener(new View.OnClickListener() {
@@ -248,6 +250,18 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+        //Histry onClick button
+        _historyButton.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(final View view) {
+                      Intent intentTrans = new Intent(getApplicationContext(), TransactionActivity.class);
+                      intentTrans.putExtra("userEmail", mCurrentEmail);
+                      startActivity(intentTrans);
+                      overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                  }
+              }
+            );
 
 
         /*//Add transaction record to db

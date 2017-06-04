@@ -1,5 +1,6 @@
 package com.working.savch.was.history;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -147,15 +149,34 @@ public class TransactionActivity extends AppCompatActivity{
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
+                final int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT){
-                    dbHelper.openToWrite();
+                    final AlertDialog.Builder delAlert = new AlertDialog.Builder(TransactionActivity.this);
+                    delAlert.setTitle(R.string.delete_rec_alert_title);
+                    delAlert.setMessage(R.string.delete_rec_alert_message);
+                    //inputAlert.setView(userInput);
+                    delAlert.setPositiveButton(R.string.yes_button, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dbHelper.openToWrite();
 
-                    History history11 = historyList.get(position);
-                    String date1 = history11.getAmount();
-                    dbHelper.deleteAll(date1);
-                    hAdapter.removeItem(position);
+                            History history11 = historyList.get(position);
+                            String date1 = history11.getAmount();
+                            dbHelper.deleteAll(date1);
+                            hAdapter.removeItem(position);
+                        }
+                    });
+                    delAlert.setNegativeButton(R.string.no_button, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+
+                    AlertDialog alertDialogDel = delAlert.create();
+                    alertDialogDel.show();
                 }
             }
 

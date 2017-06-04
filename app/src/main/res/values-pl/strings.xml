@@ -62,19 +62,22 @@
     <string name="submit_button">Zatwierdź</string>
     <string name="setFinger_alert_text">Wystarczy że zamkniesz aplikację, twoje dane są bezpieczne</string>
     <string name="gotIt_btn">Rozumiem</string>
+    <string name="history_btn">Historia</string>
 
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">Historia</string>
     <string name="about_trans_alert">Opis</string>
     <string name="earnings_toast">Twoje wplywy</string>
-    <string name="category_0">Zakupy, usługi</string>
+    <string name="category_0">Zakupy,\nusługi</string>
     <string name="category_1">Rozrywka</string>
-    <string name="category_2">Jedzenie, żywność</string>
-    <string name="category_3">Wakacje, podróże</string>
+    <string name="category_2">Jedzenie,\nżywność</string>
+    <string name="category_3">Wakacje,\npodróże</string>
     <string name="category_4">Rachunki</string>
-    <string name="category_5">Kredyty, opłaty</string>
+    <string name="category_5">Kredyty,\nopłaty</string>
     <string name="category_6">Wpływy</string>
+    <string name="delete_rec_alert_title">Usunąć zapis</string>
+    <string name="delete_rec_alert_message">Jesteś pewny, że chcesz usunąć zapis?</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">Nie masz konta? Załóż je</string>

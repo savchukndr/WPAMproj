@@ -63,18 +63,21 @@
     <string name="submit_button">Сохранить</string>
     <string name="setFinger_alert_text">Чтобы Ваши данные были под замком, просто закройте приложение.</string>
     <string name="gotIt_btn">Понятно</string>
+    <string name="history_btn">История</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">История</string>
     <string name="about_trans_alert">Описание</string>
     <string name="earnings_toast">Ваша прибыль</string>
-    <string name="category_0">Покупки, услуги</string>
+    <string name="category_0">Покупки,\nуслуги</string>
     <string name="category_1">Развлечения</string>
-    <string name="category_2">Питание, рестораны</string>
-    <string name="category_3">Отдых, путешествия</string>
+    <string name="category_2">Питание,\nрестораны</string>
+    <string name="category_3">Отдых,\nпутешествия</string>
     <string name="category_4">Счета</string>
     <string name="category_5">Потреб. кредиты,\nсборы, налоги</string>
     <string name="category_6">Прибыль</string>
+    <string name="delete_rec_alert_title">Удалить запись</string>
+    <string name="delete_rec_alert_message">Вы уверены, что хотите удалить запись?</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">Не имеете аккаунта? Создайте</string>

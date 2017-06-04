@@ -62,19 +62,22 @@
     <string name="submit_button">Submit</string>
     <string name="setFinger_alert_text">To keep your data in safety, just close the application.</string>
     <string name="gotIt_btn">Got it</string>
+    <string name="history_btn">History</string>
 
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">History</string>
     <string name="about_trans_alert">About</string>
     <string name="earnings_toast">Your income</string>
-    <string name="category_0">Shopping, services</string>
+    <string name="category_0">Shopping,\nservices</string>
     <string name="category_1">Entertainment</string>
-    <string name="category_2">Food, dining</string>
-    <string name="category_3">Vacation, travel</string>
+    <string name="category_2">Food,\ndining</string>
+    <string name="category_3">Vacation,\ntravel</string>
     <string name="category_4">Bills</string>
     <string name="category_5">Consumer loans,\nfees, taxes</string>
     <string name="category_6">Income</string>
+    <string name="delete_rec_alert_title">Delete record</string>
+    <string name="delete_rec_alert_message">Are you sure you want to delete record?</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">No account yet? Create one</string>

@@ -28,5 +28,19 @@
     <color name="amount_yellow">#FF8F00</color>
 
     <color name="btn_color">#FF8F00</color>
+
+
+
+    <!-- Green -->
+    <color name="green_temp">#76FF03</color><!--A400-->
+    <color name="green_dark">#558B2F</color><!--800-->
+    <color name="bright_green">#B2FF59</color><!--A200-->
+    <color name="button_green">#7CB342</color><!--600-->
+
+    <!-- Red -->
+    <color name="red_temp">#FF3D00</color><!--A400-->
+    <color name="red_dark">#D84315</color><!--800-->
+    <color name="bright_red">#FF6E40</color><!--A200-->
+    <color name="button_red">#F4511E</color><!--600-->
 </resources>
 

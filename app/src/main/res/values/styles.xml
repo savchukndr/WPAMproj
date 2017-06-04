@@ -61,4 +61,9 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
+    <style name="GreenButtonStyle" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/amount_green</item>
+        <item name="android:colorButtonNormal">@color/amount_green</item>
+    </style>
+
 </resources>

@@ -63,18 +63,21 @@
     <string name="submit_button">Зберегти</string>
     <string name="setFinger_alert_text">Щоб Ваші дані були під замком, просто закрийте додаток.</string>
     <string name="gotIt_btn">Зрозуміло</string>
+    <string name="history_btn">Історія</string>
 
     <!--HistoryActivity-->
     <string name="title_activity_transaction">Історія</string>
     <string name="about_trans_alert">Опис</string>
     <string name="earnings_toast">Ваш прибуток</string>
-    <string name="category_0">Покупки, послуги</string>
+    <string name="category_0">Покупки,\nпослуги</string>
     <string name="category_1">Розваги</string>
     <string name="category_2">Прод. харчування,\nресторани</string>
-    <string name="category_3">Відпустка, подорожі</string>
+    <string name="category_3">Відпустка,\nподорожі</string>
     <string name="category_4">Рахунки</string>
     <string name="category_5">Спож. кредити,\nзбори, податки</string>
     <string name="category_6">Прибуток</string>
+    <string name="delete_rec_alert_title">Видалити запис</string>
+    <string name="delete_rec_alert_message">Ви впевнені, що хочете видалити запис?</string>
 
     <!--LoginActivity-->
     <string name="no_account_yet">Не маєте облікового запису? Створіть</string>
