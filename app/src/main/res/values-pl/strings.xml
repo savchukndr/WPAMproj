@@ -17,10 +17,10 @@
         Zaprojektował: Andrii Savchuk\n
         2017\n
         \n
-        Wersja 1.22\n
+        Wersja 1.24\n
         \n
         *** CO NOWEGO ***\n
-        - Dodano obsługę smartfonów na Android 4.4.+;\n
+        - Dodano możliwość logowania\nza pomocą kodu PIN;\n
         - Naprawiono błędy;\n
         - Ustabilizowano aplikację.</string>
     <string name="action_settings">Ustawienia</string>
@@ -55,6 +55,7 @@
     <string name="about_trans_alert_title">O wydatkach</string>
     <string name="about_trans_alert_message">Na co wydałeś:</string>
     <string name="checkable">Użyj czytnika lini papilarnych</string>
+    <string name="checkablePin">Użyj PIN</string>
     <string name="exit_alert_title">Wyjście</string>
     <string name="exit_alert_messege">Czy chcesz wyjśc?</string>
     <string name="yes_button">Tak</string>
@@ -112,6 +113,17 @@
     <string name="rate_alert_pos_btn">Oceń WalletAS</string>
     <string name="rate_alert_neut_btn">Przypomnij mi później</string>
     <string name="rate_alert_neg_btn">Nie, dziękuję</string>
+
+    <!-- PinCodeActivity -->
+    <string name="btn_next_name">Dalej</string>
+    <string name="btn_cancel_name">Anuluj</string>
+
+    <!-- RePinCodeActivity -->
+    <string name="password_ok">Hasło ustawione</string>
+    <string name="password_not_match">Hasła nie pasują do siebie</string>
+
+    <!-- PinCodeActivityRes -->
+    <string name="password_wrong">Złe hasło</string>
 
 
     <string name="app_name">WalletAS</string>

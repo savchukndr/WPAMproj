@@ -70,6 +70,33 @@ public class Session {
         return prefs.getBoolean("fingerPrintMode", false);
     }
 
+    public void setPin(String pinCode) {
+        editor.putString("PinMode", pinCode);
+        editor.commit();
+    }
+
+    public String getPin() {
+        return prefs.getString("PinMode", null);
+    }
+
+    public void setPinBool(boolean pinCode) {
+        editor.putBoolean("PinModeBool", pinCode);
+        editor.commit();
+    }
+
+    public boolean isPin() {
+        return prefs.getBoolean("PinModeBool", false);
+    }
+
+    public void setPinCheck(boolean pincheck) {
+        editor.putBoolean("pinchecktMode", pincheck);
+        editor.commit();
+    }
+
+    public boolean isPinCheck() {
+        return prefs.getBoolean("pincheckMode", false);
+    }
+
     public boolean hasPhoto() {
         return prefs.getBoolean("hasPhoto", false);
     }

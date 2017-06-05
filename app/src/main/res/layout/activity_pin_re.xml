@@ -65,4 +65,24 @@
             android:maxLength="1"
             android:gravity="center_horizontal"/>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LinearLayoutMain1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_cancel_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:text="@string/btn_cancel_name"
+            android:layout_weight="0.09" />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_next_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:text="@string/btn_next_name"
+            android:layout_weight="0.09" />
+    </LinearLayout>
 </LinearLayout>

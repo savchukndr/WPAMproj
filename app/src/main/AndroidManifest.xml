@@ -29,11 +29,6 @@
             android:name="com.working.savch.was.login.LoginActivity"
             android:theme="@style/AppTheme.Dark"
             android:screenOrientation="portrait">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
         <activity
             android:name="com.working.savch.was.SplashActivity"
@@ -66,6 +61,19 @@
         <activity android:name="com.working.savch.was.IntroActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.working.savch.was.pin.PinCodeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
+        <activity
+        android:name="com.working.savch.was.pin.RePinCodeActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name="com.working.savch.was.pin.PinCodeActivityRes"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog" />
     </application>
 
 </manifest>

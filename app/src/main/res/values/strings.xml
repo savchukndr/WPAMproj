@@ -17,10 +17,10 @@
         Was created by: Andrii Savchuk\n
         2017 y.\n
         \n
-        application version 1.22\n
+        application version 1.24\n
         \n
         *** WHAT IS NEW ***\n
-        - Added Android 4.4.+ support;\n
+        - Added the ability to log in\nwith PIN code;\n
         - Fixed bugs;\n
         - Improved stability.</string>
     <string name="action_settings">Settings</string>
@@ -55,6 +55,7 @@
     <string name="about_trans_alert_title">About spending</string>
     <string name="about_trans_alert_message">On what you spend:</string>
     <string name="checkable">Use fingerprint</string>
+    <string name="checkablePin">Use PIN</string>
     <string name="exit_alert_title">Exit</string>
     <string name="exit_alert_messege">Do you want to exit?</string>
     <string name="yes_button">Yes</string>
@@ -113,6 +114,17 @@
     <string name="rate_alert_pos_btn">Rate WalletAS</string>
     <string name="rate_alert_neut_btn">Remind me later</string>
     <string name="rate_alert_neg_btn">No, thanks</string>
+
+    <!-- PinCodeActivity -->
+    <string name="btn_next_name">Next</string>
+    <string name="btn_cancel_name">Cencel</string>
+
+    <!-- RePinCodeActivity -->
+    <string name="password_ok">Password seted</string>
+    <string name="password_not_match">Passwords do not match</string>
+
+    <!-- PinCodeActivityRes -->
+    <string name="password_wrong">Wrong password</string>
 
     <string name="app_name">WalletAS</string>
 

@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/action_check_pin"
-        android:title="Use PIN"
+        android:title="@string/checkablePin"
         android:orderInCategory="300"
         app:showAsAction="never"
         android:visible="false"

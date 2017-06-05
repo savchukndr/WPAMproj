@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.working.savch.was.fingerPrint.FingerprintActivity;
 import com.working.savch.was.login.LoginActivity;
+import com.working.savch.was.pin.PinCodeActivityRes;
 import com.working.savch.was.session.Session;
 
 /**
@@ -32,11 +33,14 @@ public class SplashActivity extends AppCompatActivity {
             Intent mainIntent = new Intent(SplashActivity.this, FingerprintActivity.class);
             SplashActivity.this.startActivity(mainIntent);
             //SplashActivity.this.finish();
-        } else if (session.loggedin() && !session.fingerPrint()) {
+        } else if (session.loggedin() && session.isPin()){
+            Intent mainIntent = new Intent(SplashActivity.this, PinCodeActivityRes.class);
+            SplashActivity.this.startActivity(mainIntent);
+        } else if ((session.loggedin() && !session.isPin()) || (session.loggedin() && !session.fingerPrint())) {
             Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
             SplashActivity.this.startActivity(mainIntent);
             SplashActivity.this.finish();
-        } else {
+        }else {
             int SPLASH_DISPLAY_LENGTH = 2000;
             new Handler().postDelayed(new Runnable() {
                 @Override

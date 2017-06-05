@@ -18,7 +18,7 @@
         android:gravity="center_horizontal">
 
         <EditText
-            android:id="@+id/pin_1"
+            android:id="@+id/pin_111"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -31,7 +31,7 @@
             android:weightSum="1" />
 
         <EditText
-            android:id="@+id/pin_2"
+            android:id="@+id/pin_222"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -44,7 +44,7 @@
             android:weightSum="1" />
 
         <EditText
-            android:id="@+id/pin_3"
+            android:id="@+id/pin_333"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -57,7 +57,7 @@
             android:weightSum="1" />
 
         <EditText
-            android:id="@+id/pin_4"
+            android:id="@+id/pin_444"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"

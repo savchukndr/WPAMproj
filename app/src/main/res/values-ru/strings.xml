@@ -18,10 +18,10 @@
         Создано: Андрей Савчук\n
         20172\n
         \n
-        версия приложения 1.22\n
+        версия приложения 1.24\n
         \n
         *** ЧТО НОВОГО ***\n
-        - Добавлена поддержка девайсов начиная от Android 4.4.+;\n
+        - Добавлена возможность входа\nс помощью PIN кода;\n
         - Исправлены ошибки;\n
         - Улучшена стабильность приложения.</string>
     <string name="action_settings">Settings</string>
@@ -56,6 +56,7 @@
     <string name="about_trans_alert_title">Описание расхода</string>
     <string name="about_trans_alert_message">На что Вы потратили:</string>
     <string name="checkable">Отпечаток пальца</string>
+    <string name="checkablePin">Использовать PIN</string>
     <string name="exit_alert_title">Выход</string>
     <string name="exit_alert_messege">Вы хотите выйти?</string>
     <string name="yes_button">Да</string>
@@ -112,6 +113,17 @@
     <string name="rate_alert_pos_btn">Оценитьe WalletAS</string>
     <string name="rate_alert_neut_btn">Напомнить позже</string>
     <string name="rate_alert_neg_btn">Нет, спасибо</string>
+
+    <!-- PinCodeActivity -->
+    <string name="btn_next_name">Далее</string>
+    <string name="btn_cancel_name">Отмена</string>
+
+    <!-- RePinCodeActivity -->
+    <string name="password_ok">Пароль установлен</string>
+    <string name="password_not_match">Пароли не совпадают</string>
+
+    <!-- PinCodeActivityRes -->
+    <string name="password_wrong">Не верный пароль</string>
 
     <string name="app_name">WalletAS</string>
 

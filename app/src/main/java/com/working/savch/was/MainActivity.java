@@ -1,5 +1,6 @@
 package com.working.savch.was;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,10 +28,12 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.working.savch.was.base.MySQLAdapter;
 import com.working.savch.was.history.TransactionActivity;
 import com.working.savch.was.login.LoginActivity;
+import com.working.savch.was.pin.PinCodeActivity;
 import com.working.savch.was.session.Session;
 
 import java.text.DecimalFormat;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     MySQLAdapter dbHelper;
     TextView textViewInfo;
     MenuItem itemC;
+    MenuItem itemCP;
     private String mCurrentName;
     private String mCurrentEmail;
     private boolean inputMoneyFlag = true;
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity
     private int userId;
     private int categoryChoose;
     private String userInputValue;
+    private String isCheckedPin = "true";
 
     private static int getPowerOfTwoForSampleRatio(double ratio) {
         int k = Integer.highestOneBit((int) Math.floor(ratio));
@@ -82,6 +87,7 @@ public class MainActivity extends AppCompatActivity
             mCurrentEmail = session.getEmail();
             mCurrentName = session.getName();
         }
+
 
         AppRater.app_launched(this);
         MobileAds.initialize(this, "ca-app-pub-7423558564398166~3561711933");
@@ -462,24 +468,67 @@ public class MainActivity extends AppCompatActivity
         moveTaskToBack(true);
     }
 
+    /*@Override
+    public void onResume(){
+        super.onResume();
+        if (!session.isPinCheck()){
+            itemCP.setChecked(false);
+        }
+    }*/
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        try {
+            FingerprintManagerCompat fingerprintManagerCompat = FingerprintManagerCompat.from(context);
+            if (!fingerprintManagerCompat.isHardwareDetected()) {
+                // Device doesn't support fingerprint authentication
+                menu.findItem(R.id.action_check_pin).setVisible(!session.isPinCheck());
+            } else if (!fingerprintManagerCompat.hasEnrolledFingerprints()) {
+                // User hasn't enrolled any fingerprints to authenticate with
+                menu.findItem(R.id.action_check_pin).setVisible(!session.isPinCheck());
+            } else {
+                // Everything is ready for fingerprint authentication
+                menu.findItem(R.id.action_check_pin).setVisible(false);
+
+            }
+
+        }
+        catch(Exception e) {
+        }
+        return true;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         itemC = menu.findItem(R.id.action_check);
+        itemCP = menu.findItem(R.id.action_check_pin);
         FingerprintManagerCompat fingerprintManagerCompat = FingerprintManagerCompat.from(context);
+
 
         if (!fingerprintManagerCompat.isHardwareDetected()) {
             // Device doesn't support fingerprint authentication
             itemC.setVisible(false);
+            itemCP.setVisible(true);
+            if (session.isPin()) {
+                itemCP.setChecked(true);
+            }
         } else if (!fingerprintManagerCompat.hasEnrolledFingerprints()) {
             // User hasn't enrolled any fingerprints to authenticate with
             itemC.setVisible(false);
+            itemCP.setVisible(true);
+            if (session.isPin()) {
+                itemCP.setChecked(true);
+            }
         } else {
             // Everything is ready for fingerprint authentication
+            itemCP.setVisible(false);
             if (session.fingerPrint()) {
                 itemC.setChecked(true);
             }
+
         }
         return true;
     }
@@ -535,6 +584,17 @@ public class MainActivity extends AppCompatActivity
                     });
                     AlertDialog alertDialogFinger = fingerAlert.create();
                     alertDialogFinger.show();
+                }
+                return true;
+            case R.id.action_check_pin:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    session.setPinBool(false);
+                } else {
+                    item.setChecked(true);
+                    session.setPinCheck(true);
+                    Intent intentPin = new Intent(MainActivity.this, PinCodeActivity.class);
+                    startActivity(intentPin);
                 }
                 return true;
             default:

@@ -1,4 +1,5 @@
-package com.working.savch.was.fingerPrint; /**
+package com.working.savch.was.fingerPrint;
+/**
  * Created by savch on 02.04.2017.
  * All rights are reserved.
  * If you will have any cuastion, please
