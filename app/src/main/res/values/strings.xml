@@ -17,11 +17,11 @@
         Was created by: Andrii Savchuk\n
         2017 y.\n
         \n
-        application version 1.24\n
+        application version 1.243\n
         \n
         *** WHAT IS NEW ***\n
-        - Added the ability to log in\nwith PIN code;\n
-        - Fixed bugs;\n
+        - Back button bug fixed;\n
+        - Input amount bug fixed;\n
         - Improved stability.</string>
     <string name="action_settings">Settings</string>
 

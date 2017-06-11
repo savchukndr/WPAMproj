@@ -1,5 +1,6 @@
 package com.working.savch.was.login;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -58,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements
     private Session session;
     private Uri personPhoto;
     private boolean hasPhoto = false;
+    public static Activity lgn;
 
     public static boolean isLoggedIn() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
@@ -68,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        lgn = this;
 
 
         session = new Session(this);
@@ -354,7 +357,7 @@ public class LoginActivity extends AppCompatActivity implements
         intent.putExtra("userEmail", email);*/
         Intent intentIntro = new Intent(getApplicationContext(), IntroActivity.class);
         startActivity(intentIntro);
-        //finish();
+        finish();
     }
 
     //*************************************************************************************

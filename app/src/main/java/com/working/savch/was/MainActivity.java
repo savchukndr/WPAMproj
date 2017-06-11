@@ -123,7 +123,13 @@ public class MainActivity extends AppCompatActivity
                 symbols.setGroupingSeparator(' ');
                 DecimalFormat format = new DecimalFormat("#,###.00", symbols);
                 textViewInfo.setTextSize(50);
-                textViewInfo.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum")))))));
+                String zeroEdit = String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum"))))));
+                if(zeroEdit.substring(0,1).equals(",")){
+                    zeroEdit = "0" + zeroEdit;
+                    textViewInfo.setText(zeroEdit);
+                }else {
+                    textViewInfo.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum")))))));
+                }
                 if (delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum"))))).length() >= 12) {
                     textViewInfo.setTextSize(30);
                 }
@@ -147,7 +153,9 @@ public class MainActivity extends AppCompatActivity
                 TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
                 EditText addEditText = (EditText) findViewById(R.id.addEditText);
                 String tmpAdd = addEditText.getText().toString();
-
+                if (tmpAdd.substring(0,4).equals("0.00")){
+                    tmpAdd = "0";
+                }
                 strCheck(tmpAdd);
                 if (inputMoneyFlag) {
                     double amount;
@@ -162,13 +170,20 @@ public class MainActivity extends AppCompatActivity
                     while (cursor.moveToNext()) {
                         String tmp = String.valueOf(cursor.getDouble(cursor.getColumnIndex("totalSum")));
                         if (tmp.equals("0.0")) {
-                            textViewInfo.setText("0.00");
+                            textViewInfo.setText("0,00");
                         } else {
                             DecimalFormatSymbols symbols = new DecimalFormatSymbols();
                             symbols.setGroupingSeparator(' ');
                             DecimalFormat format = new DecimalFormat("#,###.00", symbols);
                             textViewInfo.setTextSize(50);
-                            textViewInfo.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum")))))));
+                            String zeroEdit = String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum"))))));
+                            if(zeroEdit.substring(0,1).equals(",")){
+                                zeroEdit = "0" + zeroEdit;
+                                textViewInfo.setText(zeroEdit);
+                            }else {
+                                textViewInfo.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum")))))));
+                            }
+
                             if (delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum"))))).length() >= 12) {
                                 textViewInfo.setTextSize(30);
                             }
@@ -192,6 +207,10 @@ public class MainActivity extends AppCompatActivity
                 final EditText addEditText = (EditText) findViewById(R.id.addEditText);
                 String tmpAdd = addEditText.getText().toString();
 
+
+                if (tmpAdd.substring(0,4).equals("0.00")){
+                    tmpAdd = "0";
+                }
                 strCheck(tmpAdd);
                 if (inputMoneyFlag) {
                     final double amount;
@@ -231,7 +250,13 @@ public class MainActivity extends AppCompatActivity
                                                     symbols.setGroupingSeparator(' ');
                                                     DecimalFormat format = new DecimalFormat("#,###.00", symbols);
                                                     textViewInfo.setTextSize(50);
-                                                    textViewInfo.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum")))))));
+                                                    String zeroEdit = String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum"))))));
+                                                    if(zeroEdit.substring(0,1).equals(",")){
+                                                        zeroEdit = "0" + zeroEdit;
+                                                        textViewInfo.setText(zeroEdit);
+                                                    }else {
+                                                        textViewInfo.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum")))))));
+                                                    }
                                                     if (delSpacesInString(String.format("%14s", format.format(cursor.getDouble(cursor.getColumnIndex("totalSum"))))).length() >= 12) {
                                                         textViewInfo.setTextSize(30);
                                                     }
@@ -265,6 +290,7 @@ public class MainActivity extends AppCompatActivity
                       intentTrans.putExtra("userEmail", mCurrentEmail);
                       startActivity(intentTrans);
                       overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                      finish();
                   }
               }
             );
@@ -465,16 +491,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+        //moveTaskToBack(true);
+        int pid = android.os.Process.myPid();
+        android.os.Process.killProcess(pid);
+        finish();
     }
-
-    /*@Override
-    public void onResume(){
-        super.onResume();
-        if (!session.isPinCheck()){
-            itemCP.setChecked(false);
-        }
-    }*/
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -607,7 +628,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Intent intent = null;
+        Intent intent;
 
         if (id == R.id.nav_main) {
             //intent = new Intent(getApplicationContext(),MainActivity.class);
@@ -616,6 +637,7 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(getApplicationContext(), TransactionActivity.class);
             intent.putExtra("userEmail", mCurrentEmail);
             startActivity(intent);
+            finish();
         }/* else if (id == R.id.nav_settings) {
         }*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -667,8 +689,8 @@ public class MainActivity extends AppCompatActivity
 
     private void logOut() {
         session.setLoggedin(false);
-        finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        finish();
     }
 
     private String delSpacesInString(String inputStr) {

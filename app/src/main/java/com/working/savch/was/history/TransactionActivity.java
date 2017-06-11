@@ -54,6 +54,7 @@ public class TransactionActivity extends AppCompatActivity{
                 startActivityIfNeeded(intent, 0);*/
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                finish();
             }
         });
 
@@ -132,6 +133,7 @@ public class TransactionActivity extends AppCompatActivity{
         startActivityIfNeeded(intent, 0);*/
         startActivity(intent);
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        finish();
     }
 
     private void prepareTransactioneData(String id, String date, String amount) {

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
+import com.working.savch.was.login.LoginActivity;
 
 /**
  * Created by savch on 15.05.2017.
@@ -60,6 +61,7 @@ public class IntroActivity extends AppIntro {
         // Do something when users tap on Skip button.
         Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intentMain);
+        finish();
     }
 
     @Override
@@ -68,6 +70,7 @@ public class IntroActivity extends AppIntro {
         // Do something when users tap on Done button.
         Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intentMain);
+        finish();
     }
 
     @Override
@@ -78,6 +81,8 @@ public class IntroActivity extends AppIntro {
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+        //moveTaskToBack(true);
+        LoginActivity.lgn.finish();
+        finish();
     }
 }

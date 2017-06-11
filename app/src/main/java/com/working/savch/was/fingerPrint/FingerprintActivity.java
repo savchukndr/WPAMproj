@@ -6,6 +6,7 @@ package com.working.savch.was.fingerPrint;
  * contact via email (savchukndr@gmail.com)
  */
 
+import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
@@ -45,13 +46,14 @@ public class FingerprintActivity extends AppCompatActivity {
     private static final String KEY_NAME = "example_key";
     private KeyStore keyStore;
     private Cipher cipher;
+    public static Activity fing;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fingerprint);
-
+        fing = this;
         Session session = new Session(this);
 
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);

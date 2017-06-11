@@ -91,5 +91,6 @@ class FingerprintHandler extends
         intent.putExtra("userEmail", "");
         appContext.startActivity(intent);
         SplashActivity.spl.finish();
+        FingerprintActivity.fing.finish();
     }
 }

@@ -17,11 +17,11 @@
         Zaprojektował: Andrii Savchuk\n
         2017\n
         \n
-        Wersja 1.24\n
+        Wersja 1.243\n
         \n
         *** CO NOWEGO ***\n
-        - Dodano możliwość logowania\nza pomocą kodu PIN;\n
-        - Naprawiono błędy;\n
+        - Naprawiono błąd przyciska "back button";\n
+        - Poprawiono błąd wpisu kosztów;\n
         - Ustabilizowano aplikację.</string>
     <string name="action_settings">Ustawienia</string>
 

@@ -66,7 +66,19 @@ class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.MyViewHolde
             DecimalFormatSymbols symbols = new DecimalFormatSymbols();
             symbols.setGroupingSeparator(' ');
             DecimalFormat format = new DecimalFormat("#,###.00", symbols);
-            holder.amount.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(Double.parseDouble(history.getId()))))));
+
+
+            String zeroEdit = String.valueOf(delSpacesInString(String.format("%14s", format.format(Double.parseDouble(history.getId())))));
+            if(zeroEdit.substring(0,1).equals(",")){
+                zeroEdit = "0" + zeroEdit;
+                holder.amount.setText(zeroEdit);
+            }else {
+                holder.amount.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(Double.parseDouble(history.getId()))))));
+            }
+
+
+
+            //holder.amount.setText(String.valueOf(delSpacesInString(String.format("%14s", format.format(Double.parseDouble(history.getId()))))));
         }
         holder.time.setText(yeMoDe);
         if (Double.parseDouble(history.getId()) > 0) {
