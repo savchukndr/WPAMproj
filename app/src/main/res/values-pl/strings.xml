@@ -17,11 +17,10 @@
         Zaprojektował: Andrii Savchuk\n
         2017\n
         \n
-        Wersja 1.243\n
+        Wersja 1.244\n
         \n
         *** CO NOWEGO ***\n
-        - Naprawiono błąd przyciska "back button";\n
-        - Poprawiono błąd wpisu kosztów;\n
+        - Naprawiono błąd z wprowadzeniam kwoty mniej 1000;\n
         - Ustabilizowano aplikację.</string>
     <string name="action_settings">Ustawienia</string>
 
@@ -35,7 +34,7 @@
     <string name="balance_text">Balans:</string>
     <string name="title_activity_menu">MenuActivity</string>    
     <string name="calculate_button">Oblicz</string>				<!--  ????-->
-    <string name="input_amount">Wprowadź koszty</string>
+    <string name="input_amount">Wprowadź kwotę</string>
     <string name="input_delAmount">Wprowadź wydatki</string>
     <string name="null_button">Wyczyść</string>
     <string name="main_refresh_snack">Odśwież </string>

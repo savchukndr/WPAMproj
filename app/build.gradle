@@ -16,8 +16,8 @@ android {
         applicationId "com.working.savch.was"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 13
-        versionName "1.243"
+        versionCode 14
+        versionName "1.244"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

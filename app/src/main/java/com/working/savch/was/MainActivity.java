@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity
                 TextView textViewInfo = (TextView) findViewById(R.id.amount_view);
                 EditText addEditText = (EditText) findViewById(R.id.addEditText);
                 String tmpAdd = addEditText.getText().toString();
-                if (tmpAdd.substring(0,4).equals("0.00")){
+                if (tmpAdd.length() >= 4 && tmpAdd.contains(".") && tmpAdd.substring(0,4).equals("0.00") ){
                     tmpAdd = "0";
                 }
                 strCheck(tmpAdd);
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity
                 String tmpAdd = addEditText.getText().toString();
 
 
-                if (tmpAdd.substring(0,4).equals("0.00")){
+                if (tmpAdd.length() >= 4 && tmpAdd.contains(".") && tmpAdd.substring(0,4).equals("0.00")){
                     tmpAdd = "0";
                 }
                 strCheck(tmpAdd);

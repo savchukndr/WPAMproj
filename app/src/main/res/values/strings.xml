@@ -15,13 +15,12 @@
     <string name="main_logout_title">Log out</string>
     <string name="about_text">An application for keeping track of your funds.\n
         Was created by: Andrii Savchuk\n
-        2017 y.\n
+        2017\n
         \n
-        application version 1.243\n
+        application version 1.244\n
         \n
         *** WHAT IS NEW ***\n
-        - Back button bug fixed;\n
-        - Input amount bug fixed;\n
+        - Input amount less 1000 bug fixed;\n
         - Improved stability.</string>
     <string name="action_settings">Settings</string>
 
